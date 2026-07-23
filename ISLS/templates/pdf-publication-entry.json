@@ -1,0 +1,24 @@
+{
+  "slug": "short-url-slug-here",
+  "type": "policy-paper",
+  "label": "Policy Paper",
+  "publicationFormat": "pdf",
+  "title": "Full Title Here",
+  "description": "One or two sentence summary for cards and the top of the publication page.",
+  "source": "NSLS",
+  "date": "Month YYYY",
+  "readTime": "28 min read",
+  "author": "Author Name",
+  "topics": [
+    "Topic One",
+    "Topic Two"
+  ],
+  "image": "",
+  "imageAlt": "",
+  "mark": "NSLS",
+  "pdf": "assets/uploads/file-name.pdf",
+  "pdfLabel": "Download PDF",
+  "external": false,
+  "featured": true,
+  "body": "Two-paragraph intro or executive-summary teaser goes here.\n\nSecond paragraph goes here."
+}

@@ -1,0 +1,69 @@
+{
+  "publications": [
+    {
+      "slug": "clarifying-treaty-making-constitutional-declaration",
+      "type": "policy-paper",
+      "label": "Policy Paper",
+      "publicationFormat": "pdf",
+      "title": "Clarifying Treaty-Making Under Syria's Constitutional Declaration: Legal Gaps and Legislative Options",
+      "description": "This paper examines the legal and institutional questions that arise when Syria seeks to join new international conventions, and proposes legislative options to ensure parliamentary oversight and legal certainty.",
+      "source": "NSLS",
+      "date": "July 2026",
+      "readTime": "28 min read",
+      "author": "Haddon Barth",
+      "topics": [
+        "Constitutional Law",
+        "Treaties",
+        "Legislative Oversight"
+      ],
+      "image": "assets/uploads/treaty-making-cover.png",
+      "imageAlt": "Books on international treaties and United Nations legal materials",
+      "mark": "NSLS",
+      "pdf": "assets/uploads/clarifying-treaty-making-under-syrias-constitutional-declaration.pdf",
+      "pdfLabel": "Download PDF (310 KB)",
+      "external": false,
+      "featured": true,
+      "body": "Syria is likely to seek membership in a growing number of international conventions as it rebuilds its economy and restores diplomatic relations. Joining major multilateral conventions can bring substantial economic and diplomatic benefits, but also create significant legal, financial, and institutional obligations. The 2025 Constitutional Declaration gives Syria the authority to join new treaties, but it does not establish a complete domestic process for doing so. These gaps create a risk that the People’s Assembly’s constitutional authority could be bypassed when Syria becomes bound through accession or definitive signature rather than ratification.\n\nThis paper identifies the principal gaps in Syria’s treaty-making framework. Drawing on the experiences of Kenya and Tunisia, both of which used ordinary legislation to clarify constitutional treaty-making powers, it proposes that the People's Assembly adopt a Law on Treaties and International Agreements defining the scope of parliamentary approval, the respective roles of the executive and legislature, and the procedures governing accession, ratification, reservations, withdrawal, publication, implementation, and the domestic legal effect of international agreements. By establishing a clear and predictable process early in Syria's transition, the Assembly can strengthen parliamentary oversight, provide greater legal certainty, and create a durable framework for Syria's renewed international engagement."
+    },
+    {
+      "slug": "wheat-fields-reconstruction",
+      "type": "commentary",
+      "label": "Commentary",
+      "publicationFormat": "external",
+      "title": "How Syria's Wheat Fields Turned Into the First Battleground Over Reconstruction",
+      "description": "A battle over wheat prices could be the first political contest over who reconstruction will benefit.",
+      "source": "Al-Monitor",
+      "date": "May 21, 2026",
+      "topics": [
+        "Agriculture",
+        "Reconstruction"
+      ],
+      "image": "https://api.microlink.io/?url=https%3A%2F%2Fwww.al-monitor.com%2Foriginals%2F2026%2F07%2Fhow-syrias-wheat-fields-turned-first-battleground-over-reconstruction&embed=image.url",
+      "imageAlt": "Wheat fields in Syria",
+      "url": "https://www.al-monitor.com/originals/2026/07/how-syrias-wheat-fields-turned-first-battleground-over-reconstruction",
+      "external": true,
+      "featured": false,
+      "body": "When thousands of Syrian farmers protested the government's [wheat procurement price](https://www.al-monitor.com/originals/2026/04/mena-wheat-importers-face-food-security-risks-hormuz-crisis-festers) last month, Damascus backed down within days. The reversal revealed how one of the first major battles over the country's reconstruction is taking shape in its wheat fields.\n\nOn May 15, Syria's Ministry of Economy and Industry announced it would purchase this year's wheat harvest for about $330 per ton. Within days, thousands of farmers gathered across Syria's wheat belt — from the northeastern grain-producing governorates of Raqqa and Hasakah to the countryside of Hama — protesting that the soaring costs of fuel, fertilizer and seeds required a higher price.\n\nAfter a week of demonstrations, President Ahmad al-Sharaa approved an additional incentive payment of roughly $70 a ton.\n\nThe price increase resolved the protests' immediate demand, but the demonstrations were an early test of whether Syria's new government intends to preserve the state's historic role in supporting farmers and keeping bread affordable. As [reconstruction](https://www.al-monitor.com/originals/2025/12/syrias-new-order-faces-old-problems-sanctions-reconstruction-and-volatility) unfolds, Syria's leaders must decide whether those responsibilities will give way to a different model of development. The wheat protests are the first indication that those choices will face opposition."
+    },
+    {
+      "slug": "investment-law-market-access",
+      "type": "commentary",
+      "label": "Commentary",
+      "publicationFormat": "external",
+      "title": "Syria's New Investment Law and the Return of State-Mediated Market Access",
+      "description": "On investment reform, reconstruction, and the risks of renewed elite access.",
+      "source": "Middle East Institute",
+      "date": "May 21, 2026",
+      "topics": [
+        "Governance",
+        "Investment Policy"
+      ],
+      "image": "https://api.microlink.io/?url=https%3A%2F%2Fmei.edu%2Fpublication%2Fsyrias-new-investment-law-and-the-return-of-state-mediated-market-access%2F&embed=image.url",
+      "imageAlt": "Syria investment law analysis",
+      "url": "https://mei.edu/publication/syrias-new-investment-law-and-the-return-of-state-mediated-market-access/",
+      "external": true,
+      "featured": false,
+      "body": "As Syria moves toward reconstruction, the country’s new authorities have already made a consequential decision about who will control the postwar economy. Last June, President Ahmed al-Sharaa enacted Investment Law 114 by presidential decree, a law Syrian Investment Authority (SIA) Chairman Talal al-Hilali has since promoted to investors in [Dubai](https://www.euronews.com/business/2026/02/16/syria-makes-investment-pitch-to-europe-as-new-law-promises-legal-firmness) and [London](https://www.hoganlovells.com/en/publications/syria-stands-with-the-investor-syria-launches-new-investment-arbitration-centre).\n\nThe terms of an investment law offer a useful indicator of the political economy that will follow. They determine who can invest, under what conditions, and with what protections, thereby defining who gains access to the most profitable sectors of the economy.\n\nIn Syria’s case, the new framework grants sweeping and permanent concessions to investors — incentives so generous they may constrain the state’s future fiscal capacity. Yet rather than make those incentives broadly accessible, the law preserves the country’s longstanding model of state-mediated market access. By retaining a centralized licensing system, it allows the authorities in Damascus to determine which investors can access incentives, land, and strategic sectors, concentrating economic opportunity within a narrow circle of politically connected actors. Addressing these risks will require dismantling that centralized licensing system, which has historically tied investment access to political proximity."
+    }
+  ]
+}
