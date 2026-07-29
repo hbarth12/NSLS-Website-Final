@@ -98,12 +98,33 @@
     return Object.prototype.hasOwnProperty.call(order, item.type) ? order[item.type] : 4;
   }
 
+  var MONTHS = {
+    jan: 0, january: 0, feb: 1, february: 1, mar: 2, march: 2, apr: 3, april: 3,
+    may: 4, jun: 5, june: 5, jul: 6, july: 6, aug: 7, august: 7,
+    sep: 8, sept: 8, september: 8, oct: 9, october: 9, nov: 10, november: 10, dec: 11, december: 11
+  };
+
+  function dateValue(item) {
+    var raw = String(item.date || '').trim();
+    var match = /^([A-Za-z]+)\s+(\d{1,2})?,?\s*(\d{4})$/.exec(raw);
+    if (match) {
+      var monthKey = match[1].toLowerCase();
+      if (Object.prototype.hasOwnProperty.call(MONTHS, monthKey)) {
+        var day = match[2] ? parseInt(match[2], 10) : 1;
+        var year = parseInt(match[3], 10);
+        return Date.UTC(year, MONTHS[monthKey], day);
+      }
+    }
+    var t = Date.parse(raw);
+    return isNaN(t) ? 0 : t;
+  }
+
   function sortedForDisplay(items) {
     return items.slice().sort(function (a, b) {
       if (!!a.featured !== !!b.featured) return a.featured ? -1 : 1;
-      var rankDelta = typeRank(a) - typeRank(b);
-      if (rankDelta) return rankDelta;
-      return 0;
+      var dateDelta = dateValue(b) - dateValue(a);
+      if (dateDelta) return dateDelta;
+      return typeRank(a) - typeRank(b);
     });
   }
 
