@@ -1,3 +1,148 @@
-Hello
+media:
+  input: ISLS/assets/uploads
+  output: assets/uploads
 
-Blah
+content:
+  - name: publications
+    label: Publications
+    type: file
+    path: ISLS/content/publications.json
+    format: json
+    fields:
+      - name: publications
+        label: Publications
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{title}"
+        fields:
+          - name: slug
+            label: Slug
+            type: string
+            required: false
+            description: "Required for website articles and PDFs. Lowercase words separated by hyphens, e.g. credit-strategy-reconstruction."
+
+          - name: type
+            label: Type
+            type: select
+            options:
+              values:
+                - name: memo
+                  label: Memo
+                - name: commentary
+                  label: Commentary
+                - name: policy-paper
+                  label: Policy Paper
+                - name: institutional-note
+                  label: Institutional Note
+
+          - name: label
+            label: Display Label
+            type: select
+            options:
+              values: ["Memo", "Commentary", "Policy Paper", "Institutional Note"]
+
+          - name: publicationFormat
+            label: Publication Format
+            type: select
+            default: external
+            description: "Choose whether this item links out, appears as a website article, or offers a PDF download."
+            options:
+              values:
+                - name: external
+                  label: External link
+                - name: page
+                  label: Website article
+                - name: pdf
+                  label: PDF download
+
+          - name: title
+            label: Title
+            type: string
+
+          - name: description
+            label: Description
+            type: text
+            description: "Short summary used on publication lists and at the top of publication pages."
+
+          - name: source
+            label: Source
+            type: string
+            default: NSLS
+
+          - name: date
+            label: Date
+            type: string
+            description: "Example: May 21, 2026, or July 2026."
+
+          - name: readTime
+            label: Read Time
+            type: string
+            required: false
+            description: "Example: 28 min read."
+
+          - name: author
+            label: Author
+            type: string
+            required: false
+
+          - name: topics
+            label: Topics
+            type: string
+            list: true
+            required: false
+
+          - name: image
+            label: Image
+            type: image
+            required: false
+            description: "Upload an image, which will be stored in ISLS/assets/uploads. You can also paste an external image URL instead of uploading."
+
+          - name: imageAlt
+            label: Image Alt Text
+            type: string
+            required: false
+
+          - name: mark
+            label: Fallback Mark
+            type: string
+            required: false
+            description: "Used when no image is set, e.g. NSLS."
+
+          - name: pdf
+            label: PDF Upload
+            type: file
+            required: false
+            description: "Use for PDF download entries. Uploaded files are stored in ISLS/assets/uploads."
+            options:
+              extensions: ["pdf"]
+
+          - name: pdfLabel
+            label: PDF Button Label
+            type: string
+            required: false
+            default: "Download PDF"
+
+          - name: external
+            label: External Link (legacy)
+            type: boolean
+            default: false
+            description: "Legacy field. New entries should use Publication Format instead."
+
+          - name: featured
+            label: Featured
+            type: boolean
+            default: false
+
+          - name: url
+            label: External URL
+            type: string
+            required: false
+            description: "Use for external pieces. On-site pages and PDFs use the slug unless you need a fallback URL."
+
+          - name: body
+            label: Article Body
+            type: rich-text
+            required: false
+            description: "Use for website articles. Supports Markdown, including links: [link text](https://example.com)."
