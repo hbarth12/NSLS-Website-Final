@@ -7,8 +7,15 @@ from ISLS/content/publications.json, with a real <title>, <meta name="descriptio
 into the HTML. Mirrors the markup produced by publication-detail.js so the static
 pages match the site's existing styling/layout.
 
+Also keeps ISLS/sitemap.xml in sync: the block of <url> entries between the
+<!-- BEGIN GENERATED PUBLICATIONS --> / <!-- END GENERATED PUBLICATIONS -->
+markers is regenerated from publications.json on every run, using each
+publication's real `date` field for <lastmod> instead of a hardcoded date.
+Everything else in sitemap.xml is left untouched.
+
 Run: python3 ISLS/scripts/generate-publication-pages.py
 """
+import datetime
 import json
 import re
 import shutil
@@ -17,7 +24,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CONTENT = ROOT / 'content' / 'publications.json'
 OUTPUT_DIR = ROOT / 'publications'
+SITEMAP = ROOT / 'sitemap.xml'
 SITE_URL = 'https://nsls.network'
+SITEMAP_BEGIN_MARKER = '<!-- BEGIN GENERATED PUBLICATIONS -->'
+SITEMAP_END_MARKER = '<!-- END GENERATED PUBLICATIONS -->'
+PUB_DATE_FORMATS = ('%B %d, %Y', '%B %Y')
 UP = '../../'
 
 
@@ -336,6 +347,60 @@ def read_items():
     return data
 
 
+def xml_escape(value):
+    return (str(value or '')
+            .replace('&', '&amp;')
+            .replace('<', '&lt;')
+            .replace('>', '&gt;'))
+
+
+def parse_pub_date(value):
+    value = (value or '').strip()
+    if not value:
+        return None
+    for fmt in PUB_DATE_FORMATS:
+        try:
+            return datetime.datetime.strptime(value, fmt).date()
+        except ValueError:
+            continue
+    return None
+
+
+def sitemap_url_entry(item):
+    loc = SITE_URL + '/publications/' + item['slug'] + '/'
+    lastmod = parse_pub_date(item.get('date'))
+    if lastmod is None:
+        print('Warning: could not parse date "' + str(item.get('date')) + '" for slug "'
+              + item['slug'] + '" — omitting <lastmod> for this sitemap entry.')
+
+    lines = ['  <url>', '    <loc>' + xml_escape(loc) + '</loc>']
+    if lastmod:
+        lines.append('    <lastmod>' + lastmod.isoformat() + '</lastmod>')
+    lines.append('    <changefreq>monthly</changefreq>')
+    lines.append('    <priority>0.6</priority>')
+    lines.append('  </url>')
+    return '\n'.join(lines)
+
+
+def update_sitemap(slugged):
+    text = SITEMAP.read_text(encoding='utf-8')
+    pattern = re.compile(re.escape(SITEMAP_BEGIN_MARKER) + r'.*?' + re.escape(SITEMAP_END_MARKER), re.DOTALL)
+    if not pattern.search(text):
+        raise SystemExit(
+            'sitemap.xml is missing the ' + SITEMAP_BEGIN_MARKER + ' / ' + SITEMAP_END_MARKER + ' markers.'
+        )
+
+    entries = '\n'.join(sitemap_url_entry(it) for it in slugged)
+    block = SITEMAP_BEGIN_MARKER + ('\n' + entries + '\n' if entries else '\n') + SITEMAP_END_MARKER
+    new_text = pattern.sub(lambda _: block, text)
+
+    if new_text != text:
+        SITEMAP.write_text(new_text, encoding='utf-8')
+        print('Updated ' + str(SITEMAP.relative_to(ROOT)) + ' with ' + str(len(slugged)) + ' publication URL(s).')
+    else:
+        print(str(SITEMAP.relative_to(ROOT)) + ' already up to date.')
+
+
 def main():
     items = read_items()
     slugged = [it for it in items if it.get('slug')]
@@ -358,6 +423,8 @@ def main():
         print('Wrote ' + str(out_file.relative_to(ROOT)))
 
     print('Generated ' + str(len(slugged)) + ' publication page(s).')
+
+    update_sitemap(slugged)
 
 
 if __name__ == '__main__':
