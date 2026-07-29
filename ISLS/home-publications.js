@@ -17,7 +17,7 @@
   }
 
   function publicationUrl(item) {
-    if (item.slug) return 'publication.html?slug=' + encodeURIComponent(item.slug);
+    if (item.slug) return 'publications/' + encodeURIComponent(item.slug) + '/';
     return item.url || '#';
   }
 
