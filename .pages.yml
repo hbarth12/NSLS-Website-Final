@@ -74,9 +74,9 @@ content:
 
           - name: image
             label: Image
-            type: image
+            type: string
             required: false
-            description: "Upload an image, which will be stored in ISLS/assets/uploads. You can also paste an external image URL instead of uploading. Shared by both language pages."
+            description: "Either a path to an uploaded image (e.g. assets/uploads/name.png -- add the file to that folder first) or a full external image URL. A plain text field is used here because Pages CMS's image field validates file extensions even on pasted URLs, and external image URLs like the microlink.io preview links this site uses don't have a real file extension. Shared by both language pages."
 
           - name: mark
             label: Fallback Mark
