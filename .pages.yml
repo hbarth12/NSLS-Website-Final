@@ -6,7 +6,7 @@ content:
   - name: publications
     label: Publications
     type: file
-    path: ISLS/content/publications.json
+    path: ISLS/content/publications-bilingual.json
     format: json
     fields:
       - name: publications
@@ -15,13 +15,13 @@ content:
         list:
           collapsible:
             collapsed: true
-            summary: "{title}"
+            summary: "{en.title}"
         fields:
+          # Shared fields (one value for both languages).
           - name: slug
             label: Slug
             type: string
-            required: false
-            description: "Required for website articles and PDFs. Lowercase words separated by hyphens, e.g. credit-strategy-reconstruction."
+            description: "Lowercase words separated by hyphens, e.g. credit-strategy-reconstruction. Used to build this publication's URL in both languages."
 
           - name: type
             label: Type
@@ -37,12 +37,6 @@ content:
                 - name: institutional-note
                   label: Institutional Note
 
-          - name: label
-            label: Display Label
-            type: select
-            options:
-              values: ["Memo", "Commentary", "Policy Paper", "Institutional Note"]
-
           - name: publicationFormat
             label: Publication Format
             type: select
@@ -57,15 +51,6 @@ content:
                 - name: pdf
                   label: PDF download
 
-          - name: title
-            label: Title
-            type: string
-
-          - name: description
-            label: Description
-            type: text
-            description: "Short summary used on publication lists and at the top of publication pages."
-
           - name: source
             label: Source
             type: string
@@ -74,55 +59,12 @@ content:
           - name: date
             label: Date
             type: string
-            description: "Example: May 21, 2026, or July 2026."
+            description: "ISO format: YYYY-MM-DD, or YYYY-MM if only the month is known (e.g. 2026-05-21 or 2026-07). Each language page formats this for display itself."
 
-          - name: readTime
-            label: Read Time
-            type: string
-            required: false
-            description: "Example: 28 min read."
-
-          - name: author
-            label: Author
-            type: string
-            required: false
-
-          - name: topics
-            label: Topics
-            type: string
-            list: true
-            required: false
-
-          - name: image
-            label: Image
-            type: image
-            required: false
-            description: "Upload an image, which will be stored in ISLS/assets/uploads. You can also paste an external image URL instead of uploading."
-
-          - name: imageAlt
-            label: Image Alt Text
-            type: string
-            required: false
-
-          - name: mark
-            label: Fallback Mark
-            type: string
-            required: false
-            description: "Used when no image is set, e.g. NSLS."
-
-          - name: pdf
-            label: PDF Upload
-            type: file
-            required: false
-            description: "Use for PDF download entries. Uploaded files are stored in ISLS/assets/uploads."
-            options:
-              extensions: ["pdf"]
-
-          - name: pdfLabel
-            label: PDF Button Label
-            type: string
-            required: false
-            default: "Download PDF"
+          - name: featured
+            label: Featured
+            type: boolean
+            default: false
 
           - name: external
             label: External Link (legacy)
@@ -130,10 +72,17 @@ content:
             default: false
             description: "Legacy field. New entries should use Publication Format instead."
 
-          - name: featured
-            label: Featured
-            type: boolean
-            default: false
+          - name: image
+            label: Image
+            type: image
+            required: false
+            description: "Upload an image, which will be stored in ISLS/assets/uploads. You can also paste an external image URL instead of uploading. Shared by both language pages."
+
+          - name: mark
+            label: Fallback Mark
+            type: string
+            required: false
+            description: "Used when no image is set, e.g. NSLS."
 
           - name: url
             label: External URL
@@ -141,8 +90,107 @@ content:
             required: false
             description: "Use for external pieces. On-site pages and PDFs use the slug unless you need a fallback URL."
 
-          - name: body
-            label: Article Body
-            type: rich-text
-            required: false
-            description: "Use for website articles. Supports Markdown, including links: [link text](https://example.com)."
+          # Per-language fields.
+          - name: en
+            label: English
+            type: object
+            fields:
+              - name: label
+                label: Display Label
+                type: select
+                options:
+                  values: ["Memo", "Commentary", "Policy Paper", "Institutional Note"]
+              - name: title
+                label: Title
+                type: string
+              - name: description
+                label: Description
+                type: text
+                description: "Short summary used on publication lists and at the top of publication pages."
+              - name: author
+                label: Author
+                type: string
+                required: false
+              - name: readTime
+                label: Read Time
+                type: string
+                required: false
+                description: "Example: 28 min read."
+              - name: imageAlt
+                label: Image Alt Text
+                type: string
+                required: false
+              - name: topics
+                label: Topics
+                type: string
+                list: true
+                required: false
+              - name: pdf
+                label: PDF Upload (English)
+                type: file
+                required: false
+                description: "English-language PDF for PDF-download entries."
+                options:
+                  extensions: ["pdf"]
+              - name: pdfLabel
+                label: PDF Button Label
+                type: string
+                required: false
+                default: "Download PDF"
+              - name: body
+                label: Article Body
+                type: rich-text
+                required: false
+                description: "Use for website articles. Supports Markdown, including links: [link text](https://example.com)."
+
+          - name: ar
+            label: Arabic
+            type: object
+            fields:
+              - name: label
+                label: Display Label
+                type: select
+                options:
+                  values: ["مذكرة", "تعليق", "ورقة سياسات", "مذكرة مؤسسية"]
+              - name: title
+                label: Title
+                type: string
+              - name: description
+                label: Description
+                type: text
+                description: "Short summary used on publication lists and at the top of publication pages."
+              - name: author
+                label: Author
+                type: string
+                required: false
+              - name: readTime
+                label: Read Time
+                type: string
+                required: false
+                description: "Example: 28 دقيقة قراءة."
+              - name: imageAlt
+                label: Image Alt Text
+                type: string
+                required: false
+              - name: topics
+                label: Topics
+                type: string
+                list: true
+                required: false
+              - name: pdf
+                label: PDF Upload (Arabic)
+                type: file
+                required: false
+                description: "Arabic-language PDF for PDF-download entries."
+                options:
+                  extensions: ["pdf"]
+              - name: pdfLabel
+                label: PDF Button Label
+                type: string
+                required: false
+                default: "تحميل PDF"
+              - name: body
+                label: Article Body
+                type: rich-text
+                required: false
+                description: "Use for website articles. Supports Markdown, including links: [link text](https://example.com)."
