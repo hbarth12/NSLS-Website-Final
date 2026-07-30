@@ -21,7 +21,13 @@
   <!-- BEGIN GENERATED PUBLICATIONS -->
   <url>
     <loc>https://www.nsls.network/publications/clarifying-treaty-making-constitutional-declaration/</loc>
-    <lastmod>2026-07-01</lastmod>
+    <lastmod>2026-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.nsls.network/ar/publications/clarifying-treaty-making-constitutional-declaration/</loc>
+    <lastmod>2026-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -32,7 +38,19 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://www.nsls.network/ar/publications/wheat-fields-reconstruction/</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://www.nsls.network/publications/investment-law-market-access/</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.nsls.network/ar/publications/investment-law-market-access/</loc>
     <lastmod>2026-05-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

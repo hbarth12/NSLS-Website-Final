@@ -1,47 +1,55 @@
 # Adding Publications
 
-The source of truth is `content/publications.json`. The homepage and Publications page both read from this file on Vercel. For local `file://` previews, the site also uses generated fallback files: `publications-data.js` and `ar/publications-data.js`.
+The source of truth is `content/publications-bilingual.json` -- one entry per publication, holding both languages' translatable fields (`en` / `ar`) plus shared fields (like `slug`, `type`, `date`, `featured`) once. The homepage and Publications page (both languages) read from this file on Vercel. For local `file://` previews, the site also uses a generated fallback file: `publications-data.js` (shared by both languages; Arabic pages load it via `../publications-data.js`).
+
+Each publication also gets a real static page generated at build time, in both languages: `publications/<slug>/index.html` and `ar/publications/<slug>/index.html`.
 
 ## Future PDF Workflow with Codex
 
 When you give Codex a PDF, ask:
 
-> Add this PDF as the newest publication. Type: Policy Paper. Title: ... Author: ... Date: ... Summary: ... Topics: ...
+> Add this PDF as the newest publication. Type: Policy Paper. Title (EN/AR): ... Author (EN/AR): ... Date: ... Summary (EN/AR): ... Topics (EN/AR): ...
 
-Codex should then do four things:
+Codex should then do these things:
 
-1. Copy the PDF into `assets/uploads/` using a clean lowercase filename.
-2. Add a new entry at the top of `content/publications.json`.
+1. Copy the PDF(s) into `assets/uploads/` using a clean lowercase filename (English and Arabic PDFs can be different files -- see "Two PDFs" below).
+2. Add a new entry at the top of `content/publications-bilingual.json`, following the shape in `templates/pdf-publication-entry.json`.
 3. Set `featured: true` on the new entry and set older entries to `featured: false` if this should be the large homepage publication.
-4. Run `python3 scripts/sync-publications.py` so local preview fallback files match the JSON.
+4. Run `python3 scripts/sync-publications.py` so the local preview fallback file matches the JSON.
+5. Run `python3 scripts/generate-publication-pages.py` to regenerate both languages' static pages and the sitemap.
 
 After that, upload these changed files to GitHub:
 
-- `content/publications.json`
+- `content/publications-bilingual.json`
 - `publications-data.js`
-- `ar/publications-data.js`
-- the new file inside `assets/uploads/`
+- `publications/<slug>/index.html` and `ar/publications/<slug>/index.html` (new and any regenerated ones)
+- `sitemap.xml`
+- the new file(s) inside `assets/uploads/`
 
-Usually no HTML or CSS change is needed.
+Usually no other HTML or CSS change is needed.
 
 ## Publication Types
 
-Use `type` to control filters and ordering:
+Use `type` to control filters and ordering (shared, not per-language):
 
 - `policy-paper`
 - `memo`
 - `commentary`
 - `institutional-note`
 
-Use `label` for what appears visually on the card, for example `Policy Paper`, `Memo`, or `Commentary`.
+Use `label` (inside `en` and `ar`) for what appears visually on the card, for example `Policy Paper` / `ورقة سياسات`.
 
 ## Publication Formats
 
-Use `publicationFormat` to control how the detail page behaves:
+Use `publicationFormat` (shared) to control how the detail page behaves:
 
 - `pdf` - creates a publication page with a PDF preview card and download button.
 - `external` - creates a local commentary page with intro text, then a `Read more at [source]` button.
 - `page` - creates a full article page on the NSLS website.
+
+## Two PDFs (English + Arabic)
+
+Set `pdf` inside `en` and inside `ar` independently. If both are set and point at different files, the publication page shows a language picker next to the download button (works identically on the English and Arabic page). If only one language has a PDF, or both point at the same file, a single download button is shown -- no picker.
 
 ## PDF Entry Template
 
@@ -51,10 +59,10 @@ A reusable JSON template is available at:
 
 Important fields for PDFs:
 
-- `slug` - the URL identifier used by `publication.html?slug=...`
-- `pdf` - path to the uploaded PDF, usually `assets/uploads/name.pdf`
-- `body` - short intro text shown before the download area
-- `featured` - set to `true` if it should become the large homepage publication
+- `slug` - the URL identifier for both `publications/<slug>/` and `ar/publications/<slug>/`.
+- `en.pdf` / `ar.pdf` - path to the uploaded PDF for each language, usually `assets/uploads/name.pdf`.
+- `en.body` / `ar.body` - short intro text shown before the download area.
+- `featured` - set to `true` if it should become the large homepage publication.
 
 ## External Commentary Template
 
@@ -64,34 +72,48 @@ For commentaries published elsewhere, use:
 {
   "slug": "short-url-slug",
   "type": "commentary",
-  "label": "Commentary",
   "publicationFormat": "external",
-  "title": "Title",
-  "description": "Short summary.",
   "source": "Al-Monitor",
-  "date": "Month Day, Year",
-  "topics": ["Topic"],
-  "image": "https://...",
-  "imageAlt": "Image description",
+  "date": "2026-05-21",
   "url": "https://external-site.com/article",
   "external": true,
   "featured": false,
-  "body": "First intro paragraph.\n\nSecond intro paragraph."
+  "en": {
+    "label": "Commentary",
+    "title": "Title",
+    "description": "Short summary.",
+    "topics": ["Topic"],
+    "imageAlt": "Image description",
+    "body": "First intro paragraph.\n\nSecond intro paragraph."
+  },
+  "ar": {
+    "label": "تعليق",
+    "title": "العنوان",
+    "description": "ملخص قصير.",
+    "topics": ["الموضوع"],
+    "imageAlt": "وصف الصورة",
+    "body": "الفقرة التمهيدية الأولى.\n\nالفقرة الثانية."
+  }
 }
 ```
 
-The local detail page will show the `body` text and then a button reading `Read more at [source]`.
+Add `"image"` at the top level (shared by both languages) if there's a cover image. The generated detail page shows the `body` text and then a "Read more at [source]" button.
 
-## Sync Command
+## Date format
 
-After editing `content/publications.json`, run:
+`date` is shared (not per-language) and stored as ISO: `YYYY-MM-DD`, or `YYYY-MM` if only the month is known. Each language's page formats it for display itself (e.g. `May 21, 2026` / `21 أيار 2026`).
+
+## Sync Commands
+
+After editing `content/publications-bilingual.json`, run:
 
 ```bash
 python3 scripts/sync-publications.py
+python3 scripts/generate-publication-pages.py
 ```
 
 Then validate:
 
 ```bash
-python3 -m json.tool content/publications.json > /tmp/nsls-publications-check.json
+python3 -m json.tool content/publications-bilingual.json > /tmp/nsls-publications-check.json
 ```

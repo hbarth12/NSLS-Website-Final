@@ -1,5 +1,5 @@
 (function () {
-  var fallbackPublications = window.NSLS_PUBLICATIONS || [];
+  var fallbackPublications = window.NSLS_PUBLICATIONS_BILINGUAL || [];
   var output = document.querySelector('[data-home-publications-output]');
   if (!output) return;
 
@@ -12,10 +12,33 @@
       .replace(/'/g, '&#039;');
   }
 
+  var MONTHS_AR = ['كانون الثاني', 'شباط', 'آذار', 'نيسان', 'أيار', 'حزيران', 'تموز', 'آب', 'أيلول', 'تشرين الأول', 'تشرين الثاني', 'كانون الأول'];
+
+  function formatDate(iso) {
+    if (!iso) return '';
+    var parts = String(iso).split('-');
+    var year = parts[0];
+    var month = parseInt(parts[1], 10);
+    var day = parts[2] ? parseInt(parts[2], 10) : null;
+    var monthName = MONTHS_AR[month - 1];
+    return day ? (day + ' ' + monthName + ' ' + year) : (monthName + ' ' + year);
+  }
+
   function normalizeArabicPath(value) {
     if (!value || /^https?:/i.test(value) || value.charAt(0) === '#') return value;
     if (value.indexOf('../') === 0 || value.indexOf('/') === 0) return value;
     return '../' + value;
+  }
+
+  function flattenItem(item) {
+    var flat = Object.assign({}, item, item.ar || {});
+    flat._isoDate = item.date || '';
+    flat.date = formatDate(item.date);
+    flat.image = normalizeArabicPath(flat.image);
+    flat.pdf = normalizeArabicPath(flat.pdf);
+    flat.file = normalizeArabicPath(flat.file);
+    flat.downloadUrl = normalizeArabicPath(flat.downloadUrl);
+    return flat;
   }
 
   function publicationFormat(item) {
@@ -23,7 +46,7 @@
   }
 
   function publicationUrl(item) {
-    if (item.slug) return 'publication.html?slug=' + encodeURIComponent(item.slug);
+    if (item.slug) return 'publications/' + encodeURIComponent(item.slug) + '/';
     return item.url || '#';
   }
 
@@ -32,48 +55,17 @@
     return Object.prototype.hasOwnProperty.call(order, item.type) ? order[item.type] : 4;
   }
 
-  var MONTHS = {
-    jan: 0, january: 0, feb: 1, february: 1, mar: 2, march: 2, apr: 3, april: 3,
-    may: 4, jun: 5, june: 5, jul: 6, july: 6, aug: 7, august: 7,
-    sep: 8, sept: 8, september: 8, oct: 9, october: 9, nov: 10, november: 10, dec: 11, december: 11
-  };
-
-  function dateValue(item) {
-    var raw = String(item.date || '').trim();
-    var match = /^([A-Za-z]+)\s+(\d{1,2})?,?\s*(\d{4})$/.exec(raw);
-    if (match) {
-      var monthKey = match[1].toLowerCase();
-      if (Object.prototype.hasOwnProperty.call(MONTHS, monthKey)) {
-        var day = match[2] ? parseInt(match[2], 10) : 1;
-        var year = parseInt(match[3], 10);
-        return Date.UTC(year, MONTHS[monthKey], day);
-      }
-    }
-    var t = Date.parse(raw);
-    return isNaN(t) ? 0 : t;
-  }
-
   function sortedForHome(items) {
     return items.slice().sort(function (a, b) {
       if (!!a.featured !== !!b.featured) return a.featured ? -1 : 1;
-      var dateDelta = dateValue(b) - dateValue(a);
-      if (dateDelta) return dateDelta;
+      if (a._isoDate !== b._isoDate) return a._isoDate < b._isoDate ? 1 : -1;
       return typeRank(a) - typeRank(b);
     }).slice(0, 3);
   }
 
-  function normalizeItem(item) {
-    var copy = Object.assign({}, item);
-    copy.image = normalizeArabicPath(copy.image);
-    copy.pdf = normalizeArabicPath(copy.pdf);
-    copy.file = normalizeArabicPath(copy.file);
-    copy.downloadUrl = normalizeArabicPath(copy.downloadUrl);
-    return copy;
-  }
-
   function normalizeData(data) {
-    var items = data && Array.isArray(data.publications) ? data.publications : fallbackPublications;
-    return items.map(normalizeItem);
+    var raw = data && Array.isArray(data.publications) ? data.publications : fallbackPublications;
+    return raw.map(flattenItem);
   }
 
   function topicSummary(item) {
@@ -109,13 +101,17 @@
 
   function render(items) {
     var visible = sortedForHome(items);
+    if (!visible.length) {
+      output.innerHTML = '';
+      return;
+    }
     output.innerHTML = visible.map(cardMarkup).join('') +
       '<a class="analysis-list-more" href="publications.html">اقرأ أحدث أعمال فريق الباحثين لدينا. <span>&larr;</span></a>';
   }
 
   render(normalizeData({ publications: fallbackPublications }));
 
-  fetch('../content/publications-ar.json', { cache: 'no-cache' })
+  fetch('../content/publications-bilingual.json', { cache: 'no-cache' })
     .then(function (response) {
       if (!response.ok) throw new Error('Publication data unavailable');
       return response.json();

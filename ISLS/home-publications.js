@@ -1,5 +1,5 @@
 (function () {
-  var fallbackPublications = window.NSLS_PUBLICATIONS || [];
+  var fallbackPublications = window.NSLS_PUBLICATIONS_BILINGUAL || [];
   var output = document.querySelector('[data-home-publications-output]');
   if (!output) return;
 
@@ -10,6 +10,25 @@
       .replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;')
       .replace(/'/g, '&#039;');
+  }
+
+  var MONTHS_EN = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+  function formatDate(iso) {
+    if (!iso) return '';
+    var parts = String(iso).split('-');
+    var year = parts[0];
+    var month = parseInt(parts[1], 10);
+    var day = parts[2] ? parseInt(parts[2], 10) : null;
+    var monthName = MONTHS_EN[month - 1];
+    return day ? (monthName + ' ' + day + ', ' + year) : (monthName + ' ' + year);
+  }
+
+  function flattenItem(item) {
+    var flat = Object.assign({}, item, item.en || {});
+    flat._isoDate = item.date || '';
+    flat.date = formatDate(item.date);
+    return flat;
   }
 
   function publicationFormat(item) {
@@ -26,32 +45,10 @@
     return Object.prototype.hasOwnProperty.call(order, item.type) ? order[item.type] : 4;
   }
 
-  var MONTHS = {
-    jan: 0, january: 0, feb: 1, february: 1, mar: 2, march: 2, apr: 3, april: 3,
-    may: 4, jun: 5, june: 5, jul: 6, july: 6, aug: 7, august: 7,
-    sep: 8, sept: 8, september: 8, oct: 9, october: 9, nov: 10, november: 10, dec: 11, december: 11
-  };
-
-  function dateValue(item) {
-    var raw = String(item.date || '').trim();
-    var match = /^([A-Za-z]+)\s+(\d{1,2})?,?\s*(\d{4})$/.exec(raw);
-    if (match) {
-      var monthKey = match[1].toLowerCase();
-      if (Object.prototype.hasOwnProperty.call(MONTHS, monthKey)) {
-        var day = match[2] ? parseInt(match[2], 10) : 1;
-        var year = parseInt(match[3], 10);
-        return Date.UTC(year, MONTHS[monthKey], day);
-      }
-    }
-    var t = Date.parse(raw);
-    return isNaN(t) ? 0 : t;
-  }
-
   function sortedForHome(items) {
     return items.slice().sort(function (a, b) {
       if (!!a.featured !== !!b.featured) return a.featured ? -1 : 1;
-      var dateDelta = dateValue(b) - dateValue(a);
-      if (dateDelta) return dateDelta;
+      if (a._isoDate !== b._isoDate) return a._isoDate < b._isoDate ? 1 : -1;
       return typeRank(a) - typeRank(b);
     }).slice(0, 3);
   }
@@ -98,16 +95,17 @@
   }
 
   function normalizeData(data) {
-    return data && Array.isArray(data.publications) ? data.publications : fallbackPublications;
+    var raw = data && Array.isArray(data.publications) ? data.publications : fallbackPublications;
+    return raw.map(flattenItem);
   }
 
-  render(fallbackPublications);
+  render(fallbackPublications.map(flattenItem));
 
-  fetch('content/publications.json', { cache: 'no-cache' })
+  fetch('content/publications-bilingual.json', { cache: 'no-cache' })
     .then(function (response) {
       if (!response.ok) throw new Error('Publication data unavailable');
       return response.json();
     })
     .then(function (data) { render(normalizeData(data)); })
-    .catch(function () { render(fallbackPublications); });
+    .catch(function () { render(fallbackPublications.map(flattenItem)); });
 })();

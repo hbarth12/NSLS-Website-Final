@@ -1,24 +1,41 @@
 {
   "slug": "short-url-slug-here",
   "type": "policy-paper",
-  "label": "Policy Paper",
   "publicationFormat": "pdf",
-  "title": "Full Title Here",
-  "description": "One or two sentence summary for cards and the top of the publication page.",
   "source": "NSLS",
-  "date": "Month YYYY",
-  "readTime": "28 min read",
-  "author": "Author Name",
-  "topics": [
-    "Topic One",
-    "Topic Two"
-  ],
-  "image": "",
-  "imageAlt": "",
-  "mark": "NSLS",
-  "pdf": "assets/uploads/file-name.pdf",
-  "pdfLabel": "Download PDF",
+  "date": "YYYY-MM-DD",
   "external": false,
   "featured": true,
-  "body": "Two-paragraph intro or executive-summary teaser goes here.\n\nSecond paragraph goes here."
+  "mark": "NSLS",
+  "image": "",
+  "en": {
+    "label": "Policy Paper",
+    "title": "Full Title Here",
+    "description": "One or two sentence summary for cards and the top of the publication page.",
+    "author": "Author Name",
+    "readTime": "28 min read",
+    "imageAlt": "",
+    "topics": [
+      "Topic One",
+      "Topic Two"
+    ],
+    "pdf": "assets/uploads/file-name-en.pdf",
+    "pdfLabel": "Download PDF",
+    "body": "Two-paragraph intro or executive-summary teaser goes here.\n\nSecond paragraph goes here."
+  },
+  "ar": {
+    "label": "ورقة سياسات",
+    "title": "العنوان الكامل هنا",
+    "description": "ملخص من جملة أو جملتين يظهر في قوائم المنشورات وأعلى صفحة المنشور.",
+    "author": "اسم المؤلف",
+    "readTime": "28 دقيقة قراءة",
+    "imageAlt": "",
+    "topics": [
+      "الموضوع الأول",
+      "الموضوع الثاني"
+    ],
+    "pdf": "assets/uploads/file-name-ar.pdf",
+    "pdfLabel": "تحميل PDF",
+    "body": "الفقرة التمهيدية أو الملخص التنفيذي هنا.\n\nالفقرة الثانية هنا."
+  }
 }
