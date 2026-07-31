@@ -481,7 +481,7 @@ PAGE_TEMPLATE = """<!doctype html>
         <a href="{own_prefix}contact.html">{nav_contact}</a>
       </nav>
       <a class="language-toggle" href="{toggle_href}" lang="{toggle_lang}" dir="{toggle_dir}">{language_toggle_label}</a>
-      <a class="header-action" href="{own_prefix}contact.html#request">{get_in_touch}</a>
+      <a class="header-action" href="{own_prefix}contact.html#general">{get_in_touch}</a>
     </header>
 
     <main id="top">
@@ -516,7 +516,7 @@ PAGE_TEMPLATE = """<!doctype html>
             <a href="https://www.linkedin.com/" target="_blank" rel="noopener">{footer_linkedin}</a>
             <a href="{own_prefix}privacy.html">{footer_privacy}</a>
           </div>
-          <a class="footer-cta" href="{own_prefix}contact.html#request">{get_in_touch}</a>
+          <a class="footer-cta" href="{own_prefix}contact.html#general">{get_in_touch}</a>
         </div>
       </nav>
       <div class="footer-bottom">
