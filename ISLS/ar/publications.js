@@ -154,7 +154,7 @@
     visible.slice(1).forEach(function (item) {
       html += rowMarkup(item);
     });
-    html += '<a class="publications-more" href="contact.html#request">اقرأ أحدث أعمال فريق الباحثين لدينا. <span>&larr;</span></a>';
+    html += '<a class="publications-more" href="contact.html#general">اقرأ أحدث أعمال فريق الباحثين لدينا. <span>&larr;</span></a>';
     output.innerHTML = html;
   }
 

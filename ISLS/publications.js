@@ -143,7 +143,7 @@
     visible.slice(1).forEach(function (item) {
       html += rowMarkup(item);
     });
-    html += '<a class="publications-more" href="contact.html#request">Read the latest work from our researchers. <span>&rarr;</span></a>';
+    html += '<a class="publications-more" href="contact.html#general">Read the latest work from our researchers. <span>&rarr;</span></a>';
     output.innerHTML = html;
   }
 
