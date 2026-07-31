@@ -1,0 +1,167 @@
+{
+  "team": [
+    {
+      "slug": "haddon-barth",
+      "section": "staff",
+      "initials": null,
+      "en": {
+        "name": "Haddon Barth",
+        "rosterRole": "Director",
+        "profileRole": "Director",
+        "bio": [
+          "Haddon Barth serves as Director of NSLS. A researcher focused on Syria and the Middle East, his work has appeared in Foreign Policy Magazine, the Carnegie Endowment for International Peace, Chatham House, the Middle East Institute, Lawfare, Al-Monitor, and other publications.",
+          "Before founding NSLS, Barth supported research at the International Crisis Group, the International Organization for Migration, and International IDEA. He graduated magna cum laude and Phi Beta Kappa from Princeton University with a degree in history.",
+          "He lives in Damascus and can be reached at <a href=\"mailto:hbarth@nsls.network\">hbarth@nsls.network</a>."
+        ]
+      },
+      "ar": {
+        "name": "Haddon Barth",
+        "rosterRole": "المدير",
+        "profileRole": "المدير",
+        "bio": [
+          "يشغل هادون بارث منصب مدير الشبكة. يركز عمله البحثي على سوريا والشرق الأوسط، ونشرت أعماله في فورين بوليسي ومؤسسة كارنيغي وتشاتام هاوس ومعهد الشرق الأوسط ولوفير والمونيتور وغيرها.",
+          "قبل تأسيس الشبكة، دعم بارث العمل البحثي في مجموعة الأزمات الدولية والمنظمة الدولية للهجرة والمؤسسة الدولية للديمقراطية والانتخابات. تخرج من جامعة برنستون بامتياز مع مرتبة الشرف وعضوية فاي بيتا كابا في التاريخ.",
+          "يقيم في دمشق ويمكن التواصل معه عبر <a href=\"mailto:hbarth@nsls.network\">hbarth@nsls.network</a>."
+        ]
+      }
+    },
+    {
+      "slug": "alice-mccarthy",
+      "section": "staff",
+      "initials": "AM",
+      "en": {
+        "name": "Alice McCarthy",
+        "rosterRole": "Head of Operations and Partnerships",
+        "profileRole": "Head of Operations and Partnerships",
+        "bio": [
+          "Alice McCarthy is an A.B. candidate at Princeton University's School of Public and International Affairs, with a minor in History and the Practice of Diplomacy. Her senior thesis examines healthcare reconstruction in post-Assad Syria, with a focus on rebuilding Syria's medical workforce. She leads operations for the Network for Syrian Legislative Studies' Princeton chapter, working with partner chapters at Harvard and Georgetown.",
+          "She has been a Contributing Author at the Stimson Center, working on its 2026 Future of International Cooperation report, \"Redefining Global Trust,\" and a Steering Committee member at the Coalition for the UN We Need (C4UN), where she served as liaison to Permanent Missions and helped organise the United Nations Global Futures Forum 2026. On campus she has worked as a Research Assistant at Princeton's School of Public and International Affairs, coding incident-level data from international media across conflict zones in the Middle East for the Denial in Rebellion Dataset (DRD), which tracks how armed groups use public denial to contest accusations and shape legitimacy narratives.",
+          "She previously interned at the International Institute for Democracy and Electoral Assistance (IDEA) in Stockholm, contributing to the Global Election Monitor report and to policy advisory work on referendum design and elections as critical infrastructure.",
+          "Alice is also President of Policy Punchline, a Princeton student-run podcast that interviews policymakers, economists, and scholars on the ideas shaping public policy. Outside of her academic and research work, she rows for Princeton's varsity women's team and serves as Head Coach for Special Olympics New Jersey, leading weekly sports programmes for adults with intellectual disabilities."
+        ]
+      },
+      "ar": {
+        "name": "Alice McCarthy",
+        "rosterRole": "رئيسة العمليات والشراكات",
+        "profileRole": "رئيسة العمليات والشراكات",
+        "bio": [
+          "أليس مكارثي مرشحة لنيل درجة البكالوريوس من كلية بيرسون للشؤون العامة والدولية في جامعة برينستون، وتتخصص فرعيًا في التاريخ وممارسة الدبلوماسية. تتناول أطروحتها الجامعية إعادة إعمار القطاع الصحي في سوريا ما بعد الأسد، مع التركيز على إعادة بناء الكوادر الطبية السورية. تقود عمليات فرع برينستون التابع للشبكة السورية للدراسات التشريعية، بالتعاون مع الفروع الشريكة في هارفارد وجورجتاون.",
+          "عملت ككاتبة مساهمة في مركز ستيمسون، حيث شاركت في إعداد تقريره لعام 2026 حول مستقبل التعاون الدولي بعنوان \"إعادة تعريف الثقة العالمية\"، وعضوة في اللجنة التوجيهية لتحالف الأمم المتحدة الذي نحتاجه (C4UN)، حيث عملت كحلقة وصل مع البعثات الدائمة وساهمت في تنظيم منتدى الأمم المتحدة للمستقبل العالمي 2026. وعلى صعيد الحرم الجامعي، عملت مساعدة بحثية في كلية بيرسون للشؤون العامة والدولية بجامعة برينستون، حيث قامت بترميز بيانات على مستوى الحوادث من وسائل الإعلام الدولية عبر مناطق النزاع في الشرق الأوسط لصالح قاعدة بيانات الإنكار في التمرد (DRD)، التي ترصد كيف تستخدم الجماعات المسلحة الإنكار العلني للطعن في الاتهامات وتشكيل روايات الشرعية.",
+          "عملت سابقًا متدربة في المعهد الدولي للديمقراطية والمساعدة الانتخابية (IDEA) في ستوكهولم، حيث ساهمت في إعداد تقرير مرصد الانتخابات العالمي وفي أعمال استشارية متعلقة بتصميم الاستفتاءات واعتبار الانتخابات بنية تحتية أساسية.",
+          "تشغل أليس أيضًا منصب رئيسة \"بوليسي بانشلاين\" (Policy Punchline)، وهو بودكاست يديره طلاب جامعة برينستون ويستضيف صناع السياسات والاقتصاديين والباحثين لمناقشة الأفكار التي تشكل السياسة العامة. وخارج نطاق عملها الأكاديمي والبحثي، تجدف ضمن فريق برينستون النسائي للمجاديف، وتشغل منصب المدربة الرئيسية للأولمبياد الخاص في نيوجيرزي، حيث تقود برامج رياضية أسبوعية للبالغين ذوي الإعاقة الذهنية."
+        ]
+      }
+    },
+    {
+      "slug": "cooper-austen",
+      "section": "staff",
+      "initials": "CA",
+      "en": {
+        "name": "Cooper Austen",
+        "rosterRole": "Head of Development",
+        "profileRole": "Partnerships and Development",
+        "bio": [
+          "Cooper Austen supports NSLS partnerships and development."
+        ]
+      },
+      "ar": {
+        "name": "Cooper Austen",
+        "rosterRole": "رئيس التطوير",
+        "profileRole": "الشراكات والتطوير",
+        "bio": [
+          "يدعم كوبر أوستن الشراكات والتطوير في الشبكة."
+        ]
+      }
+    },
+    {
+      "slug": "hannah-hoeselbarth",
+      "section": "staff",
+      "initials": "HH",
+      "en": {
+        "name": "Hannah Höselbarth",
+        "rosterRole": "Publications Coordinator",
+        "profileRole": "Publications",
+        "bio": [
+          "Hannah Höselbarth supports NSLS publications."
+        ]
+      },
+      "ar": {
+        "name": "Hannah Höselbarth",
+        "rosterRole": "منسقة المنشورات",
+        "profileRole": "المنشورات",
+        "bio": [
+          "تدعم هانا هوسلبارث منشورات الشبكة."
+        ]
+      }
+    },
+    {
+      "slug": "zaid-al-ali",
+      "section": "advisory",
+      "initials": "ZA",
+      "en": {
+        "name": "Zaid Al-Ali",
+        "role": "Advisory Board Member",
+        "rosterShortBio": "Zaid Al-Ali is an independent scholar and practitioner specializing in constitutional negotiations and reform in the Arab world.",
+        "rosterLongBio": "He is a Senior Programme Manager at International IDEA, a visiting research scholar at Princeton University, and the founder of the Arab Association of Constitutional Law. He is the author of The Struggle for Iraq's Future and Arab Constitutionalism: The Coming Revolution. His writing has appeared in The New York Times, The Washington Post, The Guardian, The New York Review of Books, and Foreign Policy, among other publications, and he is a frequent commentator in the international media.",
+        "individualBio": [
+          "Zaid Al-Ali serves as a member of the NSLS Advisory Board."
+        ]
+      },
+      "ar": {
+        "name": "Zaid Al-Ali",
+        "role": "عضو المجلس الاستشاري",
+        "rosterShortBio": "زيد العلي باحث وممارس مستقل متخصص في المفاوضات الدستورية والإصلاح في العالم العربي.",
+        "rosterLongBio": "وهو مدير برنامج أول في المؤسسة الدولية للديمقراطية والانتخابات، وباحث زائر في جامعة برنستون، ومؤسس الجمعية العربية للقانون الدستوري. وله مؤلفات وكتابات منشورة على نطاق واسع في الصحافة الدولية.",
+        "individualBio": [
+          "يشغل زيد العلي عضوية المجلس الاستشاري للشبكة."
+        ]
+      }
+    },
+    {
+      "slug": "cameron-hume",
+      "section": "advisory",
+      "initials": "CH",
+      "en": {
+        "name": "Ambassador Cameron Hume",
+        "role": "Advisory Board Member",
+        "rosterShortBio": "Cameron Hume served as U.S. Ambassador to Algeria, South Africa, and Indonesia, as well as Chargé d'Affaires in Sudan.",
+        "rosterLongBio": "A career Foreign Service officer, he also held diplomatic assignments in Syria, Lebanon, Tunisia, Italy, and at the United Nations. He now serves as the executive director of the Maritime Humanitarian Aid Foundation.",
+        "individualBio": [
+          "Ambassador Cameron Hume serves as a member of the NSLS Advisory Board."
+        ]
+      },
+      "ar": {
+        "name": "Ambassador Cameron Hume",
+        "role": "عضو المجلس الاستشاري",
+        "rosterShortBio": "شغل كاميرون هيوم منصب سفير الولايات المتحدة في الجزائر وجنوب أفريقيا وإندونيسيا، كما شغل منصب القائم بالأعمال في السودان.",
+        "rosterLongBio": "وهو دبلوماسي محترف شغل أيضا مناصب دبلوماسية في سوريا ولبنان وتونس وإيطاليا والأمم المتحدة. ويشغل حاليا منصب المدير التنفيذي لمؤسسة المساعدة الإنسانية البحرية.",
+        "individualBio": [
+          "يشغل السفير كاميرون هيوم عضوية المجلس الاستشاري للشبكة."
+        ]
+      }
+    },
+    {
+      "slug": "max-weiss",
+      "section": "advisory",
+      "initials": "MW",
+      "en": {
+        "name": "Max Weiss",
+        "role": "Advisory Board Member",
+        "rosterShortBio": "Max Weiss is Professor of History at Princeton University, where he studies the cultural, intellectual, and literary history of the modern Middle East.",
+        "rosterLongBio": "He is the author of Revolutions Aesthetic: A Cultural History of Ba'thist Syria (Stanford UP, 2022), and In the Shadow of Sectarianism: Law, Shi'ism, and the Making of Modern Lebanon (Harvard UP, 2010); co-editor (with Jens Hanssen) of Arabic Thought Beyond the Liberal Age: Towards an Intellectual History of the Nahda (Cambridge UP, 2016), and Arabic Thought Against the Authoritarian Age: Towards an Intellectual History of the Present (Cambridge UP, 2018); and translator, most recently, of Alawiya Sobh, This Thing Called Love (Calcutta, 2022); Dunya Mikhail, The Beekeeper: Rescuing the Stolen Women of Iraq (New York, 2018), and Nihad Sirees, States of Passion (London, 2018). He earned a Ph.D. in Modern Middle East History from Stanford University.",
+        "individualBio": [
+          "Max Weiss serves as a member of the NSLS Advisory Board."
+        ]
+      },
+      "ar": {
+        "name": "Max Weiss",
+        "role": "عضو المجلس الاستشاري",
+        "rosterShortBio": "ماكس فايس أستاذ تاريخ في جامعة برنستون، حيث يدرس التاريخ الثقافي والفكري والأدبي للشرق الأوسط الحديث.",
+        "rosterLongBio": "له مؤلفات وترجمات وأعمال تحريرية عديدة حول سوريا ولبنان والفكر العربي الحديث والأدب العربي. حصل على الدكتوراه في تاريخ الشرق الأوسط الحديث من جامعة ستانفورد.",
+        "individualBio": [
+          "يشغل ماكس فايس عضوية المجلس الاستشاري للشبكة."
+        ]
+      }
+    }
+  ]
+}
