@@ -1,0 +1,74 @@
+{
+  "en": {
+    "brand": {
+      "href": "index.html",
+      "ariaLabel": "Network for Syrian Legislative Studies home",
+      "mark": "NSLS",
+      "line1": "Network for Syrian",
+      "line2": "Legislative Studies"
+    },
+    "nav": [
+      { "key": "home", "href": "index.html", "label": "Home" },
+      { "key": "what-we-do", "href": "what-we-do.html", "label": "What We Do" },
+      { "key": "publications", "href": "publications.html", "label": "Publications" },
+      { "key": "our-team", "href": "our-team.html", "label": "Our Team" },
+      { "key": "contact", "href": "contact.html", "label": "Contact" }
+    ],
+    "headerCta": "Get in Touch",
+    "footer": {
+      "tagline": "Independent research and practical legislative support for Syria's Parliament.",
+      "networkHeading": "Network",
+      "networkLinks": [
+        { "key": "home", "href": "index.html", "label": "About" },
+        { "key": "what-we-do", "href": "what-we-do.html", "label": "What We Do" },
+        { "key": "publications", "href": "publications.html", "label": "Publications" },
+        { "key": "our-team", "href": "our-team.html", "label": "Our Team" }
+      ],
+      "connectHeading": "Connect",
+      "connectLinks": [
+        { "href": "contact.html", "label": "Contact" },
+        { "href": "https://www.linkedin.com/", "label": "LinkedIn", "external": true },
+        { "href": "privacy.html", "label": "Privacy" }
+      ],
+      "footerCta": "Get in Touch",
+      "copyright": "&copy; 2026 Network for Syrian Legislative Studies.",
+      "subtagline": "Supporting independent legislative research in Syria."
+    }
+  },
+  "ar": {
+    "brand": {
+      "href": "index.html",
+      "ariaLabel": "Network for Syrian Legislative Studies home",
+      "mark": "NSLS",
+      "line1": "Network for Syrian",
+      "line2": "Legislative Studies"
+    },
+    "nav": [
+      { "key": "home", "href": "index.html", "label": "الرئيسية" },
+      { "key": "what-we-do", "href": "what-we-do.html", "label": "ماذا نفعل" },
+      { "key": "publications", "href": "publications.html", "label": "المنشورات" },
+      { "key": "our-team", "href": "our-team.html", "label": "فريقنا" },
+      { "key": "contact", "href": "contact.html", "label": "اتصل بنا" }
+    ],
+    "headerCta": "تواصل معنا",
+    "footer": {
+      "tagline": "بحث مستقل ودعم تشريعي عملي للبرلمان السوري.",
+      "networkHeading": "الشبكة",
+      "networkLinks": [
+        { "key": "home", "href": "index.html", "label": "عن الشبكة" },
+        { "key": "what-we-do", "href": "what-we-do.html", "label": "ماذا نفعل" },
+        { "key": "publications", "href": "publications.html", "label": "المنشورات" },
+        { "key": "our-team", "href": "our-team.html", "label": "فريقنا" }
+      ],
+      "connectHeading": "تواصل",
+      "connectLinks": [
+        { "href": "contact.html", "label": "اتصل بنا" },
+        { "href": "https://www.linkedin.com/", "label": "لينكدإن", "external": true },
+        { "href": "privacy.html", "label": "الخصوصية" }
+      ],
+      "footerCta": "تواصل معنا",
+      "copyright": "&copy; 2026 الشبكة السورية للدراسات التشريعية.",
+      "subtagline": "دعم البحث التشريعي المستقل في سوريا."
+    }
+  }
+}
