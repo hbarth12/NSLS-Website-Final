@@ -5,6 +5,41 @@
 
   if (!output) return;
 
+  var LANG = document.documentElement.lang === 'ar' ? 'ar' : 'en';
+
+  var CONFIG = {
+    en: {
+      field: 'en',
+      months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+      formatDate: function (monthName, day, year) {
+        return day ? (monthName + ' ' + day + ', ' + year) : (monthName + ' ' + year);
+      },
+      prefixPath: function (value) { return value; },
+      contentUrl: 'content/publications-bilingual.json',
+      emptyCategory: 'No publications in this category yet.',
+      moreLink: 'Read the latest work from our researchers.',
+      arrow: '&rarr;',
+    },
+    ar: {
+      field: 'ar',
+      months: ['كانون الثاني', 'شباط', 'آذار', 'نيسان', 'أيار', 'حزيران', 'تموز', 'آب', 'أيلول', 'تشرين الأول', 'تشرين الثاني', 'كانون الأول'],
+      formatDate: function (monthName, day, year) {
+        return day ? (day + ' ' + monthName + ' ' + year) : (monthName + ' ' + year);
+      },
+      prefixPath: function (value) {
+        if (!value || /^https?:/i.test(value) || value.charAt(0) === '#') return value;
+        if (value.indexOf('../') === 0 || value.indexOf('/') === 0) return value;
+        return '../' + value;
+      },
+      contentUrl: '../content/publications-bilingual.json',
+      emptyCategory: 'لا توجد منشورات في هذا التصنيف بعد.',
+      moreLink: 'اقرأ أحدث أعمال فريق الباحثين لدينا.',
+      arrow: '&larr;',
+    },
+  };
+
+  var config = CONFIG[LANG];
+
   function escapeHtml(value) {
     return String(value || '')
       .replace(/&/g, '&amp;')
@@ -14,22 +49,25 @@
       .replace(/'/g, '&#039;');
   }
 
-  var MONTHS_EN = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
   function formatDate(iso) {
     if (!iso) return '';
     var parts = String(iso).split('-');
     var year = parts[0];
     var month = parseInt(parts[1], 10);
     var day = parts[2] ? parseInt(parts[2], 10) : null;
-    var monthName = MONTHS_EN[month - 1];
-    return day ? (monthName + ' ' + day + ', ' + year) : (monthName + ' ' + year);
+    var monthName = config.months[month - 1];
+    return config.formatDate(monthName, day, year);
   }
 
   function flattenItem(item) {
-    var flat = Object.assign({}, item, item.en || {});
+    var flat = Object.assign({}, item, item[config.field] || {});
     flat._isoDate = item.date || '';
     flat.date = formatDate(item.date);
+    flat.image = config.prefixPath(flat.image);
+    flat.url = config.prefixPath(flat.url);
+    flat.pdf = config.prefixPath(flat.pdf);
+    flat.file = config.prefixPath(flat.file);
+    flat.downloadUrl = config.prefixPath(flat.downloadUrl);
     return flat;
   }
 
@@ -135,7 +173,7 @@
     setActive(filter);
 
     if (!visible.length) {
-      output.innerHTML = '<p class="publication-empty">No publications in this category yet.</p>';
+      output.innerHTML = '<p class="publication-empty">' + config.emptyCategory + '</p>';
       return;
     }
 
@@ -143,7 +181,7 @@
     visible.slice(1).forEach(function (item) {
       html += rowMarkup(item);
     });
-    html += '<a class="publications-more" href="contact.html#general">Read the latest work from our researchers. <span>&rarr;</span></a>';
+    html += '<a class="publications-more" href="contact.html#general">' + config.moreLink + ' <span>' + config.arrow + '</span></a>';
     output.innerHTML = html;
   }
 
@@ -178,7 +216,7 @@
 
   render(filterFromHash());
 
-  fetch('content/publications-bilingual.json', { cache: 'no-cache' })
+  fetch(config.contentUrl, { cache: 'no-cache' })
     .then(function (response) {
       if (!response.ok) throw new Error('Publication data unavailable');
       return response.json();
