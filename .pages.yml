@@ -139,7 +139,7 @@ content:
                 default: "Download PDF"
               - name: body
                 label: Article Body
-                type: rich-text
+                type: text
                 required: false
                 description: "Use for website articles. Supports Markdown, including links: [link text](https://example.com)."
 
@@ -191,6 +191,6 @@ content:
                 default: "تحميل PDF"
               - name: body
                 label: Article Body
-                type: rich-text
+                type: text
                 required: false
                 description: "Use for website articles. Supports Markdown, including links: [link text](https://example.com)."
