@@ -12982,11 +12982,7 @@ p {
 }
 
 
-.external-publication-page .publication-detail-hero {
-  max-width: 1180px;
-}
-
-.external-publication-page .publication-detail-label {
+.publication-detail-label {
   display: block;
   width: max-content;
   margin: 0 0 0.85rem;
@@ -13000,6 +12996,10 @@ p {
   letter-spacing: 0.18em;
   line-height: 1.2;
   text-transform: uppercase;
+}
+
+.external-publication-page .publication-detail-hero {
+  max-width: 1180px;
 }
 
 .external-publication-page .publication-detail-hero h1 {
