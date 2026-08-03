@@ -6,7 +6,7 @@
       "publicationFormat": "pdf",
       "source": "NSLS",
       "date": "2026-07",
-      "featured": true,
+      "featured": false,
       "external": false,
       "image": "assets/uploads/treaty-making-cover.png",
       "mark": "NSLS",
@@ -121,7 +121,7 @@
       "publicationFormat": "page",
       "source": "NSLS",
       "date": "2026-08-03",
-      "featured": false,
+      "featured": true,
       "external": false,
       "image": "https://upload.wikimedia.org/wikipedia/commons/a/af/Sustaniable_Micro_irrigation_in_Northern_Syria.jpg",
       "en": {
