@@ -143,12 +143,12 @@ window.NSLS_PUBLICATIONS_BILINGUAL = [
   {
     "slug": "syria-parliament-funding-staff",
     "type": "memo",
-    "publicationFormat": "external",
+    "publicationFormat": "page",
     "source": "NSLS",
     "date": "2026-08-05",
     "featured": true,
     "external": false,
-    "image": "ISLS/assets/uploads/can-syria-cover.jpeg",
+    "image": "assets/uploads/can-syria-cover.jpeg",
     "en": {
       "label": "Memo",
       "title": "Can Syria’s Parliament Allocate Funding for Its Own Staff?",
