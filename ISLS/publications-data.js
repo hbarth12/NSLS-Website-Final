@@ -148,7 +148,7 @@ window.NSLS_PUBLICATIONS_BILINGUAL = [
     "date": "2026-08-05",
     "featured": true,
     "external": false,
-    "image": "assets/uploads/can-syria-cover.jpeg",
+    "image": "assets/uploads/Can-Syria-Cover.jpeg",
     "en": {
       "label": "Memo",
       "title": "Can Syria’s Parliament Allocate Funding for Its Own Staff?",
