@@ -148,7 +148,7 @@ window.NSLS_PUBLICATIONS_BILINGUAL = [
     "date": "2026-08-05",
     "featured": true,
     "external": false,
-    "image": "https://drive.google.com/file/d/1PCbuPO_vyGNzqzapsJPsQkHNeM4Pylxo/view?usp=sharing",
+    "image": "ISLS/assets/uploads/can-syria-cover.jpeg",
     "en": {
       "label": "Memo",
       "title": "Can Syria’s Parliament Allocate Funding for Its Own Staff?",
