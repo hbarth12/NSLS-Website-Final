@@ -494,6 +494,10 @@ PAGE_TEMPLATE = """<!doctype html>
           <small>{brand_line2}</small>
         </span>
       </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav-panel" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="site-nav-panel" id="site-nav-panel">
       <nav class="primary-nav" aria-label="Primary navigation">
         <a href="{own_prefix}index.html">{nav_home}</a>
         <a href="{own_prefix}what-we-do.html">{nav_what_we_do}</a>
@@ -503,7 +507,33 @@ PAGE_TEMPLATE = """<!doctype html>
       </nav>
       <a class="language-toggle" href="{toggle_href}" lang="{toggle_lang}" dir="{toggle_dir}">{language_toggle_label}</a>
       <a class="header-action" href="{own_prefix}contact.html#general">{get_in_touch}</a>
+      </div>
     </header>
+    <script>
+      (function () {{
+        var toggle = document.querySelector('.nav-toggle');
+        var panel = document.getElementById('site-nav-panel');
+        if (!toggle || !panel) return;
+        toggle.addEventListener('click', function () {{
+          var open = toggle.getAttribute('aria-expanded') === 'true';
+          toggle.setAttribute('aria-expanded', String(!open));
+          panel.classList.toggle('is-open', !open);
+        }});
+        document.addEventListener('keydown', function (event) {{
+          if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {{
+            toggle.setAttribute('aria-expanded', 'false');
+            panel.classList.remove('is-open');
+            toggle.focus();
+          }}
+        }});
+        document.addEventListener('click', function (event) {{
+          if (toggle.getAttribute('aria-expanded') !== 'true') return;
+          if (panel.contains(event.target) || toggle.contains(event.target)) return;
+          toggle.setAttribute('aria-expanded', 'false');
+          panel.classList.remove('is-open');
+        }});
+      }})();
+    </script>
 
     <main id="top">
       <article class="publication-detail" data-publication-detail>
