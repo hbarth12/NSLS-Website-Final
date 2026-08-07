@@ -21,6 +21,10 @@
           <small>Legislative Studies</small>
         </span>
       </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav-panel" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="site-nav-panel" id="site-nav-panel">
       <nav class="primary-nav" aria-label="Primary navigation">
         <a href="index.html">Home</a>
         <a href="what-we-do.html">What We Do</a>
@@ -30,7 +34,33 @@
       </nav>
       <a class="language-toggle" href="ar/cameron-hume.html" lang="ar" dir="rtl">العربية</a>
       <a class="header-action" href="contact.html#general">Get in Touch</a>
+      </div>
     </header>
+    <script>
+      (function () {
+        var toggle = document.querySelector('.nav-toggle');
+        var panel = document.getElementById('site-nav-panel');
+        if (!toggle || !panel) return;
+        toggle.addEventListener('click', function () {
+          var open = toggle.getAttribute('aria-expanded') === 'true';
+          toggle.setAttribute('aria-expanded', String(!open));
+          panel.classList.toggle('is-open', !open);
+        });
+        document.addEventListener('keydown', function (event) {
+          if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+            toggle.setAttribute('aria-expanded', 'false');
+            panel.classList.remove('is-open');
+            toggle.focus();
+          }
+        });
+        document.addEventListener('click', function (event) {
+          if (toggle.getAttribute('aria-expanded') !== 'true') return;
+          if (panel.contains(event.target) || toggle.contains(event.target)) return;
+          toggle.setAttribute('aria-expanded', 'false');
+          panel.classList.remove('is-open');
+        });
+      })();
+    </script>
 
     <main id="top">
       <section class="profile-hero" aria-labelledby="profile-title">

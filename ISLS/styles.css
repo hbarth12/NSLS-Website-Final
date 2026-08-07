@@ -13647,3 +13647,86 @@ body.pdf-publication-page .publication-detail .policy-paper-actions-final .polic
   border-color: #0f5f5d !important;
   color: #0f5f5d !important;
 }
+
+/* Mobile header: collapse nav/language-toggle/CTA behind a hamburger button. */
+.isl-page .nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  flex: 0 0 auto;
+}
+
+.isl-page .nav-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--navy-deep, #123737);
+  border-radius: 1px;
+}
+
+.isl-page .site-nav-panel {
+  display: contents;
+}
+
+@media (max-width: 1080px) {
+  .isl-page .brand strong,
+  .isl-page .brand small {
+    display: none;
+  }
+
+  .isl-page .site-header {
+    z-index: 40;
+  }
+
+  .isl-page .nav-toggle {
+    display: flex;
+  }
+
+  .isl-page .site-nav-panel {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    padding: 10px var(--gutter, 20px) 20px;
+    background: rgba(223, 239, 238, 0.98);
+    border-bottom: 1px solid var(--stone, #deeaea);
+    max-height: calc(100vh - 68px);
+    overflow-y: auto;
+    z-index: 40;
+  }
+
+  .isl-page .site-nav-panel.is-open {
+    display: flex;
+  }
+
+  .isl-page .site-nav-panel .primary-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .isl-page .site-nav-panel .primary-nav a {
+    padding: 12px 4px;
+    border-bottom: 1px solid rgba(18, 55, 55, 0.08);
+  }
+
+  .isl-page .site-nav-panel .language-toggle,
+  .isl-page .site-nav-panel .header-action {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    margin-top: 10px;
+  }
+}
