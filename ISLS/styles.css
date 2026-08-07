@@ -13648,7 +13648,31 @@ body.pdf-publication-page .publication-detail .policy-paper-actions-final .polic
   color: #0f5f5d !important;
 }
 
-/* Mobile header: collapse nav/language-toggle/CTA behind a hamburger button. */
+/* Mobile header: collapse nav/CTA behind a hamburger button; language
+   toggle stays visible in the header bar next to it. Explicit `order`
+   keeps brand/nav/language-toggle/CTA in their original desktop order
+   regardless of where the toggle button and language link sit in the
+   markup. */
+.isl-page .site-header .brand {
+  order: 1;
+}
+
+.isl-page .site-header .primary-nav {
+  order: 2;
+}
+
+.isl-page .site-header .language-toggle {
+  order: 3;
+}
+
+.isl-page .site-header .nav-toggle {
+  order: 4;
+}
+
+.isl-page .site-header .header-action {
+  order: 5;
+}
+
 .isl-page .nav-toggle {
   display: none;
   flex-direction: column;
@@ -13677,13 +13701,14 @@ body.pdf-publication-page .publication-detail .policy-paper-actions-final .polic
 }
 
 @media (max-width: 1080px) {
-  .isl-page .brand strong,
-  .isl-page .brand small {
-    display: none;
+  .isl-page .site-header {
+    justify-content: flex-start;
+    gap: 12px;
+    z-index: 40;
   }
 
-  .isl-page .site-header {
-    z-index: 40;
+  .isl-page .brand {
+    margin-inline-end: auto;
   }
 
   .isl-page .nav-toggle {
@@ -13722,7 +13747,6 @@ body.pdf-publication-page .publication-detail .policy-paper-actions-final .polic
     border-bottom: 1px solid rgba(18, 55, 55, 0.08);
   }
 
-  .isl-page .site-nav-panel .language-toggle,
   .isl-page .site-nav-panel .header-action {
     width: 100%;
     text-align: center;

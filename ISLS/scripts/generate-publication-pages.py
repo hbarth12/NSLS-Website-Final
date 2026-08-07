@@ -497,6 +497,7 @@ PAGE_TEMPLATE = """<!doctype html>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav-panel" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
+      <a class="language-toggle" href="{toggle_href}" lang="{toggle_lang}" dir="{toggle_dir}">{language_toggle_label}</a>
       <div class="site-nav-panel" id="site-nav-panel">
       <nav class="primary-nav" aria-label="Primary navigation">
         <a href="{own_prefix}index.html">{nav_home}</a>
@@ -505,7 +506,6 @@ PAGE_TEMPLATE = """<!doctype html>
         <a href="{own_prefix}our-team.html">{nav_our_team}</a>
         <a href="{own_prefix}contact.html">{nav_contact}</a>
       </nav>
-      <a class="language-toggle" href="{toggle_href}" lang="{toggle_lang}" dir="{toggle_dir}">{language_toggle_label}</a>
       <a class="header-action" href="{own_prefix}contact.html#general">{get_in_touch}</a>
       </div>
     </header>
