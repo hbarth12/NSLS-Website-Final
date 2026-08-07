@@ -479,6 +479,7 @@ PAGE_TEMPLATE = """<!doctype html>
     <title>{title}</title>
     <meta name="description" content="{description}">
     <link rel="canonical" href="{canonical}">
+    <link rel="icon" href="{true_prefix}favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">{arabic_font_link}
