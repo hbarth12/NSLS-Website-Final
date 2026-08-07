@@ -64,14 +64,34 @@ def escape_html(value):
 
 
 LINK_RE = re.compile(r'\[([^\]]+)\]\((https?://[^\s)]+)\)')
+BOLD_RE = re.compile(r'\*\*([^\*]+)\*\*')
+ITALIC_STAR_RE = re.compile(r'\*([^\*]+)\*')
+ITALIC_UNDERSCORE_RE = re.compile(r'_([^_]+)_')
 
 
 def inline_markdown(value):
     escaped = escape_html(value)
-    return LINK_RE.sub(
-        lambda m: '<a href="' + m.group(2) + '" target="_blank" rel="noopener">' + m.group(1) + '</a>',
-        escaped,
-    )
+
+    # Links are pulled out into placeholders first so bold/italic markers
+    # can't accidentally match underscores/asterisks inside a URL (common
+    # in DOI links) and corrupt the href.
+    links = []
+
+    def store_link(m):
+        links.append(
+            '<a href="' + m.group(2) + '" target="_blank" rel="noopener">' + m.group(1) + '</a>'
+        )
+        return '\x00LINK%d\x00' % (len(links) - 1)
+
+    text = LINK_RE.sub(store_link, escaped)
+    text = BOLD_RE.sub(lambda m: '<strong>' + m.group(1) + '</strong>', text)
+    text = ITALIC_STAR_RE.sub(lambda m: '<em>' + m.group(1) + '</em>', text)
+    text = ITALIC_UNDERSCORE_RE.sub(lambda m: '<em>' + m.group(1) + '</em>', text)
+
+    for i, link_html in enumerate(links):
+        text = text.replace('\x00LINK%d\x00' % i, link_html)
+
+    return text
 
 
 def markdown_to_html(value):
