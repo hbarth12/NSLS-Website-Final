@@ -2681,6 +2681,14 @@ p {
   font-style: normal;
 }
 
+/* ...but let semantic emphasis tags actually render as italic. */
+.isl-page em,
+.isl-page i,
+.isl-page cite,
+.isl-page var {
+  font-style: italic;
+}
+
 .isl-page .hero-copy,
 .isl-page .section-heading,
 .isl-page .body-copy,
