@@ -160,7 +160,11 @@ window.NSLS_PUBLICATIONS_BILINGUAL = [
       "body": "The People’s Assembly may enact a special law providing MPs with personal staff and establishing the committee, administrative, legal, and research support needed for Parliament to function. That said, it likely cannot release new public funds merely by enacting that law. Permanent posts, salaries, contracts, and procurement require a valid appropriation from the yearly budget, which will be submitted by the Ministry of Finance at the end of the year and approved by the Assembly. \n\nComparative practice supports a two-track approach. Parliament should establish the institution and prepare a staffing budget now in order to best ensure a distinct parliamentary appropriation in the 2027 budget. In the meantime, it could create an interim unit using an existing lawful allocation, supplementary funding, or carefully structured in-kind assistance."
     },
     "ar": {
-      "pdfLabel": "تحميل PDF"
+      "label": "مذكرة",
+      "title": "هل يمكن للبرلمان السوري تخصيص تمويل لموظفيه؟",
+      "pdf": "assets/uploads/Can Syria’s Parliament Allocate Funding for Its Own Staff? Translation-1.pdf",
+      "pdfLabel": "تحميل PDF",
+      "body": "موازنة البرلمان لعام ٢٠٢٦، لا يزال النواب من دون طواقم عمل شخصية، فضلاً عن افتقارهم إلى الدعم البحثي والإداري الأوسع اللازم لأداء أدوارهم بفاعلية.\n\nويثير ذلك سؤالين منفصلين:\n١. هل يجوز للبرلمان سنّ قانون ينشئ جهازه الإداري الخاص وخدمة بحثية تابعة له؟\n٢. هل يجوز للبرلمان أن يخصص بنفسه الأموال العامة اللازمة لتشغيلهما؟"
     }
   }
 ];
