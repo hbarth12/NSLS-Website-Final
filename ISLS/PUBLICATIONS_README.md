@@ -49,7 +49,7 @@ Use `publicationFormat` (shared) to control how the detail page behaves:
 
 ## Two PDFs (English + Arabic)
 
-Set `pdf` inside `en` and inside `ar` independently. If both are set and point at different files, the publication page shows a language picker next to the download button (works identically on the English and Arabic page). If only one language has a PDF, or both point at the same file, a single download button is shown -- no picker.
+Set `pdf` inside `en` and inside `ar` independently. The Download PDF button always links to the PDF matching the page's own language -- the English page links `en.pdf`, the Arabic page links `ar.pdf` -- with no picker. If the page's own language doesn't have a PDF, the button falls back to whichever language does; if neither language has a PDF, the download button doesn't render.
 
 ## PDF Entry Template
 

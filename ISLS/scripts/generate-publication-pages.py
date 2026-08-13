@@ -14,10 +14,10 @@ JavaScript. Both language variants are produced by the same renderer
 (parameterized by a small per-language strings/prefix table), rather
 than by separate English/Arabic implementations.
 
-When a publication has both an English and an Arabic PDF (and they're
-different files), the page renders a small language picker next to
-the download button; ISLS/pdf-picker.js (shared by both languages)
-wires the picker to the download link.
+The Download PDF button always links to the PDF matching the page's own
+language (English pages link the English PDF, Arabic pages the Arabic
+PDF), falling back to whichever language has a PDF if the page's own
+language doesn't have one, and disappearing if neither does.
 
 Also keeps ISLS/sitemap.xml in sync: the block of <url> entries
 between the <!-- BEGIN GENERATED PUBLICATIONS --> / <!-- END GENERATED
@@ -191,9 +191,6 @@ LANGS = {
             'format_external': 'External commentary',
             'format_page': 'Website article',
             'publication_fallback': 'Publication',
-            'pdf_language_label': 'Language',
-            'pdf_option_en': 'English',
-            'pdf_option_ar': 'Arabic',
             'default_description': 'Publication from the Network for Syrian Legislative Studies.',
         },
     },
@@ -246,9 +243,6 @@ LANGS = {
             'format_external': 'تعليق خارجي',
             'format_page': 'مقال على الموقع',
             'publication_fallback': 'منشور',
-            'pdf_language_label': 'اللغة',
-            'pdf_option_en': 'الإنجليزية',
-            'pdf_option_ar': 'العربية',
             'default_description': 'منشور من الشبكة السورية للدراسات التشريعية.',
         },
     },
@@ -268,64 +262,26 @@ def own_href(page, lang_conf):
 
 
 # ---------------------------------------------------------------------------
-# PDF language-picker
+# PDF download button
 # ---------------------------------------------------------------------------
 
-def pdf_options(entry):
-    """Returns [(lang, pdf_path), ...] for languages that actually have a
-    PDF, collapsed to a single option if both languages point at the same
-    file (nothing meaningful to pick between)."""
-    opts = []
-    for lang in ('en', 'ar'):
-        pdf = entry.get(lang, {}).get('pdf')
-        if pdf:
-            opts.append((lang, pdf))
-    if len(opts) == 2 and opts[0][1] == opts[1][1]:
-        opts = opts[:1]
-    return opts
-
-
 def pdf_action_html(entry, lang, lang_conf, tile_class):
-    opts = pdf_options(entry)
-    if not opts:
+    """Returns the Download PDF button, linked to the PDF matching this
+    page's language. Falls back to whichever language has a PDF if this
+    page's own language doesn't have one; returns '' if there's no PDF in
+    either language."""
+    pdf_path = entry.get(lang, {}).get('pdf') or entry.get('en', {}).get('pdf') or entry.get('ar', {}).get('pdf')
+    if not pdf_path:
         return ''
 
     strings = lang_conf['strings']
-    opt_by_lang = dict(opts)
-
-    # Default to this page's own language when it has a PDF; otherwise
-    # fall back to whichever language does.
-    default_lang = lang if lang in opt_by_lang else opts[0][0]
-    default_href = asset_href(opt_by_lang[default_lang], lang_conf)
-    default_filename = os.path.basename(opt_by_lang[default_lang])
-
-    download_link = (
-        '<a class="button primary policy-paper-download ' + tile_class + '" data-pdf-download '
-        'href="' + escape_html(default_href) + '" download="' + escape_html(default_filename)
+    href = asset_href(pdf_path, lang_conf)
+    filename = os.path.basename(pdf_path)
+    return (
+        '<a class="button primary policy-paper-download ' + tile_class + '" '
+        'href="' + escape_html(href) + '" download="' + escape_html(filename)
         + '" target="_blank" rel="noopener">' + escape_html(strings['download_pdf']) + '</a>'
     )
-
-    if len(opts) < 2:
-        return download_link
-
-    option_tags = []
-    for opt_lang, pdf_path in opts:
-        href = asset_href(pdf_path, lang_conf)
-        filename = os.path.basename(pdf_path)
-        label = strings['pdf_option_en'] if opt_lang == 'en' else strings['pdf_option_ar']
-        selected = ' selected' if opt_lang == default_lang else ''
-        option_tags.append(
-            '<option value="' + escape_html(href) + '" data-filename="' + escape_html(filename) + '"' + selected + '>'
-            + escape_html(label) + '</option>'
-        )
-
-    select_control = (
-        '<div class="policy-paper-pdf-select ' + tile_class + '">'
-        '<label class="policy-paper-pdf-picker-label" for="pdf-language-select">' + escape_html(strings['pdf_language_label']) + '</label>'
-        '<select id="pdf-language-select" data-pdf-select>' + ''.join(option_tags) + '</select>'
-        '</div>'
-    )
-    return '<div class="policy-paper-pdf-picker" data-pdf-picker>' + select_control + download_link + '</div>'
 
 
 # ---------------------------------------------------------------------------
@@ -575,7 +531,6 @@ PAGE_TEMPLATE = """<!doctype html>
         <p>{footer_supporting}</p>
       </div>
     </footer>
-    <script src="{true_prefix}pdf-picker.js"></script>
   </body>
 </html>
 """
