@@ -13599,55 +13599,6 @@ body.pdf-publication-page .publication-detail .policy-paper-actions-final .polic
   border-color: #0b4746 !important;
 }
 
-/* PDF language picker: shown only when an English and an Arabic PDF both
-   exist for a publication and differ. The wrapper is display:contents so
-   its children (the select tile and the download button) lay out as
-   direct flex items of .policy-paper-actions-final / .publication-download,
-   the same as every other action tile. */
-.policy-paper-pdf-picker,
-.publication-download .policy-paper-pdf-picker {
-  display: contents;
-}
-.policy-paper-pdf-select {
-  display: inline-flex !important;
-  flex-direction: column !important;
-  align-items: flex-start !important;
-  justify-content: center !important;
-  gap: .3rem !important;
-}
-.policy-paper-pdf-picker-label {
-  color: #ffffff !important;
-  opacity: .78 !important;
-  font-size: .78rem !important;
-  font-weight: 700 !important;
-  letter-spacing: .12em !important;
-  text-transform: uppercase !important;
-}
-.policy-paper-pdf-select select {
-  appearance: none !important;
-  -webkit-appearance: none !important;
-  background: rgba(255, 255, 255, .12) !important;
-  border: 1px solid rgba(255, 255, 255, .5) !important;
-  border-radius: .35rem !important;
-  color: #ffffff !important;
-  font: inherit !important;
-  font-weight: 600 !important;
-  padding: .3rem .6rem !important;
-  cursor: pointer !important;
-}
-.policy-paper-pdf-select select option {
-  color: #0f5f5d !important;
-  background: #ffffff !important;
-}
-.publication-download .policy-paper-pdf-select {
-  margin-bottom: .5rem !important;
-}
-.publication-download .policy-paper-pdf-select select {
-  background: #ffffff !important;
-  border-color: #0f5f5d !important;
-  color: #0f5f5d !important;
-}
-
 /* Mobile header: collapse nav/CTA behind a hamburger button; language
    toggle stays visible in the header bar next to it. Explicit `order`
    keeps brand/nav/language-toggle/CTA in their original desktop order
