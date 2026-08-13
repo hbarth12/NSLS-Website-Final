@@ -79,6 +79,18 @@
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
+  <url>
+    <loc>https://www.nsls.network/publications/credit-strategy-syria-reconsutrction/</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.nsls.network/ar/publications/credit-strategy-syria-reconsutrction/</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
 <!-- END GENERATED PUBLICATIONS -->
   <url>
     <loc>https://www.nsls.network/our-team.html</loc>
