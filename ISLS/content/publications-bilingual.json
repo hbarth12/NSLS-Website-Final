@@ -150,7 +150,7 @@
       "publicationFormat": "pdf",
       "source": "NSLS",
       "date": "2026-08-05",
-      "featured": true,
+      "featured": false,
       "external": false,
       "image": "assets/uploads/Can-Syria-Cover.jpeg",
       "en": {
@@ -167,6 +167,27 @@
         "pdf": "assets/uploads/Can Syria’s Parliament Allocate Funding for Its Own Staff? Translation-2.pdf",
         "pdfLabel": "تحميل PDF",
         "body": "يجوز لمجلس الشعب سن قانون خاص يوفر للنواب طواقم عمل شخصية، وينشئ ما يحتاج إليه البرلمان من دعم للجان، وخدمات إدارية وقانونية وبحثية كي يؤدي وظائفه. ومع ذلك، يُرجّح ألا يكون في وسعه إتاحة أموال عامة جديدة بمجرد سنّ ذلك القانون. فإحداث وظائف دائمة، وصرف الرواتب، وإبرام العقود، وإجراء المشتريات، كلها تتطلب اعتماداً مالياً صحيحا ضمن الموازنة السنوية التي ستقدّمها وزارة المالية في نهاية العام ويقرّها المجلس.\n\nوتدعم الممارسات المقارنة اتباع مسار ذي شقين: ينبغي للبرلمان أن ينشئ المؤسسة ويعدّ موازنة التوظيف منذ الآن، بما يضمن على أفضل وجه إدراج اعتماد مالي مستقل للبرلمان في موازنة عام ٢٠٢٧. وفي غضون ذلك، يمكنه إنشاء وحدة مؤقتة بالاستناد إلى اعتماد قانوني قائم، أو تمويل تكميلي، أو مساعدة عينية مصممة بعناية."
+      }
+    },
+    {
+      "slug": "credit-strategy-syria-reconsutrction",
+      "type": "commentary",
+      "publicationFormat": "external",
+      "source": "NSLS",
+      "date": "2026-08-13",
+      "featured": true,
+      "external": false,
+      "image": "assets/uploads /credit-strategy-image.jpg",
+      "url": "https://mei.edu/publication/a-credit-strategy-for-syrias-reconstruction/",
+      "en": {
+        "label": "Commentary",
+        "title": "A Credit Strategy for Syria’s Reconstruction",
+        "author": "Haddon Barth",
+        "readTime": "7 min read",
+        "pdfLabel": "Download PDF"
+      },
+      "ar": {
+        "pdfLabel": "تحميل PDF"
       }
     }
   ]
