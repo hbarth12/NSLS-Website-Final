@@ -146,7 +146,7 @@ window.NSLS_PUBLICATIONS_BILINGUAL = [
   {
     "slug": "syria-parliament-funding-staff",
     "type": "memo",
-    "publicationFormat": "page",
+    "publicationFormat": "pdf",
     "source": "NSLS",
     "date": "2026-08-05",
     "featured": true,
