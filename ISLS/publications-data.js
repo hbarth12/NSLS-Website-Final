@@ -172,10 +172,10 @@ window.NSLS_PUBLICATIONS_BILINGUAL = [
     "slug": "credit-strategy-syria-reconsutrction",
     "type": "commentary",
     "publicationFormat": "external",
-    "source": "NSLS",
+    "source": "Middle East Institute",
     "date": "2026-08-13",
     "featured": true,
-    "external": false,
+    "external": true,
     "image": "assets/uploads/credit-strategy-image.jpg",
     "url": "https://mei.edu/publication/a-credit-strategy-for-syrias-reconstruction/",
     "en": {
