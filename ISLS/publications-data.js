@@ -198,7 +198,7 @@ window.NSLS_PUBLICATIONS_BILINGUAL = [
     "date": "2026-08-18",
     "featured": true,
     "external": false,
-    "image": "assets/uploads /damascus-university-internal-view.jpg",
+    "image": "ISLS/assets/uploads /damascus-university-internal-view.jpg",
     "en": {
       "label": "Commentary",
       "title": "Bringing Syria’s Scholars Back In",
