@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> | الشبكة السورية للدراسات التشريعية</title>
+    <meta name="description" content="منشور من الشبكة السورية للدراسات التشريعية.">
+    <link rel="canonical" href="https://www.nsls.network/ar/publications/syria-scholar-return/">
+    <link rel="icon" href="../../../favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../../styles.css?v=final-actions-1">
+  </head>
+  <body class="isl-page publication-detail-page arabic-page">
+    <header class="site-header">
+      <a class="brand" href="../../index.html" aria-label="Network for Syrian Legislative Studies home">
+        <span class="brand-mark">NSLS</span>
+        <span>
+          <strong>Network for Syrian</strong>
+          <small>Legislative Studies</small>
+        </span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav-panel" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <a class="language-toggle" href="../../../publications/syria-scholar-return/" lang="en" dir="ltr">English</a>
+      <div class="site-nav-panel" id="site-nav-panel">
+      <nav class="primary-nav" aria-label="Primary navigation">
+        <a href="../../index.html">الرئيسية</a>
+        <a href="../../what-we-do.html">ماذا نفعل</a>
+        <a href="../../publications.html" aria-current="page">المنشورات</a>
+        <a href="../../our-team.html">فريقنا</a>
+        <a href="../../contact.html">اتصل بنا</a>
+      </nav>
+      <a class="header-action" href="../../contact.html#general">تواصل معنا</a>
+      </div>
+    </header>
+    <script>
+      (function () {
+        var toggle = document.querySelector('.nav-toggle');
+        var panel = document.getElementById('site-nav-panel');
+        if (!toggle || !panel) return;
+        toggle.addEventListener('click', function () {
+          var open = toggle.getAttribute('aria-expanded') === 'true';
+          toggle.setAttribute('aria-expanded', String(!open));
+          panel.classList.toggle('is-open', !open);
+        });
+        document.addEventListener('keydown', function (event) {
+          if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+            toggle.setAttribute('aria-expanded', 'false');
+            panel.classList.remove('is-open');
+            toggle.focus();
+          }
+        });
+        document.addEventListener('click', function (event) {
+          if (toggle.getAttribute('aria-expanded') !== 'true') return;
+          if (panel.contains(event.target) || toggle.contains(event.target)) return;
+          toggle.setAttribute('aria-expanded', 'false');
+          panel.classList.remove('is-open');
+        });
+      })();
+    </script>
+
+    <main id="top">
+      <article class="publication-detail" data-publication-detail>
+        <header class="publication-detail-hero"><a class="publication-back" href="../../publications.html">العودة إلى المنشورات</a><span class="publication-pill publication-detail-label">commentary</span><h1></h1><p class="publication-detail-deck"></p><p class="publication-meta">18 آب 2026 <span>&middot;</span> NSLS</p></header><figure class="publication-detail-image"><img src="../../../assets/uploads /damascus-university-internal-view.jpg" alt=""></figure><div class="publication-detail-grid"><div class="publication-detail-body"><p></p></div><div class="publication-detail-aside"><div class="publication-detail-note"><p>نوع المنشور</p><strong>مقال على الموقع</strong></div></div></div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-primary">
+        <a class="brand footer-brand" href="../../index.html">
+          <span class="brand-mark">NSLS</span>
+          <span>
+            <strong>Network for Syrian</strong>
+            <small>Legislative Studies</small>
+          </span>
+        </a>
+        <p>بحث مستقل ودعم تشريعي عملي للبرلمان السوري.</p>
+      </div>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <div>
+          <h2>الشبكة</h2>
+          <a href="../../index.html">عن الشبكة</a>
+          <a href="../../what-we-do.html">ماذا نفعل</a>
+          <a href="../../publications.html">المنشورات</a>
+          <a href="../../our-team.html">فريقنا</a>
+        </div>
+        <div class="footer-connect">
+          <div class="footer-connect-links">
+            <h2>تواصل</h2>
+            <a href="../../contact.html">اتصل بنا</a>
+            <a href="https://www.linkedin.com/" target="_blank" rel="noopener">لينكدإن</a>
+            <a href="../../privacy.html">الخصوصية</a>
+          </div>
+          <a class="footer-cta" href="../../contact.html#general">تواصل معنا</a>
+        </div>
+      </nav>
+      <div class="footer-bottom">
+        <p>&copy; 2026 الشبكة السورية للدراسات التشريعية.</p>
+        <p>دعم البحث التشريعي المستقل في سوريا.</p>
+      </div>
+    </footer>
+  </body>
+</html>
