@@ -13706,7 +13706,7 @@ body.pdf-publication-page .publication-detail .policy-paper-actions-final .polic
   }
 }
 
-/* Homepage featured sidebar: 4 compact previews sized to match the featured column's height. */
+/* Homepage featured sidebar: 3 compact previews sized to match the featured column's height. */
 .isl-page main > .analysis-deck .analysis-list {
   align-items: stretch !important;
 }
@@ -13718,7 +13718,7 @@ body.pdf-publication-page .publication-detail .policy-paper-actions-final .polic
   grid-row: 1 !important;
   height: 100% !important;
   min-height: 0 !important;
-  gap: 14px !important;
+  gap: 36px !important;
 }
 
 .isl-page main > .analysis-deck .analysis-sidebar .analysis-list-item {
