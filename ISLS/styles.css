@@ -9286,7 +9286,7 @@ p {
   text-transform: none;
 }
 
-.isl-page main > .analysis-deck .analysis-list-item:first-child h3 {
+.isl-page main > .analysis-deck .analysis-list > .analysis-list-item:first-child h3 {
   max-width: 15ch;
   color: #111;
   font-family: var(--sans);
