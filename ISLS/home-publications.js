@@ -75,6 +75,9 @@
 
   function flattenItem(item) {
     var flat = Object.assign({}, item, item[config.field] || {});
+    var enFields = item.en || {};
+    if (!flat.title) flat.title = enFields.title;
+    if (!flat.description) flat.description = enFields.description;
     flat._isoDate = item.date || '';
     flat.date = formatDate(item.date);
     flat.image = config.prefixPath(flat.image);
