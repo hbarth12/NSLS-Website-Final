@@ -15,7 +15,7 @@
       prefixPath: function (value) { return value; },
       contentUrl: 'content/publications-bilingual.json',
       topicSeparator: ', ',
-      moreLink: 'Read the latest work from our team of researchers.',
+      moreLink: 'Read the latest work from our team.',
       arrow: '&rarr;',
       fallbackLabel: 'Publication',
     },
@@ -89,7 +89,7 @@
       if (!!a.featured !== !!b.featured) return a.featured ? -1 : 1;
       if (a._isoDate !== b._isoDate) return a._isoDate < b._isoDate ? 1 : -1;
       return typeRank(a) - typeRank(b);
-    }).slice(0, 3);
+    }).slice(0, 5);
   }
 
   function topicSummary(item) {
@@ -129,8 +129,13 @@
       output.innerHTML = '';
       return;
     }
-    output.innerHTML = visible.map(cardMarkup).join('') +
-      '<a class="analysis-list-more" href="publications.html">' + config.moreLink + ' <span>' + config.arrow + '</span></a>';
+    var featured = visible[0];
+    var rest = visible.slice(1);
+    var sidebarItems = rest.map(function (item, i) { return cardMarkup(item, i + 1); }).join('');
+    output.innerHTML = cardMarkup(featured, 0) +
+      '<div class="analysis-sidebar">' + sidebarItems +
+        '<a class="analysis-list-more" href="publications.html">' + config.moreLink + ' <span>' + config.arrow + '</span></a>' +
+      '</div>';
   }
 
   function normalizeData(data) {
