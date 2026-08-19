@@ -18,6 +18,13 @@
       moreLink: 'Read the latest work from our team.',
       arrow: '&rarr;',
       fallbackLabel: 'Publication',
+      typeLabels: {
+        'policy-paper': 'Policy Paper',
+        memo: 'Memo',
+        commentary: 'Commentary',
+        analysis: 'Analysis',
+        'institutional-note': 'Institutional Note',
+      },
     },
     ar: {
       field: 'ar',
@@ -35,6 +42,13 @@
       moreLink: 'اقرأ أحدث أعمال فريق الباحثين لدينا.',
       arrow: '&larr;',
       fallbackLabel: 'منشور',
+      typeLabels: {
+        'policy-paper': 'ورقة سياسات',
+        memo: 'مذكرة',
+        commentary: 'تعليق',
+        analysis: 'تحليل',
+        'institutional-note': 'مذكرة مؤسسية',
+      },
     },
   };
 
@@ -115,7 +129,7 @@
     return '<a class="analysis-list-item' + extra + '" href="' + escapeHtml(publicationUrl(item)) + '">' +
       visualMarkup(item) +
       '<div>' +
-        '<span>' + escapeHtml(item.label || item.type || config.fallbackLabel) + '</span>' +
+        '<span>' + escapeHtml(item.label || config.typeLabels[item.type] || item.type || config.fallbackLabel) + '</span>' +
         '<h3>' + escapeHtml(item.title) + '</h3>' +
         '<p>' + metaLine(item) + '</p>' +
         (index === 0 && item.description ? '<small>' + escapeHtml(item.description) + '</small>' : '') +
