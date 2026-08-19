@@ -89,7 +89,7 @@
       if (!!a.featured !== !!b.featured) return a.featured ? -1 : 1;
       if (a._isoDate !== b._isoDate) return a._isoDate < b._isoDate ? 1 : -1;
       return typeRank(a) - typeRank(b);
-    }).slice(0, 4);
+    }).slice(0, 5);
   }
 
   function topicSummary(item) {
