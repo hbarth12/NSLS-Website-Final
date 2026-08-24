@@ -57,6 +57,25 @@ What's *not* covered by this file, and stays hand-authored on `our-team.html`: t
 
 `publications.js` (used by `publications.html`), `home-publications.js` (used by `index.html`), and `publication-detail.js` (used by `publication.html`) are each a single file shared by both languages -- there's no `ar/` copy to keep in sync anymore. Each script reads `document.documentElement.lang` at runtime and picks a small config object (month names, date-order formatting, which of `item.en`/`item.ar` to read, the Arabic asset-path prefixer, the `content/publications-bilingual.json` fetch path, and the translated UI strings) based on it. If you need to change wording in these scripts (the "no publications in this category" message, "read the latest work..." links, etc.), edit the relevant language's block directly in the script -- there's nothing to regenerate here, and no second file to remember to update.
 
+## Keeping sitemap.xml's lastmod Dates Accurate
+
+`sitemap.xml` has two independently-maintained regions:
+
+- The block between `<!-- BEGIN GENERATED PUBLICATIONS -->` and `<!-- END GENERATED PUBLICATIONS -->` is rewritten by `scripts/generate-publication-pages.py` on every run, dated from each publication's own `date` field.
+- Everything else -- every top-level page and every `ar/` page, including all the individual bio pages -- is synced by `scripts/sync-sitemap-lastmod.py`, which sets each entry's `<lastmod>` to that page's actual file-modification date on disk.
+
+You shouldn't need to run `sync-sitemap-lastmod.py` by hand: it also runs as a **pre-commit hook**, so any commit that touches a page automatically re-syncs and stages `sitemap.xml` alongside it, whether the page was hand-edited or produced by a generator. Since `.git/hooks/` isn't tracked by git, each clone needs to install it once:
+
+```bash
+sh ISLS/scripts/hooks/install.sh
+```
+
+If `sitemap.xml` ever looks stale (e.g. you skipped the hook, or edited a file's mtime some other way), just run:
+
+```bash
+python3 scripts/sync-sitemap-lastmod.py
+```
+
 ## Workflow Summary
 
 After editing `content/site-chrome.json` and/or `content/team-bilingual.json`:

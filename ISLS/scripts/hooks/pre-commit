@@ -1,0 +1,23 @@
+#!/bin/sh
+# Keeps ISLS/sitemap.xml's lastmod dates from going stale again.
+#
+# Runs scripts/sync-sitemap-lastmod.py on every commit and, if it
+# changed sitemap.xml, stages that change into the commit that's
+# already in flight -- so a page edit and its sitemap update always
+# land together, whether the page was hand-edited or produced by
+# generate-site-pages.py / generate-publication-pages.py.
+#
+# Installed via: ISLS/scripts/hooks/install.sh
+set -e
+
+repo_root=$(git rev-parse --show-toplevel)
+sitemap="$repo_root/ISLS/sitemap.xml"
+
+before=$(git -C "$repo_root" hash-object "$sitemap" 2>/dev/null || echo "")
+python3 "$repo_root/ISLS/scripts/sync-sitemap-lastmod.py"
+after=$(git -C "$repo_root" hash-object "$sitemap" 2>/dev/null || echo "")
+
+if [ "$before" != "$after" ]; then
+    git -C "$repo_root" add "$sitemap"
+    echo "pre-commit: re-synced and staged ISLS/sitemap.xml"
+fi
