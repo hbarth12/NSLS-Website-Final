@@ -98,6 +98,7 @@
       "slug": "zaid-al-ali",
       "section": "advisory",
       "initials": "ZA",
+      "photo": "assets/uploads/zaid-al-ali.jpg",
       "en": {
         "name": "Zaid Al-Ali",
         "role": "Advisory Board Member",
@@ -121,6 +122,7 @@
       "slug": "cameron-hume",
       "section": "advisory",
       "initials": "CH",
+      "photo": "assets/uploads/cameron-hume.jpg",
       "en": {
         "name": "Ambassador Cameron Hume",
         "role": "Advisory Board Member",
@@ -144,6 +146,7 @@
       "slug": "max-weiss",
       "section": "advisory",
       "initials": "MW",
+      "photo": "assets/uploads/max-weiss.jpg",
       "en": {
         "name": "Max Weiss",
         "role": "Advisory Board Member",
@@ -161,6 +164,34 @@
         "individualBio": [
           "يشغل ماكس فايس عضوية المجلس الاستشاري للشبكة."
         ]
+      }
+    },
+    {
+      "slug": "sameer-saboungi",
+      "section": "advisory",
+      "initials": "SS",
+      "photo": "assets/uploads/sameer-saboungi.jpg",
+      "en": {
+        "name": "Sameer Saboungi",
+        "role": "Advisory Board Member"
+      },
+      "ar": {
+        "name": "Sameer Saboungi",
+        "role": "عضو المجلس الاستشاري"
+      }
+    },
+    {
+      "slug": "john-balouziyeh",
+      "section": "advisory",
+      "initials": "JB",
+      "photo": "assets/uploads/john-balouziyeh.jpg",
+      "en": {
+        "name": "John Balouziyeh",
+        "role": "Advisory Board Member"
+      },
+      "ar": {
+        "name": "John Balouziyeh",
+        "role": "عضو المجلس الاستشاري"
       }
     }
   ]

@@ -123,11 +123,16 @@ def render_header(chrome_lang, params):
         '          <small>{brand_l2}</small>\n'
         '        </span>\n'
         '      </a>\n'
+        '      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav-panel" aria-label="Menu">\n'
+        '        <span></span><span></span><span></span>\n'
+        '      </button>\n'
+        '      <a class="language-toggle" href="{toggle_href}" lang="{toggle_lang}" dir="{toggle_dir}">{toggle_label}</a>\n'
+        '      <div class="site-nav-panel" id="site-nav-panel">\n'
         '      <nav class="primary-nav" aria-label="Primary navigation">\n'
         '{nav_html}\n'
         '      </nav>\n'
-        '      <a class="language-toggle" href="{toggle_href}" lang="{toggle_lang}" dir="{toggle_dir}">{toggle_label}</a>\n'
         '      <a class="header-action" href="{cta_href}">{cta_label}</a>\n'
+        '      </div>\n'
         '    </header>\n'
     ).format(
         brand_href=brand['href'], brand_aria=brand['ariaLabel'], brand_mark=brand['mark'],
@@ -260,22 +265,29 @@ def render_advisory_list(lang):
     items = []
     for member in ADVISORY:
         data = member[lang]
+
+        bio_block = ''
+        if data.get('rosterShortBio'):
+            bio_block = (
+                '            <div class="advisor-bio">\n'
+                '              <p>{short}</p>\n'
+                '              <div class="advisor-extra" id="bio-{slug}">\n'
+                '                <p>{long}</p>\n'
+                '              </div>\n'
+                '              <button class="advisor-toggle" type="button" aria-expanded="false" aria-controls="bio-{slug}">{readfull}</button>\n'
+                '            </div>\n'.format(
+                    short=data['rosterShortBio'], slug=member['slug'],
+                    long=data.get('rosterLongBio', ''), readfull=labels['readFullBio']))
+
         items.append(
             '          <article class="advisor-profile">\n'
             '            <div>\n'
             '              <span>{role}</span>\n'
             '              <h3>{name}</h3>\n'
             '            </div>\n'
-            '            <div class="advisor-bio">\n'
-            '              <p>{short}</p>\n'
-            '              <div class="advisor-extra" id="bio-{slug}">\n'
-            '                <p>{long}</p>\n'
-            '              </div>\n'
-            '              <button class="advisor-toggle" type="button" aria-expanded="false" aria-controls="bio-{slug}">{readfull}</button>\n'
-            '            </div>\n'
+            '{bio}'
             '          </article>\n'.format(
-                role=data['role'], name=data['name'], short=data['rosterShortBio'],
-                slug=member['slug'], long=data['rosterLongBio'], readfull=labels['readFullBio']))
+                role=data['role'], name=data['name'], bio=bio_block))
     return (
         '        <div class="advisory-list">\n'
         + ''.join(items) +
