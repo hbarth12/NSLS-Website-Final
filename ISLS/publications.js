@@ -17,8 +17,6 @@
       prefixPath: function (value) { return value; },
       contentUrl: 'content/publications-bilingual.json',
       emptyCategory: 'No publications in this category yet.',
-      moreLink: 'Read the latest work from our researchers.',
-      arrow: '&rarr;',
     },
     ar: {
       field: 'ar',
@@ -33,8 +31,6 @@
       },
       contentUrl: '../content/publications-bilingual.json',
       emptyCategory: 'لا توجد منشورات في هذا التصنيف بعد.',
-      moreLink: 'اقرأ أحدث أعمال فريق الباحثين لدينا.',
-      arrow: '&larr;',
     },
   };
 
@@ -181,7 +177,6 @@
     visible.slice(1).forEach(function (item) {
       html += rowMarkup(item);
     });
-    html += '<a class="publications-more" href="contact.html#general">' + config.moreLink + ' <span>' + config.arrow + '</span></a>';
     output.innerHTML = html;
   }
 
