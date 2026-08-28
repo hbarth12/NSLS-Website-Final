@@ -216,7 +216,7 @@ window.NSLS_PUBLICATIONS_BILINGUAL = [
     "slug": "syria-bank-reform",
     "type": "commentary",
     "publicationFormat": "external",
-    "source": "NSLS",
+    "source": "Chatham House",
     "date": "2026-08-28",
     "featured": true,
     "external": false,
