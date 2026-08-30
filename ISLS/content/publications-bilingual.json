@@ -219,7 +219,7 @@
       "publicationFormat": "external",
       "source": "Chatham House",
       "date": "2026-08-28",
-      "featured": true,
+      "featured": false,
       "external": false,
       "image": "assets/uploads/syria-bank.jpeg",
       "url": "https://kalam.chathamhouse.org/can-syria-reform-its-banks-without-reproducing-elite-capture/",
@@ -229,6 +229,26 @@
         "author": "Haddon Barth",
         "pdfLabel": "Download PDF",
         "body": "Much of Syria’s reconstruction strategy has centred on attracting large-scale investment from Saudi Arabia, Qatar, the UAE and other international partners into energy, telecommunications, ports, airports and real estate. While these projects are important, they are unlikely on their own to generate broad-based economic recovery. That recovery also rests on improving livelihoods around the country: whether farmers can purchase equipment and small businesses can access working capital. In other words, the success of reconstruction may depend on who can get a loan. "
+      },
+      "ar": {
+        "pdfLabel": "تحميل PDF"
+      }
+    },
+    {
+      "slug": "composition-leadership-syria-assembly",
+      "type": "commentary",
+      "publicationFormat": "pdf",
+      "source": "NSLS",
+      "date": "2026-08-29",
+      "featured": true,
+      "external": false,
+      "image": "assets/uploads /mahmoud-downtown-web.jpg",
+      "en": {
+        "label": "Commentary",
+        "title": "Composition and Leadership of Syria’s 26 People’s Assembly Committees",
+        "pdf": "assets/uploads/Composition and Leadership of Syria’s 26 People’s Assembly Committees-1.pdf",
+        "pdfLabel": "Download PDF",
+        "body": "Decision 109/2026 announces the members of the Assembly to one or more of 26 permanent committees, and designates a chair, a vice chair and, in two cases, a rapporteur for each. It was issued by the Assembly’s Speaker Abdul Hamid Aqil al-Awak on August 27, on the basis of Article 30(1) and Article 22(8) of the internal bylaws adopted July 30, and followed five sittings of the parliamentary bureau between August 7 and 26. \n\nUnder the bylaws, the bureau, chaired by the Speaker, appoints committee leaderships and allocates members. The committees are empowered to request documents from ministries and public bodies, summon officials, conduct field visits, and refer findings of criminal, financial or administrative wrongdoing to judicial and oversight bodies."
       },
       "ar": {
         "pdfLabel": "تحميل PDF"
