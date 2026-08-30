@@ -180,7 +180,6 @@ LANGS = {
             'back_to_publications': 'Back to publications',
             'download_pdf': 'Download PDF',
             'read_time_label': 'Read time',
-            'file_size_label': 'File size',
             'report_fallback': 'Report',
             'recent_work_kicker': 'Recent Work',
             'other_recent_publications': 'Other Recent Publications',
@@ -232,7 +231,6 @@ LANGS = {
             'back_to_publications': 'العودة إلى المنشورات',
             'download_pdf': 'تحميل PDF',
             'read_time_label': 'مدة القراءة',
-            'file_size_label': 'حجم الملف',
             'report_fallback': 'تقرير',
             'recent_work_kicker': 'أحدث الأعمال',
             'other_recent_publications': 'منشورات حديثة أخرى',
@@ -320,12 +318,6 @@ def render_pdf_body(entry, items, lang, lang_conf):
     read_time = block.get('readTime') or ''
     pdf_actions = pdf_action_html(entry, lang, lang_conf, 'policy-paper-action-tile')
 
-    file_size = strings['report_fallback']
-    pdf_label = block.get('pdfLabel') or ''
-    if pdf_label:
-        file_size = re.sub(r'^(Download PDF|تحميل PDF)\s*', '', pdf_label)
-        file_size = re.sub(r'[()]', '', file_size).strip() or strings['report_fallback']
-
     return (
         '<nav class="publication-breadcrumb" aria-label="Breadcrumb">'
         '<a href="' + own_href('index.html', lang_conf) + '">' + escape_html(strings['breadcrumb_home']) + '</a><span>/</span>'
@@ -344,8 +336,6 @@ def render_pdf_body(entry, items, lang, lang_conf):
         + pdf_actions
         + '<div class="policy-paper-stat policy-paper-action-tile"><span>' + escape_html(strings['read_time_label']) + '</span><strong>'
         + escape_html(read_time or strings['report_fallback']) + '</strong></div>'
-        + '<div class="policy-paper-stat policy-paper-action-tile"><span>' + escape_html(strings['file_size_label']) + '</span><strong>'
-        + escape_html(file_size) + '</strong></div>'
         + '</div>'
         '</div>'
         '<aside class="publication-paper-preview policy-paper-cover" aria-label="Policy paper cover preview"><div><h2>'
