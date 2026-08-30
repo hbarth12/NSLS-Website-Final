@@ -115,6 +115,18 @@
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
+  <url>
+    <loc>https://www.nsls.network/publications/composition-leadership-syria-assembly/</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.nsls.network/ar/publications/composition-leadership-syria-assembly/</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
 <!-- END GENERATED PUBLICATIONS -->
   <url>
     <loc>https://www.nsls.network/our-team.html</loc>
