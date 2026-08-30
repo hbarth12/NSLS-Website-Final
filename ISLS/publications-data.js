@@ -241,7 +241,7 @@ window.NSLS_PUBLICATIONS_BILINGUAL = [
     "date": "2026-08-29",
     "featured": true,
     "external": false,
-    "image": "assets/uploads /mahmoud-downtown-web.jpg",
+    "image": "assets/uploads/mahmoud-downtown-web.jpg",
     "en": {
       "label": "Commentary",
       "title": "Composition and Leadership of Syria’s 26 People’s Assembly Committees",
@@ -250,6 +250,7 @@ window.NSLS_PUBLICATIONS_BILINGUAL = [
       "body": "Decision 109/2026 announces the members of the Assembly to one or more of 26 permanent committees, and designates a chair, a vice chair and, in two cases, a rapporteur for each. It was issued by the Assembly’s Speaker Abdul Hamid Aqil al-Awak on August 27, on the basis of Article 30(1) and Article 22(8) of the internal bylaws adopted July 30, and followed five sittings of the parliamentary bureau between August 7 and 26. \n\nUnder the bylaws, the bureau, chaired by the Speaker, appoints committee leaderships and allocates members. The committees are empowered to request documents from ministries and public bodies, summon officials, conduct field visits, and refer findings of criminal, financial or administrative wrongdoing to judicial and oversight bodies."
     },
     "ar": {
+      "readTime": "5",
       "pdfLabel": "تحميل PDF"
     }
   }
