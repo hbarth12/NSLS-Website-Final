@@ -239,7 +239,7 @@ window.NSLS_PUBLICATIONS_BILINGUAL = [
     "publicationFormat": "pdf",
     "source": "NSLS",
     "date": "2026-08-29",
-    "featured": true,
+    "featured": false,
     "external": false,
     "image": "assets/uploads/mahmoud-downtown-web.jpg",
     "en": {
@@ -252,6 +252,28 @@ window.NSLS_PUBLICATIONS_BILINGUAL = [
     },
     "ar": {
       "readTime": "5",
+      "pdfLabel": "تحميل PDF"
+    }
+  },
+  {
+    "slug": "power-within-syrian-legislature",
+    "type": "memo",
+    "publicationFormat": "pdf",
+    "source": "NSLS",
+    "date": "2026-08-31",
+    "featured": true,
+    "external": false,
+    "image": "assets/uploads/Downtown-Damascus-C.jpg",
+    "en": {
+      "label": "Memo",
+      "title": "Relative Power Within Syrian Legislature: The Speaker, The Bureau, and Limitations on Members’ Voices",
+      "author": "Sanjana Kumar",
+      "readTime": "11 min",
+      "pdf": "assets/uploads/Final Sani Memo.pdf",
+      "pdfLabel": "Download PDF",
+      "body": "Syria’s Constitutional Declaration may\ndefine the authority of the People’s\nAssembly in relation to the state, but\nthe distribution of power within the\nlegislature will be determined by\nParliament’s newly adopted internal\nregulations. In shaping the relationship\nbetween individual members and\nParliamentary leadership, the bylaws\nwill either preserve members’ capacity\nto act independently or render initiative\ncontingent on the discretion of internal\nleadership.\n\nThe Internal Regulations have thus far\nprompted concerns that too much of that\nauthority is concentrated in the Speaker.\nWhile these concerns are not unwarranted,\nthe distribution of power appears to\nbe more complicated. The new rules\nappear to reduce the Speaker’s unilateral\nauthority by transferring important\npowers to the Bureau, such as approval of\nthe plenary agenda and appointment of\ncommittee leadership. At the same time,\nindividuals and coalitions of MPs receive\nbroad capacity to initiate legislation, but\nleadership have no obligation to carry out\nthe subsequent proceedings. The likely\nresult, therefore, may be relatively less\nunilateral control by the Speaker, but\neffectively equivalent concentration of\npractical authority in the Bureau rather\nthan the wider membership.\n\nThe Assembly adopted the 231-article\ntext on July 30th after revising provisions\nof the Internal Regulations across five\ndays of debate. The draft from which this\nmemorandum is composed preserves\nalternative formulations of this text\ndebated during the final legislative\nsession, providing a point of comparison\nand offering insight into points of\ncontention within the Assembly. As the\nadopted Internal Regulations have not yet\nbeen made publicly accessible, the draft\nis treated as evidence of the proposed\ndesign and follows later reporting\nwhenever divergences from the draft are\nexpressly identified."
+    },
+    "ar": {
       "pdfLabel": "تحميل PDF"
     }
   }
