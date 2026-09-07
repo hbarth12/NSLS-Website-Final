@@ -15,7 +15,6 @@
         return day ? (monthName + ' ' + day + ', ' + year) : (monthName + ' ' + year);
       },
       prefixPath: function (value) { return value; },
-      contentUrl: 'content/publications-bilingual.json',
       emptyCategory: 'No publications in this category yet.',
     },
     ar: {
@@ -29,7 +28,6 @@
         if (value.indexOf('../') === 0 || value.indexOf('/') === 0) return value;
         return '../' + value;
       },
-      contentUrl: '../content/publications-bilingual.json',
       emptyCategory: 'لا توجد منشورات في هذا التصنيف بعد.',
     },
   };
@@ -192,11 +190,6 @@
     return active ? active.getAttribute('data-publication-filter') : filterFromHash();
   }
 
-  function normalizeData(data) {
-    var raw = data && Array.isArray(data.publications) ? data.publications : fallbackPublications;
-    return raw.map(flattenItem);
-  }
-
   tabs.forEach(function (tab) {
     tab.addEventListener('click', function () {
       var filter = tab.getAttribute('data-publication-filter') || 'all';
@@ -210,18 +203,4 @@
   });
 
   render(filterFromHash());
-
-  fetch(config.contentUrl, { cache: 'no-cache' })
-    .then(function (response) {
-      if (!response.ok) throw new Error('Publication data unavailable');
-      return response.json();
-    })
-    .then(function (data) {
-      publications = normalizeData(data);
-      render(currentFilter());
-    })
-    .catch(function () {
-      publications = fallbackPublications.map(flattenItem);
-      render(currentFilter());
-    });
 })();
