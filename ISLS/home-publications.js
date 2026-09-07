@@ -13,7 +13,6 @@
         return day ? (monthName + ' ' + day + ', ' + year) : (monthName + ' ' + year);
       },
       prefixPath: function (value) { return value; },
-      contentUrl: 'content/publications-bilingual.json',
       topicSeparator: ', ',
       moreLink: 'Read the latest work from our team.',
       arrow: '&rarr;',
@@ -37,7 +36,6 @@
         if (value.indexOf('../') === 0 || value.indexOf('/') === 0) return value;
         return '../' + value;
       },
-      contentUrl: '../content/publications-bilingual.json',
       topicSeparator: '، ',
       moreLink: 'اقرأ أحدث أعمال فريق الباحثين لدينا.',
       arrow: '&larr;',
@@ -161,12 +159,4 @@
   }
 
   render(normalizeData({ publications: fallbackPublications }));
-
-  fetch(config.contentUrl, { cache: 'no-cache' })
-    .then(function (response) {
-      if (!response.ok) throw new Error('Publication data unavailable');
-      return response.json();
-    })
-    .then(function (data) { render(normalizeData(data)); })
-    .catch(function () { render(normalizeData({ publications: fallbackPublications })); });
 })();
