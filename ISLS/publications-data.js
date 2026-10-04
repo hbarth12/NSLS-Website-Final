@@ -235,6 +235,10 @@ window.NSLS_PUBLICATIONS_BILINGUAL = [
       "body": "Much of Syria’s reconstruction strategy has centred on attracting large-scale investment from Saudi Arabia, Qatar, the UAE and other international partners into energy, telecommunications, ports, airports and real estate. While these projects are important, they are unlikely on their own to generate broad-based economic recovery. That recovery also rests on improving livelihoods around the country: whether farmers can purchase equipment and small businesses can access working capital. In other words, the success of reconstruction may depend on who can get a loan. "
     },
     "ar": {
+      "label": "تعليق",
+      "title": "هل تستطيع سوريا إصلاح مصارفها من دون إعادة إنتاج هيمنة النخب؟",
+      "description": "تركّز جانب كبير من استراتيجية إعادة الإعمار في سوريا على استقطاب استثمارات ضخمة من السعودية وقطر والإمارات وغيرها من الشركاء الدوليين، ولا سيما في قطاعات الطاقة والاتصالات والموانئ والمطارات والعقارات. وعلى أهمية هذه المشاريع، فمن غير المرجح أن تكون كافية، بمفردها، لإطلاق تعافٍ اقتصادي واسع النطاق. فالتعافي يتوقف أيضاً على تحسين سبل العيش في مختلف أنحاء البلاد: هل سيتمكن المزارعون من شراء المعدات التي يحتاجون إليها؟ وهل ستتمكن الشركات الصغيرة من الحصول على رأس المال العامل؟ بعبارة أخرى، قد يتوقف نجاح إعادة الإعمار إلى حد بعيد على سؤال بسيط وحاسم: من يستطيع الحصول على قرض؟",
+      "author": "هادون بارث",
       "pdfLabel": "تحميل PDF"
     }
   },
