@@ -240,6 +240,7 @@ LANGS = {
         'html_lang': 'en',
         'html_dir': 'ltr',
         'topic_separator': ', ',
+        'meta_dir': 'auto',
         'body_extra_class': '',
         'own_prefix': '../../',
         'true_prefix': '../../',
@@ -289,6 +290,7 @@ LANGS = {
         'html_lang': 'ar',
         'html_dir': 'rtl',
         'topic_separator': '، ',
+        'meta_dir': 'rtl',
         'body_extra_class': ' arabic-page',
         'own_prefix': '../../',
         'true_prefix': '../../../',
@@ -396,7 +398,7 @@ def recent_card(item, lang, lang_conf):
         '<span class="publication-pill">'
         + escape_html(type_label(item, lang, strings['publication_fallback'])) + '</span>'
         '<h3 dir="auto">' + escape_html(block.get('title')) + '</h3>'
-        '<p dir="auto">' + meta + '</p>'
+        '<p dir="' + lang_conf['meta_dir'] + '">' + meta + '</p>'
         '</a>'
     )
 
