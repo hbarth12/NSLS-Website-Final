@@ -17,6 +17,7 @@
       prefixPath: function (value) { return value; },
       emptyCategory: 'No publications in this category yet.',
       topicSeparator: ', ',
+      metaDir: 'auto',
       fallbackLabel: 'Publication',
       typeLabels: {
         'policy-paper': 'Policy Paper',
@@ -39,6 +40,7 @@
       },
       emptyCategory: 'لا توجد منشورات في هذا التصنيف بعد.',
       topicSeparator: '، ',
+      metaDir: 'rtl',
       fallbackLabel: 'منشور',
       typeLabels: {
         'policy-paper': 'ورقة سياسات',
@@ -140,7 +142,7 @@
         '<span class="publication-pill" dir="auto">' + escapeHtml(displayLabel(item)) + '</span>' +
         '<h2 dir="auto"><a href="' + escapeHtml(publicationUrl(item)) + '"' + linkAttrs(item) + '>' + escapeHtml(item.title) + '</a></h2>' +
         '<p dir="auto">' + escapeHtml(item.description) + '</p>' +
-        '<p class="publication-meta" dir="auto">' + metaLine(item) + ' <span>&middot;</span> ' + topicLinks(item) + '</p>' +
+        '<p class="publication-meta" dir="' + config.metaDir + '">' + metaLine(item) + ' <span>&middot;</span> ' + topicLinks(item) + '</p>' +
       '</div>' +
     '</article>';
   }
@@ -154,7 +156,7 @@
         '<p dir="auto">' + escapeHtml(item.description) + '</p>' +
       '</div>' +
       '<div class="publication-row-meta">' +
-        '<p dir="auto">' + metaLine(item) + '</p>' +
+        '<p dir="' + config.metaDir + '">' + metaLine(item) + '</p>' +
         '<p dir="auto">' + topicLinks(item) + '</p>' +
       '</div>' +
     '</article>';

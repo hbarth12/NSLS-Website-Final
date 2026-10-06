@@ -14,6 +14,7 @@
       },
       prefixPath: function (value) { return value; },
       topicSeparator: ', ',
+      metaDir: 'auto',
       moreLink: 'Read the latest work from our team.',
       arrow: '&rarr;',
       fallbackLabel: 'Publication',
@@ -37,6 +38,7 @@
         return '../' + value;
       },
       topicSeparator: '، ',
+      metaDir: 'rtl',
       moreLink: 'اقرأ أحدث أعمال فريق الباحثين لدينا.',
       arrow: '&larr;',
       fallbackLabel: 'منشور',
@@ -134,7 +136,7 @@
       '<div>' +
         '<span dir="auto">' + escapeHtml(item.label || config.typeLabels[item.type] || item.type || config.fallbackLabel) + '</span>' +
         '<h3 dir="auto">' + escapeHtml(item.title) + '</h3>' +
-        '<p dir="auto">' + metaLine(item) + '</p>' +
+        '<p dir="' + config.metaDir + '">' + metaLine(item) + '</p>' +
         (index === 0 && item.description ? '<small dir="auto">' + escapeHtml(item.description) + '</small>' : '') +
       '</div>' +
     '</a>';

@@ -12736,19 +12736,17 @@ p {
   transform: none;
 }
 
-/* Arabic publications page uses English publication entries, so keep those cards LTR and left-aligned. */
+/* Arabic publications page: mirror the English cards. In an RTL grid the
+   first column sits on the right, so the image leads from the right and the
+   copy and meta follow leftward; column widths below are unchanged. */
 .arabic-page.publications-page .publication-feature-card,
 .arabic-page.publications-page .publication-row,
 .arabic-page.publications-page .publication-feature-copy,
 .arabic-page.publications-page .publication-row-copy,
 .arabic-page.publications-page .publication-row-meta,
 .arabic-page.publications-page .publications-more {
-  direction: ltr;
-  text-align: left;
-}
-
-.arabic-page.publications-page .publication-feature-card {
-  grid-template-columns: minmax(0, 1fr) minmax(340px, 0.82fr);
+  direction: rtl;
+  text-align: right;
 }
 
 .arabic-page.publications-page .publication-feature-image {
@@ -13525,16 +13523,11 @@ p {
   opacity: 0.78;
 }
 
-/* The Arabic publications index still lists entries from the shared feed,
-   so those rows stay left-to-right. Arabic publication pages themselves are
-   Arabic content: they follow the page's RTL direction. The generator also
-   writes dir="rtl" onto the <article>, so the direction no longer depends on
-   this stylesheet loading. */
-.arabic-page.publications-page .publications-list {
-  direction: ltr;
-  text-align: left;
-}
-
+/* Arabic publications index and publication pages are Arabic content: they
+   follow the page's RTL direction. The generator also writes dir="rtl" onto
+   the <article>, so the direction no longer depends on this stylesheet
+   loading. */
+.arabic-page.publications-page .publications-list,
 .arabic-page.publication-detail-page .publication-detail {
   direction: rtl;
   text-align: right;
