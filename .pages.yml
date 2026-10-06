@@ -151,7 +151,15 @@ content:
                 label: Display Label
                 type: select
                 options:
-                  values: ["مذكرة", "تعليق", "ورقة سياسات", "مذكرة مؤسسية"]
+                  values:
+                    - name: "مذكرة"
+                      label: "مذكرة (Memo)"
+                    - name: "تعليق"
+                      label: "تعليق (Commentary)"
+                    - name: "ورقة سياسات"
+                      label: "ورقة سياسات (Policy Paper)"
+                    - name: "مذكرة مؤسسية"
+                      label: "مذكرة مؤسسية (Institutional Note)"
               - name: title
                 label: Title
                 type: string
