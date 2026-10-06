@@ -16,6 +16,15 @@
       },
       prefixPath: function (value) { return value; },
       emptyCategory: 'No publications in this category yet.',
+      topicSeparator: ', ',
+      fallbackLabel: 'Publication',
+      typeLabels: {
+        'policy-paper': 'Policy Paper',
+        memo: 'Memo',
+        commentary: 'Commentary',
+        analysis: 'Analysis',
+        'institutional-note': 'Institutional Note',
+      },
     },
     ar: {
       field: 'ar',
@@ -29,6 +38,15 @@
         return '../' + value;
       },
       emptyCategory: 'لا توجد منشورات في هذا التصنيف بعد.',
+      topicSeparator: '، ',
+      fallbackLabel: 'منشور',
+      typeLabels: {
+        'policy-paper': 'ورقة سياسات',
+        memo: 'مذكرة',
+        commentary: 'تعليق',
+        analysis: 'تحليل',
+        'institutional-note': 'مذكرة مؤسسية',
+      },
     },
   };
 
@@ -51,6 +69,10 @@
     var day = parts[2] ? parseInt(parts[2], 10) : null;
     var monthName = config.months[month - 1];
     return config.formatDate(monthName, day, year);
+  }
+
+  function displayLabel(item) {
+    return item.label || config.typeLabels[item.type] || config.fallbackLabel;
   }
 
   function flattenItem(item) {
@@ -83,11 +105,13 @@
   function topicLinks(item) {
     return (item.topics || []).map(function (topic) {
       return '<a href="#publication-list">' + escapeHtml(topic) + '</a>';
-    }).join(', ');
+    }).join(config.topicSeparator);
   }
 
   function metaLine(item) {
-    var parts = [item.source, item.date].filter(Boolean).map(escapeHtml);
+    var parts = [item.source, item.date].filter(Boolean).map(function (value) {
+      return '<bdi>' + escapeHtml(value) + '</bdi>';
+    });
     return parts.join(' <span>&middot;</span> ');
   }
 
@@ -113,10 +137,10 @@
     return '<article class="publication-feature-card">' +
       imageMarkup(item, 'publication-feature-image') +
       '<div class="publication-feature-copy">' +
-        '<span class="publication-pill">' + escapeHtml(item.label) + '</span>' +
-        '<h2><a href="' + escapeHtml(publicationUrl(item)) + '"' + linkAttrs(item) + '>' + escapeHtml(item.title) + '</a></h2>' +
-        '<p>' + escapeHtml(item.description) + '</p>' +
-        '<p class="publication-meta">' + metaLine(item) + ' <span>&middot;</span> ' + topicLinks(item) + '</p>' +
+        '<span class="publication-pill" dir="auto">' + escapeHtml(displayLabel(item)) + '</span>' +
+        '<h2 dir="auto"><a href="' + escapeHtml(publicationUrl(item)) + '"' + linkAttrs(item) + '>' + escapeHtml(item.title) + '</a></h2>' +
+        '<p dir="auto">' + escapeHtml(item.description) + '</p>' +
+        '<p class="publication-meta" dir="auto">' + metaLine(item) + ' <span>&middot;</span> ' + topicLinks(item) + '</p>' +
       '</div>' +
     '</article>';
   }
@@ -125,13 +149,13 @@
     return '<article class="publication-row">' +
       imageMarkup(item, 'publication-thumb') +
       '<div class="publication-row-copy">' +
-        '<span class="publication-pill">' + escapeHtml(item.label) + '</span>' +
-        '<h2><a href="' + escapeHtml(publicationUrl(item)) + '"' + linkAttrs(item) + '>' + escapeHtml(item.title) + '</a></h2>' +
-        '<p>' + escapeHtml(item.description) + '</p>' +
+        '<span class="publication-pill" dir="auto">' + escapeHtml(displayLabel(item)) + '</span>' +
+        '<h2 dir="auto"><a href="' + escapeHtml(publicationUrl(item)) + '"' + linkAttrs(item) + '>' + escapeHtml(item.title) + '</a></h2>' +
+        '<p dir="auto">' + escapeHtml(item.description) + '</p>' +
       '</div>' +
       '<div class="publication-row-meta">' +
-        '<p>' + metaLine(item) + '</p>' +
-        '<p>' + topicLinks(item) + '</p>' +
+        '<p dir="auto">' + metaLine(item) + '</p>' +
+        '<p dir="auto">' + topicLinks(item) + '</p>' +
       '</div>' +
     '</article>';
   }

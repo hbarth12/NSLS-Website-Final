@@ -112,7 +112,9 @@
   }
 
   function metaLine(item) {
-    return [item.source, item.date, topicSummary(item)].filter(Boolean).map(escapeHtml).join(' &middot; ');
+    return [item.source, item.date, topicSummary(item)].filter(Boolean).map(function (value) {
+      return '<bdi>' + escapeHtml(value) + '</bdi>';
+    }).join(' &middot; ');
   }
 
   function visualMarkup(item) {
@@ -130,10 +132,10 @@
     return '<a class="analysis-list-item' + extra + '" href="' + escapeHtml(publicationUrl(item)) + '">' +
       visualMarkup(item) +
       '<div>' +
-        '<span>' + escapeHtml(item.label || config.typeLabels[item.type] || item.type || config.fallbackLabel) + '</span>' +
-        '<h3>' + escapeHtml(item.title) + '</h3>' +
-        '<p>' + metaLine(item) + '</p>' +
-        (index === 0 && item.description ? '<small>' + escapeHtml(item.description) + '</small>' : '') +
+        '<span dir="auto">' + escapeHtml(item.label || config.typeLabels[item.type] || item.type || config.fallbackLabel) + '</span>' +
+        '<h3 dir="auto">' + escapeHtml(item.title) + '</h3>' +
+        '<p dir="auto">' + metaLine(item) + '</p>' +
+        (index === 0 && item.description ? '<small dir="auto">' + escapeHtml(item.description) + '</small>' : '') +
       '</div>' +
     '</a>';
   }
