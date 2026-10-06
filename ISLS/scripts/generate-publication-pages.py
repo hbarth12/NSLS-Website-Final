@@ -49,6 +49,27 @@ MONTHS_AR = [
     'تموز', 'آب', 'أيلول', 'تشرين الأول', 'تشرين الثاني', 'كانون الأول',
 ]
 
+# Arabic/English display label for each stored `type` value. Mirrors the
+# typeLabels maps in home-publications.js so a publication whose
+# per-language `label` is empty still shows a translated pill instead of
+# falling through to the raw stored value ("commentary").
+TYPE_LABELS = {
+    'en': {
+        'policy-paper': 'Policy Paper',
+        'memo': 'Memo',
+        'commentary': 'Commentary',
+        'analysis': 'Analysis',
+        'institutional-note': 'Institutional Note',
+    },
+    'ar': {
+        'policy-paper': 'ورقة سياسات',
+        'memo': 'مذكرة',
+        'commentary': 'تعليق',
+        'analysis': 'تحليل',
+        'institutional-note': 'مذكرة مؤسسية',
+    },
+}
+
 
 # ---------------------------------------------------------------------------
 # Text helpers (ported 1:1 from the old publication-detail.js)
@@ -61,6 +82,17 @@ def escape_html(value):
             .replace('>', '&gt;')
             .replace('"', '&quot;')
             .replace("'", '&#039;'))
+
+
+def bdi(value):
+    """Isolates an interpolated value from its surroundings for the Unicode
+    bidi algorithm. Needed wherever a run of unknown direction (a Latin
+    source name like "NSLS", a numeral, a topic) sits next to neutral
+    characters such as the " \u00b7 " separators in a meta line: in an RTL
+    paragraph those neutrals otherwise take the paragraph's direction and
+    the separators visually detach from the value they belong to."""
+    text = escape_html(value)
+    return ('<bdi>' + text + '</bdi>') if text else ''
 
 
 LINK_RE = re.compile(r'\[([^\]]+)\]\((https?://[^\s)]+)\)')
@@ -94,22 +126,69 @@ def inline_markdown(value):
     return text
 
 
+BULLET_RE = re.compile(r'^\s*[-*+]\s+')
+ORDERED_RE = re.compile(r'^\s*\d+[.)]\s+')
+QUOTE_RE = re.compile(r'^\s*>\s?')
+
+# Every block-level element the body renderer emits carries dir="auto", so
+# each paragraph, list item, heading and quote takes its base direction from
+# its own first strong character rather than from the page. An Arabic
+# paragraph therefore renders RTL (with Latin names, numerals and
+# percentages inside it kept in logical order by the bidi algorithm), while
+# a genuinely English paragraph inside an Arabic article still renders LTR
+# instead of having its punctuation pushed to the wrong end.
+BLOCK_DIR = ' dir="auto"'
+
+
+def _items(lines, marker_re):
+    """Splits list lines into items, folding an unmarked line into the
+    previous item (lazy continuation) the way Markdown does."""
+    items = []
+    for line in lines:
+        if marker_re.match(line):
+            items.append(marker_re.sub('', line, count=1).strip())
+        elif items:
+            items[-1] = items[-1] + ' ' + line.strip()
+        elif line.strip():
+            items.append(line.strip())
+    return [i for i in items if i]
+
+
+def _paragraph(text):
+    return '<p' + BLOCK_DIR + '>' + inline_markdown(text).replace('\n', '<br>') + '</p>'
+
+
 def markdown_to_html(value):
     raw_blocks = re.split(r'\n{2,}', str(value or '').strip())
-    blocks = [b for b in raw_blocks if b != '']
+    blocks = [b for b in raw_blocks if b.strip() != '']
     if not blocks:
         return ''
     parts = []
     for block in blocks:
         text = block.strip()
+        lines = [l for l in text.split('\n') if l.strip() != '']
         if re.match(r'^###\s+', text):
-            parts.append('<h3>' + inline_markdown(re.sub(r'^###\s+', '', text)) + '</h3>')
+            parts.append('<h3' + BLOCK_DIR + '>' + inline_markdown(re.sub(r'^###\s+', '', text)) + '</h3>')
         elif re.match(r'^##\s+', text):
-            parts.append('<h2>' + inline_markdown(re.sub(r'^##\s+', '', text)) + '</h2>')
+            parts.append('<h2' + BLOCK_DIR + '>' + inline_markdown(re.sub(r'^##\s+', '', text)) + '</h2>')
         elif re.match(r'^#\s+', text):
-            parts.append('<h2>' + inline_markdown(re.sub(r'^#\s+', '', text)) + '</h2>')
+            parts.append('<h2' + BLOCK_DIR + '>' + inline_markdown(re.sub(r'^#\s+', '', text)) + '</h2>')
+        elif BULLET_RE.match(lines[0]):
+            items = _items(lines, BULLET_RE)
+            parts.append('<ul>' + ''.join(
+                '<li' + BLOCK_DIR + '>' + inline_markdown(i) + '</li>' for i in items) + '</ul>')
+        elif ORDERED_RE.match(lines[0]):
+            items = _items(lines, ORDERED_RE)
+            parts.append('<ol>' + ''.join(
+                '<li' + BLOCK_DIR + '>' + inline_markdown(i) + '</li>' for i in items) + '</ol>')
+        elif QUOTE_RE.match(lines[0]):
+            # Strip the markers before inline_markdown, which escapes "&gt;".
+            inner = '\n'.join(QUOTE_RE.sub('', l) for l in lines).strip()
+            paras = [p.strip() for p in re.split(r'\n{2,}', inner) if p.strip()]
+            parts.append('<blockquote' + BLOCK_DIR + '>'
+                         + ''.join(_paragraph(p) for p in paras) + '</blockquote>')
         else:
-            parts.append('<p>' + inline_markdown(text).replace('\n', '<br>') + '</p>')
+            parts.append(_paragraph(text))
     return ''.join(parts)
 
 
@@ -125,6 +204,16 @@ def format_date(iso_date, lang):
         return (str(day) + ' ' + month_name + ' ' + str(year)) if day else (month_name + ' ' + str(year))
     month_name = MONTHS_EN[month - 1]
     return (month_name + ' ' + str(day) + ', ' + str(year)) if day else (month_name + ' ' + str(year))
+
+
+def type_label(entry, lang, fallback):
+    """Display label for a publication's pill: the per-language `label` if
+    the editor set one, else the translated name for the stored `type`, else
+    the supplied fallback. The stored `type` value itself is never shown."""
+    block = entry.get(lang, {}) or {}
+    return (block.get('label')
+            or TYPE_LABELS.get(lang, {}).get(entry.get('type'))
+            or fallback)
 
 
 def pub_format(entry):
@@ -150,6 +239,7 @@ LANGS = {
         'url_path': '',
         'html_lang': 'en',
         'html_dir': 'ltr',
+        'topic_separator': ', ',
         'body_extra_class': '',
         'own_prefix': '../../',
         'true_prefix': '../../',
@@ -198,6 +288,7 @@ LANGS = {
         'url_path': 'ar/',
         'html_lang': 'ar',
         'html_dir': 'rtl',
+        'topic_separator': '، ',
         'body_extra_class': ' arabic-page',
         'own_prefix': '../../',
         'true_prefix': '../../../',
@@ -286,9 +377,9 @@ def pdf_action_html(entry, lang, lang_conf, tile_class):
 # Body rendering (mirrors the old publication-detail.js render()/renderPdf())
 # ---------------------------------------------------------------------------
 
-def topic_line(entry, lang):
-    parts = [escape_html(t) for t in (entry.get(lang, {}).get('topics') or []) if t]
-    return ', '.join(parts)
+def topic_line(entry, lang, lang_conf):
+    parts = [bdi(t) for t in (entry.get(lang, {}).get('topics') or []) if t]
+    return lang_conf['topic_separator'].join(parts)
 
 
 def recent_items(current, items):
@@ -299,12 +390,13 @@ def recent_card(item, lang, lang_conf):
     strings = lang_conf['strings']
     block = item.get(lang, {})
     href = '../' + item['slug'] + '/'
-    meta = ' · '.join(p for p in [item.get('source'), format_date(item.get('date'), lang)] if p)
+    meta = ' · '.join(bdi(p) for p in [item.get('source'), format_date(item.get('date'), lang)] if p)
     return (
         '<a class="publication-recent-card" href="' + escape_html(href) + '">'
-        '<span class="publication-pill">' + escape_html(block.get('label') or item.get('type') or strings['publication_fallback']) + '</span>'
-        '<h3>' + escape_html(block.get('title')) + '</h3>'
-        '<p>' + escape_html(meta) + '</p>'
+        '<span class="publication-pill">'
+        + escape_html(type_label(item, lang, strings['publication_fallback'])) + '</span>'
+        '<h3 dir="auto">' + escape_html(block.get('title')) + '</h3>'
+        '<p dir="auto">' + meta + '</p>'
         '</a>'
     )
 
@@ -326,11 +418,12 @@ def render_pdf_body(entry, items, lang, lang_conf):
         '</nav>'
         '<section class="policy-paper-hero">'
         '<div class="policy-paper-copy">'
-        '<span class="publication-pill policy-paper-pill">' + escape_html(block.get('label') or strings['format_pdf']) + '</span>'
-        '<h1>' + escape_html(block.get('title')) + '</h1>'
+        '<span class="publication-pill policy-paper-pill">'
+        + escape_html(type_label(entry, lang, strings['format_pdf'])) + '</span>'
+        '<h1 dir="auto">' + escape_html(block.get('title')) + '</h1>'
         '<div class="policy-paper-rule" aria-hidden="true"></div>'
-        '<p class="policy-paper-meta"><span>' + escape_html(block.get('author') or '') + '</span>'
-        '<span>' + escape_html(format_date(entry.get('date'), lang)) + '</span></p>'
+        '<p class="policy-paper-meta"><span>' + bdi(block.get('author') or '') + '</span>'
+        '<span>' + bdi(format_date(entry.get('date'), lang)) + '</span></p>'
         '<div class="policy-paper-summary">' + article + '</div>'
         '<div class="policy-paper-actions policy-paper-actions-final">'
         + pdf_actions
@@ -338,9 +431,9 @@ def render_pdf_body(entry, items, lang, lang_conf):
         + escape_html(read_time or strings['report_fallback']) + '</strong></div>'
         + '</div>'
         '</div>'
-        '<aside class="publication-paper-preview policy-paper-cover" aria-label="Policy paper cover preview"><div><h2>'
-        + escape_html(block.get('title')) + '</h2><p>' + escape_html(block.get('author') or '') + '</p><hr><strong>'
-        + escape_html(block.get('label') or strings['format_pdf']) + '</strong><span>' + escape_html(format_date(entry.get('date'), lang))
+        '<aside class="publication-paper-preview policy-paper-cover" aria-label="Policy paper cover preview"><div><h2 dir="auto">'
+        + escape_html(block.get('title')) + '</h2><p dir="auto">' + bdi(block.get('author') or '') + '</p><hr><strong>'
+        + escape_html(type_label(entry, lang, strings['format_pdf'])) + '</strong><span>' + bdi(format_date(entry.get('date'), lang))
         + '</span><em>NSLS</em></div></aside>'
         '</section>'
         '<section class="other-publications" aria-labelledby="other-publications-title">'
@@ -360,10 +453,10 @@ def render_body(entry, items, lang, lang_conf):
     body = block.get('body') or ''
 
     meta_parts = [
-        format_date(entry.get('date'), lang), block.get('author'), block.get('readTime'),
-        entry.get('source'), topic_line(entry, lang),
+        bdi(format_date(entry.get('date'), lang)), bdi(block.get('author')), bdi(block.get('readTime')),
+        bdi(entry.get('source')), topic_line(entry, lang, lang_conf),
     ]
-    meta_items = ' <span>&middot;</span> '.join(escape_html(p) for p in meta_parts if p)
+    meta_items = ' <span>&middot;</span> '.join(p for p in meta_parts if p)
 
     image_html = ''
     if entry.get('image'):
@@ -385,14 +478,14 @@ def render_body(entry, items, lang, lang_conf):
             + escape_html(entry.get('source') or 'source') + '</a></p>'
         )
 
-    article = markdown_to_html(body) if body else '<p>' + escape_html(block.get('description') or '') + '</p>'
+    article = markdown_to_html(body) if body else '<p dir="auto">' + escape_html(block.get('description') or '') + '</p>'
 
     paper_preview = ''
     if fmt == 'pdf':
         paper_preview = (
-            '<aside class="publication-paper-preview" aria-label="Policy paper cover preview"><div><h2>'
-            + escape_html(block.get('title')) + '</h2><p>' + escape_html(block.get('author') or '') + '</p><hr><strong>'
-            + escape_html(block.get('label') or strings['format_pdf']) + '</strong><span>' + escape_html(format_date(entry.get('date'), lang))
+            '<aside class="publication-paper-preview" aria-label="Policy paper cover preview"><div><h2 dir="auto">'
+            + escape_html(block.get('title')) + '</h2><p dir="auto">' + bdi(block.get('author') or '') + '</p><hr><strong>'
+            + escape_html(type_label(entry, lang, strings['format_pdf'])) + '</strong><span>' + bdi(format_date(entry.get('date'), lang))
             + '</span><em>NSLS</em></div></aside>'
         )
 
@@ -402,9 +495,9 @@ def render_body(entry, items, lang, lang_conf):
         '<header class="publication-detail-hero">'
         '<a class="publication-back" href="' + own_href('publications.html', lang_conf) + '">' + escape_html(strings['back_to_publications']) + '</a>'
         '<span class="publication-pill publication-detail-label">'
-        + escape_html(block.get('label') or entry.get('type') or strings['publication_fallback']) + '</span>'
-        '<h1>' + escape_html(block.get('title')) + '</h1>'
-        '<p class="publication-detail-deck">' + escape_html(block.get('description') or '') + '</p>'
+        + escape_html(type_label(entry, lang, strings['publication_fallback'])) + '</span>'
+        '<h1 dir="auto">' + escape_html(block.get('title')) + '</h1>'
+        '<p class="publication-detail-deck" dir="auto">' + escape_html(block.get('description') or '') + '</p>'
         '<p class="publication-meta">' + meta_items + '</p>'
         '</header>'
         + image_html +
@@ -482,7 +575,7 @@ PAGE_TEMPLATE = """<!doctype html>
     </script>
 
     <main id="top">
-      <article class="publication-detail" data-publication-detail>
+      <article class="publication-detail" data-publication-detail lang="{html_lang}" dir="{html_dir}">
         {content}
       </article>
     </main>

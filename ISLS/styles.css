@@ -12953,6 +12953,31 @@ p {
   text-underline-offset: 0.16em;
 }
 
+.publication-detail-body ul,
+.publication-detail-body ol {
+  margin: 1.4rem 0;
+  padding-inline-start: 1.6rem;
+}
+
+.publication-detail-body li {
+  margin-bottom: 0.45rem;
+}
+
+.publication-detail-body li::marker {
+  color: var(--teal);
+}
+
+.publication-detail-body blockquote {
+  margin: 1.9rem 0;
+  padding-inline-start: 1.25rem;
+  border-inline-start: 3px solid var(--teal);
+  color: var(--ink);
+}
+
+.publication-detail-body blockquote p:last-child {
+  margin-bottom: 0;
+}
+
 .publication-detail-aside {
   position: sticky;
   top: 120px;
@@ -13500,11 +13525,19 @@ p {
   opacity: 0.78;
 }
 
-/* Arabic publication pages display English publication records left-to-right. */
-.arabic-page.publications-page .publications-list,
-.arabic-page.publication-detail-page .publication-detail {
+/* The Arabic publications index still lists entries from the shared feed,
+   so those rows stay left-to-right. Arabic publication pages themselves are
+   Arabic content: they follow the page's RTL direction. The generator also
+   writes dir="rtl" onto the <article>, so the direction no longer depends on
+   this stylesheet loading. */
+.arabic-page.publications-page .publications-list {
   direction: ltr;
   text-align: left;
+}
+
+.arabic-page.publication-detail-page .publication-detail {
+  direction: rtl;
+  text-align: right;
 }
 
 .arabic-page.publications-page .publications-hero,
