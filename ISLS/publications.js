@@ -17,6 +17,7 @@
       prefixPath: function (value) { return value; },
       emptyCategory: 'No publications in this category yet.',
       topicSeparator: ', ',
+      metaDir: 'auto',
       fallbackLabel: 'Publication',
       typeLabels: {
         'policy-paper': 'Policy Paper',
@@ -39,6 +40,7 @@
       },
       emptyCategory: 'لا توجد منشورات في هذا التصنيف بعد.',
       topicSeparator: '، ',
+      metaDir: 'rtl',
       fallbackLabel: 'منشور',
       typeLabels: {
         'policy-paper': 'ورقة سياسات',
@@ -134,13 +136,14 @@
   }
 
   function featureMarkup(item) {
+    var topics = topicLinks(item);
     return '<article class="publication-feature-card">' +
       imageMarkup(item, 'publication-feature-image') +
       '<div class="publication-feature-copy">' +
         '<span class="publication-pill" dir="auto">' + escapeHtml(displayLabel(item)) + '</span>' +
         '<h2 dir="auto"><a href="' + escapeHtml(publicationUrl(item)) + '"' + linkAttrs(item) + '>' + escapeHtml(item.title) + '</a></h2>' +
         '<p dir="auto">' + escapeHtml(item.description) + '</p>' +
-        '<p class="publication-meta" dir="auto">' + metaLine(item) + ' <span>&middot;</span> ' + topicLinks(item) + '</p>' +
+        '<p class="publication-meta" dir="' + config.metaDir + '">' + metaLine(item) + (topics ? ' <span>&middot;</span> ' + topics : '') + '</p>' +
       '</div>' +
     '</article>';
   }
@@ -154,7 +157,7 @@
         '<p dir="auto">' + escapeHtml(item.description) + '</p>' +
       '</div>' +
       '<div class="publication-row-meta">' +
-        '<p dir="auto">' + metaLine(item) + '</p>' +
+        '<p dir="' + config.metaDir + '">' + metaLine(item) + '</p>' +
         '<p dir="auto">' + topicLinks(item) + '</p>' +
       '</div>' +
     '</article>';
