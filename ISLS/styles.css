@@ -11535,6 +11535,11 @@ p {
   text-underline-offset: 0.12em;
 }
 
+/* Staff without a bio page are plain-text cards (a <div>, not a link). */
+div.staff-list-item:hover h3 {
+  text-decoration: none;
+}
+
 @media (max-width: 640px) {
   .staff-list-item {
     grid-template-columns: 60px minmax(0, 1fr);

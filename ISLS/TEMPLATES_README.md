@@ -18,14 +18,14 @@ The generator rewrites the header/footer of pages that already exist -- it reads
 
 ## Team Bios
 
-Source of truth for each person's **individual bio page**: `content/team-bilingual.json` -- one entry per person. Shared fields: `slug` (used for the filename), `section` (`"staff"` or `"advisory"` -- controls which fields they need), and `initials` (the initials mark shown on their individual page; use `null` for someone who shouldn't get one, like Haddon Barth today).
+Source of truth for each person's **individual bio page**: `content/team-bilingual.json` -- one entry per person. Shared fields: `slug` (used for the filename), `section` (`"staff"` or `"advisory"` -- controls which fields they need), `bioPage` (set to `false` for someone listed on `our-team.html` who has no page of their own -- they only need `name` and `rosterRole` per language, and their card on `our-team.html` is a plain `<div class="staff-list-item">` with no link or "Read more"), and `initials` (the initials mark shown on their individual page; use `null` for someone who shouldn't get one, like Haddon Barth today).
 
 **The staff and advisory lists on `our-team.html` / `ar/our-team.html` are not generated.** Edit those lists directly in both pages; the generator only replaces those pages' header and footer, so it can't overwrite roster changes. When you change a card, update both languages, and make sure each card's link points at that person's own bio page (or remove the link if they don't have one). The `rosterRole` / `rosterShortBio` / `rosterLongBio` fields below are kept for reference but aren't rendered anywhere.
 
 Staff members (`section: "staff"`) need, per language:
 - `name`
 - `rosterRole` -- the title shown on their `our-team.html` card
-- `profileRole` -- the eyebrow shown on their own page (usually the same as `rosterRole`, but doesn't have to be -- see Cooper Austen and Hannah Höselbarth for real examples where these differ today)
+- `profileRole` -- the eyebrow shown on their own page (usually the same as `rosterRole`, but doesn't have to be)
 - `bio` -- an array of paragraph strings for their individual page. Inline HTML like `<a href="mailto:...">` is fine; each string becomes one `<p>`.
 
 Advisory board members (`section: "advisory"`) need, per language:
@@ -48,7 +48,7 @@ This regenerates `<slug>.html` and `ar/<slug>.html` in full. If their name or ti
 
 The generator rewrites existing pages -- it doesn't create a page from nothing, because it reads each page's *current* header/footer to figure out page-specific details (see Site Chrome above) before replacing them. For a new person:
 
-1. Copy an existing individual bio page of the same kind (a staff page like `cooper-austen.html`, or an advisory page like `max-weiss.html`) to `<new-slug>.html`, and do the same for the Arabic counterpart in `ar/`. The copied `<main>` content will be thrown away by the generator, so it doesn't matter what it says -- only the `<head>` (title, canonical, meta description) and the `<html lang>`/`dir` attributes need to be correct for the new person, since those aren't regenerated.
+1. Copy an existing individual bio page of the same kind (a staff page like `haddon-barth.html`, or an advisory page like `max-weiss.html`) to `<new-slug>.html`, and do the same for the Arabic counterpart in `ar/`. The copied `<main>` content will be thrown away by the generator, so it doesn't matter what it says -- only the `<head>` (title, canonical, meta description) and the `<html lang>`/`dir` attributes need to be correct for the new person, since those aren't regenerated.
 2. Add `<new-slug>.html` to the `PAGES` list in `scripts/generate-site-pages.py`.
 3. Add their entry to `content/team-bilingual.json` (both languages).
 4. Run `python3 scripts/generate-site-pages.py`.
@@ -59,6 +59,16 @@ What's *not* covered by this file, and stays hand-authored on `our-team.html`: t
 ## Publications Scripts
 
 `publications.js` (used by `publications.html`), `home-publications.js` (used by `index.html`), and `publication-detail.js` (used by `publication.html`) are each a single file shared by both languages -- there's no `ar/` copy to keep in sync anymore. Each script reads `document.documentElement.lang` at runtime and picks a small config object (month names, date-order formatting, which of `item.en`/`item.ar` to read, the Arabic asset-path prefixer, the `content/publications-bilingual.json` fetch path, and the translated UI strings) based on it. If you need to change wording in these scripts (the "no publications in this category" message, "read the latest work..." links, etc.), edit the relevant language's block directly in the script -- there's nothing to regenerate here, and no second file to remember to update.
+
+## Removing a Page (Redirects)
+
+When a page is removed, add a permanent redirect to `vercel.json` (in `ISLS/`, which is the Vercel project's root directory) so old links and search results land somewhere useful, and remove the page's `sitemap.xml` entry:
+
+```json
+{ "source": "/old-page.html", "destination": "/our-team.html", "permanent": true }
+```
+
+Vercel applies these before serving files (as a 308 redirect), so they work even though the old file no longer exists.
 
 ## Keeping sitemap.xml's lastmod Dates Accurate
 

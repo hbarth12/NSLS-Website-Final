@@ -35,7 +35,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CHROME = json.loads((ROOT / 'content' / 'site-chrome.json').read_text(encoding='utf-8'))
 TEAM = json.loads((ROOT / 'content' / 'team-bilingual.json').read_text(encoding='utf-8'))['team']
-TEAM_SLUGS = {m['slug'] for m in TEAM}
+# People with "bioPage": false are listed on our-team.html but have no page of their own.
+TEAM_SLUGS = {m['slug'] for m in TEAM if m.get('bioPage', True)}
 
 TEAM_LABELS = {
     'en': {'backToTeam': 'Our Team'},
@@ -51,11 +52,8 @@ PAGES = [
     'our-model.html',
     'contact.html',
     'privacy.html',
-    'alice-mccarthy.html',
     'cameron-hume.html',
-    'cooper-austen.html',
     'haddon-barth.html',
-    'hannah-hoeselbarth.html',
     'max-weiss.html',
     'zaid-al-ali.html',
 ]

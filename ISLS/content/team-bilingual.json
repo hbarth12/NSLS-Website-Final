@@ -26,72 +26,45 @@
       }
     },
     {
-      "slug": "alice-mccarthy",
+      "slug": "nadia-asaad",
       "section": "staff",
-      "initials": "AM",
+      "initials": null,
+      "bioPage": false,
       "en": {
-        "name": "Alice McCarthy",
-        "rosterRole": "Head of Operations and Partnerships",
-        "profileRole": "Head of Operations and Partnerships",
-        "bio": [
-          "Alice McCarthy is an A.B. candidate at Princeton University's School of Public and International Affairs, with a minor in History and the Practice of Diplomacy. Her senior thesis examines healthcare reconstruction in post-Assad Syria, with a focus on rebuilding Syria's medical workforce. She leads operations for the Network for Syrian Legislative Studies' Princeton chapter, working with partner chapters at Harvard and Georgetown.",
-          "She has been a Contributing Author at the Stimson Center, working on its 2026 Future of International Cooperation report, \"Redefining Global Trust,\" and a Steering Committee member at the Coalition for the UN We Need (C4UN), where she served as liaison to Permanent Missions and helped organise the United Nations Global Futures Forum 2026. On campus she has worked as a Research Assistant at Princeton's School of Public and International Affairs, coding incident-level data from international media across conflict zones in the Middle East for the Denial in Rebellion Dataset (DRD), which tracks how armed groups use public denial to contest accusations and shape legitimacy narratives.",
-          "She previously interned at the International Institute for Democracy and Electoral Assistance (IDEA) in Stockholm, contributing to the Global Election Monitor report and to policy advisory work on referendum design and elections as critical infrastructure.",
-          "Alice is also President of Policy Punchline, a Princeton student-run podcast that interviews policymakers, economists, and scholars on the ideas shaping public policy. Outside of her academic and research work, she rows for Princeton's varsity women's team and serves as Head Coach for Special Olympics New Jersey, leading weekly sports programmes for adults with intellectual disabilities."
-        ]
+        "name": "Nadia Asaad",
+        "rosterRole": "Co-Head of Research"
       },
       "ar": {
-        "name": "Alice McCarthy",
-        "rosterRole": "رئيسة العمليات والشراكات",
-        "profileRole": "رئيسة العمليات والشراكات",
-        "bio": [
-          "أليس مكارثي مرشحة لنيل درجة البكالوريوس من كلية بيرسون للشؤون العامة والدولية في جامعة برينستون، وتتخصص فرعيًا في التاريخ وممارسة الدبلوماسية. تتناول أطروحتها الجامعية إعادة إعمار القطاع الصحي في سوريا ما بعد الأسد، مع التركيز على إعادة بناء الكوادر الطبية السورية. تقود عمليات فرع برينستون التابع للشبكة السورية للدراسات التشريعية، بالتعاون مع الفروع الشريكة في هارفارد وجورجتاون.",
-          "عملت ككاتبة مساهمة في مركز ستيمسون، حيث شاركت في إعداد تقريره لعام 2026 حول مستقبل التعاون الدولي بعنوان \"إعادة تعريف الثقة العالمية\"، وعضوة في اللجنة التوجيهية لتحالف الأمم المتحدة الذي نحتاجه (C4UN)، حيث عملت كحلقة وصل مع البعثات الدائمة وساهمت في تنظيم منتدى الأمم المتحدة للمستقبل العالمي 2026. وعلى صعيد الحرم الجامعي، عملت مساعدة بحثية في كلية بيرسون للشؤون العامة والدولية بجامعة برينستون، حيث قامت بترميز بيانات على مستوى الحوادث من وسائل الإعلام الدولية عبر مناطق النزاع في الشرق الأوسط لصالح قاعدة بيانات الإنكار في التمرد (DRD)، التي ترصد كيف تستخدم الجماعات المسلحة الإنكار العلني للطعن في الاتهامات وتشكيل روايات الشرعية.",
-          "عملت سابقًا متدربة في المعهد الدولي للديمقراطية والمساعدة الانتخابية (IDEA) في ستوكهولم، حيث ساهمت في إعداد تقرير مرصد الانتخابات العالمي وفي أعمال استشارية متعلقة بتصميم الاستفتاءات واعتبار الانتخابات بنية تحتية أساسية.",
-          "تشغل أليس أيضًا منصب رئيسة \"بوليسي بانشلاين\" (Policy Punchline)، وهو بودكاست يديره طلاب جامعة برينستون ويستضيف صناع السياسات والاقتصاديين والباحثين لمناقشة الأفكار التي تشكل السياسة العامة. وخارج نطاق عملها الأكاديمي والبحثي، تجدف ضمن فريق برينستون النسائي للمجاديف، وتشغل منصب المدربة الرئيسية للأولمبياد الخاص في نيوجيرزي، حيث تقود برامج رياضية أسبوعية للبالغين ذوي الإعاقة الذهنية."
-        ]
+        "name": "نادية أسعد",
+        "rosterRole": "الرئيسة المشاركة للأبحاث"
       }
     },
     {
-      "slug": "cooper-austen",
+      "slug": "lojean-hersi",
       "section": "staff",
-      "initials": "CA",
+      "initials": null,
+      "bioPage": false,
       "en": {
-        "name": "Cooper Austen",
-        "rosterRole": "Head of Development",
-        "profileRole": "Partnerships and Development",
-        "bio": [
-          "Cooper Austen supports NSLS partnerships and development."
-        ]
+        "name": "Lojean Hersi",
+        "rosterRole": "Co-Head of Research"
       },
       "ar": {
-        "name": "Cooper Austen",
-        "rosterRole": "رئيس التطوير",
-        "profileRole": "الشراكات والتطوير",
-        "bio": [
-          "يدعم كوبر أوستن الشراكات والتطوير في الشبكة."
-        ]
+        "name": "لوجين هرسي",
+        "rosterRole": "الرئيسة المشاركة للأبحاث"
       }
     },
     {
-      "slug": "hannah-hoeselbarth",
+      "slug": "yazan-alhamdan",
       "section": "staff",
-      "initials": "HH",
+      "initials": null,
+      "bioPage": false,
       "en": {
-        "name": "Hannah Höselbarth",
-        "rosterRole": "Publications Coordinator",
-        "profileRole": "Publications",
-        "bio": [
-          "Hannah Höselbarth supports NSLS publications."
-        ]
+        "name": "Yazan Alhamdan",
+        "rosterRole": "Policy Clinic Program Coordinator"
       },
       "ar": {
-        "name": "Hannah Höselbarth",
-        "rosterRole": "منسقة المنشورات",
-        "profileRole": "المنشورات",
-        "bio": [
-          "تدعم هانا هوسلبارث منشورات الشبكة."
-        ]
+        "name": "يزن الحمدان",
+        "rosterRole": "منسق برنامج عيادة السياسات"
       }
     },
     {

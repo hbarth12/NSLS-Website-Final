@@ -1,0 +1,10 @@
+{
+  "redirects": [
+    { "source": "/alice-mccarthy.html", "destination": "/our-team.html", "permanent": true },
+    { "source": "/cooper-austen.html", "destination": "/our-team.html", "permanent": true },
+    { "source": "/hannah-hoeselbarth.html", "destination": "/our-team.html", "permanent": true },
+    { "source": "/ar/alice-mccarthy.html", "destination": "/ar/our-team.html", "permanent": true },
+    { "source": "/ar/cooper-austen.html", "destination": "/ar/our-team.html", "permanent": true },
+    { "source": "/ar/hannah-hoeselbarth.html", "destination": "/ar/our-team.html", "permanent": true }
+  ]
+}
