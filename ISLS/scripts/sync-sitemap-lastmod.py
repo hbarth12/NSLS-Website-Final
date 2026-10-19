@@ -4,11 +4,13 @@
 Keeps the <lastmod> of every static-page <url> entry in
 ISLS/sitemap.xml synced to that page's actual last-modified date.
 
-This only touches entries OUTSIDE the <!-- BEGIN GENERATED
-PUBLICATIONS --> / <!-- END GENERATED PUBLICATIONS --> block --
-scripts/generate-publication-pages.py already owns that block and
-dates it from each publication's own `date` field, not file mtime, so
-this script leaves it alone.
+This only touches entries OUTSIDE the generated blocks -- <!-- BEGIN
+GENERATED PUBLICATIONS --> / <!-- END GENERATED PUBLICATIONS -->
+(owned by scripts/generate-publication-pages.py) and <!-- BEGIN
+GENERATED PARLIAMENTARY RECORD --> / <!-- END GENERATED PARLIAMENTARY
+RECORD --> (owned by scripts/generate-parliamentary-record.py). Those
+generators date their entries from each item's own `date` field, not
+file mtime, so this script leaves them alone.
 
 For each remaining entry's file, "last-modified" means:
   - if the file has no uncommitted changes (matches HEAD), the date of
@@ -41,8 +43,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SITEMAP = ROOT / 'sitemap.xml'
 SITE_URL = 'https://www.nsls.network'
-BEGIN_MARKER = '<!-- BEGIN GENERATED PUBLICATIONS -->'
-END_MARKER = '<!-- END GENERATED PUBLICATIONS -->'
+GENERATED_BLOCKS = [
+    ('<!-- BEGIN GENERATED PUBLICATIONS -->', '<!-- END GENERATED PUBLICATIONS -->'),
+    ('<!-- BEGIN GENERATED PARLIAMENTARY RECORD -->', '<!-- END GENERATED PARLIAMENTARY RECORD -->'),
+]
 
 
 def git_repo_root():
@@ -103,14 +107,16 @@ def sync():
 
     text = SITEMAP.read_text(encoding='utf-8')
 
-    if BEGIN_MARKER not in text or END_MARKER not in text:
-        print(f'ERROR: sitemap.xml is missing the {BEGIN_MARKER} / '
-              f'{END_MARKER} markers.', file=sys.stderr)
-        return False
-
-    begin = text.index(BEGIN_MARKER)
-    end = text.index(END_MARKER) + len(END_MARKER)
-    head, managed, tail = text[:begin], text[begin:end], text[end:]
+    # Split the sitemap into alternating unmanaged / generated segments, so
+    # only the unmanaged ones are rewritten below.
+    spans = []
+    for begin_marker, end_marker in GENERATED_BLOCKS:
+        if begin_marker not in text or end_marker not in text:
+            print(f'ERROR: sitemap.xml is missing the {begin_marker} / '
+                  f'{end_marker} markers.', file=sys.stderr)
+            return False
+        spans.append((text.index(begin_marker), text.index(end_marker) + len(end_marker)))
+    spans.sort()
 
     changes = []
     warnings = []
@@ -127,14 +133,19 @@ def sync():
             changes.append((loc, old, new))
         return match.group('prefix') + new + match.group('suffix')
 
-    new_head = URL_ENTRY_RE.sub(replace, head)
-    new_tail = URL_ENTRY_RE.sub(replace, tail)
+    pieces = []
+    pos = 0
+    for begin, end in spans:
+        pieces.append(URL_ENTRY_RE.sub(replace, text[pos:begin]))
+        pieces.append(text[begin:end])
+        pos = end
+    pieces.append(URL_ENTRY_RE.sub(replace, text[pos:]))
 
     for loc in warnings:
         print(f'  WARNING: no local file found for {loc} -- left lastmod as-is', file=sys.stderr)
 
     if changes:
-        SITEMAP.write_text(new_head + managed + new_tail, encoding='utf-8')
+        SITEMAP.write_text(''.join(pieces), encoding='utf-8')
         print(f'Updated {len(changes)} lastmod date(s):')
         for loc, old, new in changes:
             print(f'  {loc}: {old} -> {new}')

@@ -251,6 +251,7 @@ LANGS = {
             'nav_home': 'Home',
             'nav_what_we_do': 'What We Do',
             'nav_publications': 'Publications',
+            'nav_parliamentary_record': 'Parliamentary Record',
             'nav_our_team': 'Our Team',
             'nav_contact': 'Contact',
             'get_in_touch': 'Get in Touch',
@@ -304,6 +305,7 @@ LANGS = {
             'nav_home': 'الرئيسية',
             'nav_what_we_do': 'ماذا نفعل',
             'nav_publications': 'المنشورات',
+            'nav_parliamentary_record': 'السجل البرلماني',
             'nav_our_team': 'فريقنا',
             'nav_contact': 'اتصل بنا',
             'get_in_touch': 'تواصل معنا',
@@ -544,6 +546,7 @@ PAGE_TEMPLATE = """<!doctype html>
         <a href="{own_prefix}index.html">{nav_home}</a>
         <a href="{own_prefix}what-we-do.html">{nav_what_we_do}</a>
         <a href="{own_prefix}publications.html" aria-current="page">{nav_publications}</a>
+        <a href="{own_prefix}parliamentary-record.html">{nav_parliamentary_record}</a>
         <a href="{own_prefix}our-team.html">{nav_our_team}</a>
         <a href="{own_prefix}contact.html">{nav_contact}</a>
       </nav>
@@ -599,6 +602,7 @@ PAGE_TEMPLATE = """<!doctype html>
           <a href="{own_prefix}index.html">{footer_about}</a>
           <a href="{own_prefix}what-we-do.html">{nav_what_we_do}</a>
           <a href="{own_prefix}publications.html">{nav_publications}</a>
+          <a href="{own_prefix}parliamentary-record.html">{nav_parliamentary_record}</a>
           <a href="{own_prefix}our-team.html">{nav_our_team}</a>
         </div>
         <div class="footer-connect">

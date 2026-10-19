@@ -47,6 +47,7 @@ PAGES = [
     'index.html',
     'what-we-do.html',
     'publications.html',
+    'parliamentary-record.html',
     'publication.html',
     'our-team.html',
     'our-model.html',

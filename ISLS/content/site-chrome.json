@@ -11,6 +11,7 @@
       { "key": "home", "href": "index.html", "label": "Home" },
       { "key": "what-we-do", "href": "what-we-do.html", "label": "What We Do" },
       { "key": "publications", "href": "publications.html", "label": "Publications" },
+      { "key": "parliamentary-record", "href": "parliamentary-record.html", "label": "Parliamentary Record" },
       { "key": "our-team", "href": "our-team.html", "label": "Our Team" },
       { "key": "contact", "href": "contact.html", "label": "Contact" }
     ],
@@ -22,6 +23,7 @@
         { "key": "home", "href": "index.html", "label": "About" },
         { "key": "what-we-do", "href": "what-we-do.html", "label": "What We Do" },
         { "key": "publications", "href": "publications.html", "label": "Publications" },
+        { "key": "parliamentary-record", "href": "parliamentary-record.html", "label": "Parliamentary Record" },
         { "key": "our-team", "href": "our-team.html", "label": "Our Team" }
       ],
       "connectHeading": "Connect",
@@ -47,6 +49,7 @@
       { "key": "home", "href": "index.html", "label": "الرئيسية" },
       { "key": "what-we-do", "href": "what-we-do.html", "label": "ماذا نفعل" },
       { "key": "publications", "href": "publications.html", "label": "المنشورات" },
+      { "key": "parliamentary-record", "href": "parliamentary-record.html", "label": "السجل البرلماني" },
       { "key": "our-team", "href": "our-team.html", "label": "فريقنا" },
       { "key": "contact", "href": "contact.html", "label": "اتصل بنا" }
     ],
@@ -58,6 +61,7 @@
         { "key": "home", "href": "index.html", "label": "عن الشبكة" },
         { "key": "what-we-do", "href": "what-we-do.html", "label": "ماذا نفعل" },
         { "key": "publications", "href": "publications.html", "label": "المنشورات" },
+        { "key": "parliamentary-record", "href": "parliamentary-record.html", "label": "السجل البرلماني" },
         { "key": "our-team", "href": "our-team.html", "label": "فريقنا" }
       ],
       "connectHeading": "تواصل",
