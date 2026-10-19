@@ -31,6 +31,7 @@ so sitemap.xml can't go stale again, no matter whether a page was
 edited by hand or through generate-site-pages.py. See
 TEMPLATES_README.md for how the hook gets installed.
 """
+import os
 import re
 import subprocess
 import sys
@@ -45,10 +46,17 @@ END_MARKER = '<!-- END GENERATED PUBLICATIONS -->'
 
 
 def git_repo_root():
+    # Git exports GIT_DIR to hooks run from a linked worktree (`git worktree
+    # add`). With GIT_DIR set, `rev-parse --show-toplevel` reports the
+    # current directory (ISLS/) instead of the real top level, every git
+    # lookup below then misses, and every page falls back to its mtime --
+    # stamping unchanged pages with today's date. Look the top level up
+    # without the inherited GIT_DIR / GIT_WORK_TREE.
+    env = {k: v for k, v in os.environ.items() if k not in ('GIT_DIR', 'GIT_WORK_TREE')}
     try:
         result = subprocess.run(
             ['git', 'rev-parse', '--show-toplevel'],
-            cwd=ROOT, capture_output=True, text=True, check=True)
+            cwd=ROOT, env=env, capture_output=True, text=True, check=True)
         return Path(result.stdout.strip())
     except (subprocess.CalledProcessError, FileNotFoundError):
         return None
