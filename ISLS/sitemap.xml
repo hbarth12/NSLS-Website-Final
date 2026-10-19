@@ -142,7 +142,7 @@
 <!-- END GENERATED PUBLICATIONS -->
   <url>
     <loc>https://www.nsls.network/our-team.html</loc>
-    <lastmod>2026-09-10</lastmod>
+    <lastmod>2026-10-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -166,24 +166,6 @@
   </url>
   <url>
     <loc>https://www.nsls.network/haddon-barth.html</loc>
-    <lastmod>2026-08-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://www.nsls.network/cooper-austen.html</loc>
-    <lastmod>2026-08-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://www.nsls.network/alice-mccarthy.html</loc>
-    <lastmod>2026-08-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://www.nsls.network/hannah-hoeselbarth.html</loc>
     <lastmod>2026-08-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -226,7 +208,7 @@
   </url>
   <url>
     <loc>https://www.nsls.network/ar/our-team.html</loc>
-    <lastmod>2026-08-24</lastmod>
+    <lastmod>2026-10-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -250,24 +232,6 @@
   </url>
   <url>
     <loc>https://www.nsls.network/ar/haddon-barth.html</loc>
-    <lastmod>2026-08-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.4</priority>
-  </url>
-  <url>
-    <loc>https://www.nsls.network/ar/cooper-austen.html</loc>
-    <lastmod>2026-08-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.4</priority>
-  </url>
-  <url>
-    <loc>https://www.nsls.network/ar/alice-mccarthy.html</loc>
-    <lastmod>2026-08-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.4</priority>
-  </url>
-  <url>
-    <loc>https://www.nsls.network/ar/hannah-hoeselbarth.html</loc>
     <lastmod>2026-08-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>

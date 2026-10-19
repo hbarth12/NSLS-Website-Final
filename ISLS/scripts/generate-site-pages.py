@@ -6,9 +6,12 @@ sources instead of each page carrying its own hand-copied, hand-translated
 copy:
 
   content/site-chrome.json    -- <header>/<footer> on every page
-  content/team-bilingual.json -- each team member's individual bio page,
-                                  and the staff/advisory lists on
-                                  our-team.html
+  content/team-bilingual.json -- each team member's individual bio page
+
+The staff and advisory lists on our-team.html are NOT generated: that page
+is edited by hand like the other content pages (only its header/footer
+comes from site-chrome.json), so a run of this script can't overwrite
+roster changes made directly on the page.
 
 Everything else in each page (<head>, unrelated <main> content on
 non-team pages, and any trailing scripts after </footer>) is left
@@ -32,13 +35,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CHROME = json.loads((ROOT / 'content' / 'site-chrome.json').read_text(encoding='utf-8'))
 TEAM = json.loads((ROOT / 'content' / 'team-bilingual.json').read_text(encoding='utf-8'))['team']
-STAFF = [m for m in TEAM if m['section'] == 'staff']
-ADVISORY = [m for m in TEAM if m['section'] == 'advisory']
-TEAM_SLUGS = {m['slug'] for m in TEAM}
+# People with "bioPage": false are listed on our-team.html but have no page of their own.
+TEAM_SLUGS = {m['slug'] for m in TEAM if m.get('bioPage', True)}
 
 TEAM_LABELS = {
-    'en': {'backToTeam': 'Our Team', 'readMore': 'Read more', 'arrow': '&rarr;', 'readFullBio': 'Read full bio'},
-    'ar': {'backToTeam': 'فريقنا', 'readMore': 'اقرأ المزيد', 'arrow': '&larr;', 'readFullBio': 'اقرأ السيرة كاملة'},
+    'en': {'backToTeam': 'Our Team'},
+    'ar': {'backToTeam': 'فريقنا'},
 }
 
 PAGES = [
@@ -50,11 +52,8 @@ PAGES = [
     'our-model.html',
     'contact.html',
     'privacy.html',
-    'alice-mccarthy.html',
     'cameron-hume.html',
-    'cooper-austen.html',
     'haddon-barth.html',
-    'hannah-hoeselbarth.html',
     'max-weiss.html',
     'zaid-al-ali.html',
 ]
@@ -67,10 +66,6 @@ HEADER_CTA_RE = re.compile(r'<a class="header-action" href="([^"]+)"')
 FOOTER_CTA_RE = re.compile(r'<a class="footer-cta" href="([^"]+)"')
 NETWORK_BLOCK_RE = re.compile(r'<nav class="footer-links".*?<div class="footer-connect">', re.S)
 MAIN_RE = re.compile(r'[ \t]*<main id="top">.*?</main>\n', re.S)
-# Backreferences match the closing </div> only at the same indentation as the
-# opening tag, so these skip past the nested <div>s inside each list item.
-STAFF_LIST_RE = re.compile(r'([ \t]*)<div class="staff-list" aria-label="Staff members">.*?\n\1</div>\n', re.S)
-ADVISORY_LIST_RE = re.compile(r'([ \t]*)<div class="advisory-list">.*?\n\1</div>\n', re.S)
 
 
 def extract_chrome_params(text, chrome_lang):
@@ -238,63 +233,6 @@ def render_profile_main(person, lang):
     ).format(back=labels['backToTeam'], role=role, name=data['name'], photo=photo_line, bio=bio_html)
 
 
-def render_staff_list(lang):
-    labels = TEAM_LABELS[lang]
-    items = []
-    for member in STAFF:
-        data = member[lang]
-        items.append(
-            '            <a class="staff-list-item" href="{slug}.html">\n'
-            '              <div>\n'
-            '                <h3>{name}</h3>\n'
-            '                <p class="staff-role">{role}</p>\n'
-            '                <span>{more} <strong>{arrow}</strong></span>\n'
-            '              </div>\n'
-            '            </a>\n'.format(
-                slug=member['slug'], name=data['name'], role=data['rosterRole'],
-                more=labels['readMore'], arrow=labels['arrow']))
-    return (
-        '          <div class="staff-list" aria-label="Staff members">\n'
-        + ''.join(items) +
-        '          </div>\n'
-    )
-
-
-def render_advisory_list(lang):
-    labels = TEAM_LABELS[lang]
-    items = []
-    for member in ADVISORY:
-        data = member[lang]
-
-        bio_block = ''
-        if data.get('rosterShortBio'):
-            bio_block = (
-                '            <div class="advisor-bio">\n'
-                '              <p>{short}</p>\n'
-                '              <div class="advisor-extra" id="bio-{slug}">\n'
-                '                <p>{long}</p>\n'
-                '              </div>\n'
-                '              <button class="advisor-toggle" type="button" aria-expanded="false" aria-controls="bio-{slug}">{readfull}</button>\n'
-                '            </div>\n'.format(
-                    short=data['rosterShortBio'], slug=member['slug'],
-                    long=data.get('rosterLongBio', ''), readfull=labels['readFullBio']))
-
-        items.append(
-            '          <article class="advisor-profile">\n'
-            '            <div>\n'
-            '              <span>{role}</span>\n'
-            '              <h3>{name}</h3>\n'
-            '            </div>\n'
-            '{bio}'
-            '          </article>\n'.format(
-                role=data['role'], name=data['name'], bio=bio_block))
-    return (
-        '        <div class="advisory-list">\n'
-        + ''.join(items) +
-        '        </div>\n'
-    )
-
-
 def process_file(path, chrome_lang, lang, toggle_lang, toggle_dir, toggle_label, filename):
     text = path.read_text(encoding='utf-8')
     params, header_span, footer_span = extract_chrome_params(text, chrome_lang)
@@ -316,11 +254,6 @@ def process_file(path, chrome_lang, lang, toggle_lang, toggle_dir, toggle_label,
         person = next(m for m in TEAM if m['slug'] == slug)
         old_main = MAIN_RE.search(new_text).group(0)
         new_text = new_text.replace(old_main, render_profile_main(person, lang), 1)
-    elif filename == 'our-team.html':
-        old_staff = STAFF_LIST_RE.search(new_text).group(0)
-        new_text = new_text.replace(old_staff, render_staff_list(lang), 1)
-        old_advisory = ADVISORY_LIST_RE.search(new_text).group(0)
-        new_text = new_text.replace(old_advisory, render_advisory_list(lang), 1)
 
     path.write_text(new_text, encoding='utf-8')
 
