@@ -18,7 +18,9 @@ The generator rewrites the header/footer of pages that already exist -- it reads
 
 ## Team Bios
 
-Source of truth: `content/team-bilingual.json` -- one entry per person, in the order they should appear. Shared fields: `slug` (used for the filename and cross-references), `section` (`"staff"` or `"advisory"` -- controls which list on `our-team.html` they render into and what fields they need), and `initials` (shown on their individual page; use `null` for someone who shouldn't get a photo/initials mark, like Haddon Barth today).
+Source of truth for each person's **individual bio page**: `content/team-bilingual.json` -- one entry per person. Shared fields: `slug` (used for the filename), `section` (`"staff"` or `"advisory"` -- controls which fields they need), and `initials` (the initials mark shown on their individual page; use `null` for someone who shouldn't get one, like Haddon Barth today).
+
+**The staff and advisory lists on `our-team.html` / `ar/our-team.html` are not generated.** Edit those lists directly in both pages; the generator only replaces those pages' header and footer, so it can't overwrite roster changes. When you change a card, update both languages, and make sure each card's link points at that person's own bio page (or remove the link if they don't have one). The `rosterRole` / `rosterShortBio` / `rosterLongBio` fields below are kept for reference but aren't rendered anywhere.
 
 Staff members (`section: "staff"`) need, per language:
 - `name`
@@ -40,7 +42,7 @@ Edit their entry in `content/team-bilingual.json` (both languages) and run:
 python3 scripts/generate-site-pages.py
 ```
 
-This regenerates `<slug>.html` and `ar/<slug>.html` in full, and regenerates the `.staff-list`/`.advisory-list` block on `our-team.html` and `ar/our-team.html` to match. Reordering someone, or moving them between staff and advisory, is just moving/editing their entry in the JSON and re-running the generator.
+This regenerates `<slug>.html` and `ar/<slug>.html` in full. If their name or title on the `our-team.html` card should change too, edit that card by hand in both languages.
 
 ### Adding a brand new team member
 
@@ -50,8 +52,9 @@ The generator rewrites existing pages -- it doesn't create a page from nothing, 
 2. Add `<new-slug>.html` to the `PAGES` list in `scripts/generate-site-pages.py`.
 3. Add their entry to `content/team-bilingual.json` (both languages).
 4. Run `python3 scripts/generate-site-pages.py`.
+5. Add their card to the staff or advisory list on `our-team.html` and `ar/our-team.html` by hand, linking to `<new-slug>.html`.
 
-What's *not* covered by this file, and stays hand-authored on `our-team.html`: the page's own headings, the "University Network" prose (Princeton Summer Research Cohort / University Chapters), and the "Research Network" section -- those aren't per-person data.
+What's *not* covered by this file, and stays hand-authored on `our-team.html`: the staff and advisory lists, the page's own headings, the "University Network" prose (Princeton Summer Research Cohort / University Chapters), and the "Research Network" section -- those aren't per-person data.
 
 ## Publications Scripts
 
@@ -84,7 +87,7 @@ After editing `content/site-chrome.json` and/or `content/team-bilingual.json`:
 python3 scripts/generate-site-pages.py
 ```
 
-Then upload whichever files it changed. If you're not sure what changed, `git status` / `git diff` after running it will show exactly which pages were touched -- a chrome-only edit typically only changes `<header>`/`<footer>` blocks; a team edit only changes the affected person's page plus `our-team.html`.
+Then upload whichever files it changed. If you're not sure what changed, `git status` / `git diff` after running it will show exactly which pages were touched -- a chrome-only edit typically only changes `<header>`/`<footer>` blocks; a team edit only changes the affected person's bio page.
 
 ## What's Still Hand-Authored
 
