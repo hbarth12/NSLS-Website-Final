@@ -202,3 +202,190 @@ content:
                 type: text
                 required: false
                 description: "Use for website articles. Supports Markdown, including links: [link text](https://example.com)."
+
+  - name: parliamentary-record
+    label: Parliamentary Record
+    type: collection
+    path: ISLS/content/parliamentary-record
+    format: json
+    filename: "{fields.slug}.json"
+    fields:
+      # Shared fields (one value for both languages).
+      - name: slug
+        label: Slug
+        type: string
+        required: true
+        description: "Lowercase words separated by hyphens, e.g. plenary-2026-10-14-budget. Used to build this session's URL in both languages. Don't change it after publishing."
+
+      - name: placeholder
+        label: Placeholder (not for search engines)
+        type: boolean
+        default: false
+        description: "Sample or test entry: its pages are marked noindex and left out of the sitemap, and the page shows a 'placeholder' banner."
+
+      - name: date
+        label: Session Date
+        type: string
+        required: true
+        description: "ISO format: YYYY-MM-DD (e.g. 2026-10-14). Sessions are listed newest first."
+
+      - name: sessionNumber
+        label: Session Number
+        type: string
+        required: false
+        description: "Optional, e.g. 12."
+
+      - name: type
+        label: Session Type
+        type: select
+        required: true
+        default: plenary
+        description: "Drives the listing page's type filter."
+        options:
+          values:
+            - name: plenary
+              label: Plenary
+            - name: committee
+              label: Committee
+            - name: other
+              label: Other
+
+      - name: transcriptFormat
+        label: Transcript Format
+        type: select
+        default: speaker-turns
+        description: "Speaker turns: each paragraph is 'Name: remarks' with optional [hh:mm:ss] and [Studio] markers, styled accordingly. Verbatim: the transcript is shown exactly as entered, line for line, with no speaker detection or styling."
+        options:
+          values:
+            - name: speaker-turns
+              label: Speaker turns
+            - name: verbatim
+              label: Verbatim (exactly as entered)
+
+      - name: sourceVideoUrl
+        label: Source Video URL
+        type: string
+        required: false
+        description: "Full link to the public video of the session. Adds a 'Watch source video' button to both language pages."
+
+      # Per-language fields. A language is published only once it has a
+      # Title and a Transcript; leave a language's block empty until its
+      # translation is ready and no page is created for it.
+      - name: en
+        label: English
+        type: object
+        fields:
+          - name: title
+            label: Title
+            type: string
+          - name: subtitle
+            label: Subtitle
+            type: string
+            required: false
+            description: "Optional line shown under the title, e.g. the source document's own subtitle."
+          - name: typeLabel
+            label: Session Type Label
+            type: select
+            options:
+              values: ["Plenary", "Committee", "Other"]
+          - name: summary
+            label: Summary
+            type: text
+            description: "One or two sentences. Shown on the listing card, at the top of the session page and as the search-engine description."
+          - name: speakers
+            label: Speakers
+            type: string
+            list: true
+            required: false
+          - name: tags
+            label: Topic Tags
+            type: string
+            list: true
+            required: false
+            description: "Used by the listing page's tag filter."
+          - name: transcript
+            label: Full Transcript
+            type: text
+            description: "One speaker turn per paragraph, with a blank line between turns. Each turn: optional timestamp, optional [Studio] marker, then 'Name: remarks', e.g. '[00:00:45] Member A: Thank you, Mr. Speaker.' or '[00:03:05] [Studio] Presenter: For viewers just joining...'. A paragraph in parentheses, e.g. '(The session is adjourned.)', is shown as a procedural note."
+          - name: accuracyNote
+            label: Accuracy / Translation Note (required)
+            type: text
+            description: "Required whenever this language has a transcript (the site won't build without it). Shown prominently above the transcript, e.g. who prepared it, from what source, and whether it's a translation."
+          - name: sourceCredit
+            label: Source Credit
+            type: string
+            required: false
+            description: "e.g. Public broadcast of the People's Assembly. Markdown links allowed: [text](https://...)."
+          - name: pdf
+            label: PDF Upload (English)
+            type: file
+            required: false
+            options:
+              extensions: ["pdf"]
+          - name: pdfLabel
+            label: PDF Button Label
+            type: string
+            required: false
+            default: "Download PDF"
+
+      - name: ar
+        label: Arabic
+        type: object
+        fields:
+          - name: title
+            label: Title
+            type: string
+          - name: subtitle
+            label: Subtitle
+            type: string
+            required: false
+            description: "Optional line shown under the title, e.g. the source document's own subtitle."
+          - name: typeLabel
+            label: Session Type Label
+            type: select
+            options:
+              values:
+                - name: "جلسة عامة"
+                  label: "جلسة عامة (Plenary)"
+                - name: "جلسة لجنة"
+                  label: "جلسة لجنة (Committee)"
+                - name: "أخرى"
+                  label: "أخرى (Other)"
+          - name: summary
+            label: Summary
+            type: text
+            description: "One or two sentences. Shown on the listing card, at the top of the session page and as the search-engine description."
+          - name: speakers
+            label: Speakers
+            type: string
+            list: true
+            required: false
+          - name: tags
+            label: Topic Tags
+            type: string
+            list: true
+            required: false
+            description: "Used by the listing page's tag filter."
+          - name: transcript
+            label: Full Transcript
+            type: text
+            description: "One speaker turn per paragraph, with a blank line between turns. Each turn: optional timestamp, optional [استوديو] marker, then 'Name: remarks', e.g. '[00:00:45] العضو (أ): شكراً سيادة الرئيس.' A paragraph in parentheses is shown as a procedural note."
+          - name: accuracyNote
+            label: Accuracy / Translation Note (required)
+            type: text
+            description: "Required whenever this language has a transcript (the site won't build without it). Shown prominently above the transcript."
+          - name: sourceCredit
+            label: Source Credit
+            type: string
+            required: false
+          - name: pdf
+            label: PDF Upload (Arabic)
+            type: file
+            required: false
+            options:
+              extensions: ["pdf"]
+          - name: pdfLabel
+            label: PDF Button Label
+            type: string
+            required: false
+            default: "تحميل PDF"

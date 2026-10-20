@@ -13667,7 +13667,7 @@ body.pdf-publication-page .publication-detail .policy-paper-actions-final .polic
   display: contents;
 }
 
-@media (max-width: 1080px) {
+@media (max-width: 1159px) {
   .isl-page .site-header {
     justify-content: flex-start;
     gap: 12px;
@@ -13817,5 +13817,315 @@ body.pdf-publication-page .publication-detail .policy-paper-actions-final .polic
   .isl-page main > .analysis-deck .analysis-sidebar .analysis-list-item img,
   .isl-page main > .analysis-deck .analysis-sidebar .analysis-list-item .analysis-list-mark {
     max-height: 92px !important;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Parliamentary Record. The listing page also carries .publications-page
+   and session pages .publication-detail-page, so they inherit the
+   publication card, hero, tab and RTL rules above; everything below is
+   scoped to the record pages only.
+   ------------------------------------------------------------------ */
+.parliamentary-record-page .record-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px 40px;
+}
+
+.parliamentary-record-page .record-tag-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: clamp(30px, 4vw, 48px);
+  color: rgba(38, 48, 50, 0.72);
+  font-size: 0.93rem;
+}
+
+.parliamentary-record-page .record-tag-filter select {
+  min-width: 190px;
+  padding: 8px 12px;
+  border: 1px solid #c7d4d3;
+  border-radius: 0;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+}
+
+.parliamentary-record-page .record-thumb {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background: #f3ecdf;
+  color: #111;
+  text-decoration: none;
+}
+
+.parliamentary-record-page .record-thumb strong {
+  font-family: var(--serif);
+  font-size: 2.6rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.parliamentary-record-page .record-thumb span {
+  color: rgba(38, 48, 50, 0.72);
+  font-size: 0.85rem;
+}
+
+.parliamentary-record-page .publications-hero h1 {
+  max-width: none;
+}
+
+.parliamentary-record-page .publication-row:first-of-type {
+  margin-top: 0;
+  border-top: 0;
+}
+
+.parliamentary-record-page .record-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 9px;
+}
+
+.parliamentary-record-page .record-pills .publication-pill {
+  margin-bottom: 0;
+}
+
+.parliamentary-record-page .record-only-pill {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px #0f5f5d;
+  color: #0f5f5d;
+}
+
+.record-placeholder-pill {
+  background: #f6d9d0 !important;
+  color: #9f4029 !important;
+}
+
+.parliamentary-record-page .record-row-speakers {
+  font-size: 0.9rem !important;
+}
+
+@media (max-width: 640px) {
+  .parliamentary-record-page .publications-hero h1 {
+    font-size: clamp(2.6rem, 12vw, 3.4rem);
+  }
+
+  .parliamentary-record-page .record-tag-filter {
+    margin-top: 0;
+  }
+}
+
+/* Session pages */
+.record-placeholder-banner {
+  margin: 0 0 2rem;
+  padding: 0.9rem 1.1rem;
+  border: 2px dashed #c75d3f;
+  background: #fbefe9;
+  color: #9f4029;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.record-session-page .record-note {
+  max-width: 880px;
+  margin: 1.6rem 0 0;
+  padding: 1rem 1.2rem;
+  border: 1px solid rgba(15, 95, 93, 0.18);
+  border-inline-start: 4px solid #0f5f5d;
+  background: rgba(255, 255, 255, 0.74);
+}
+
+.record-session-page .record-note p {
+  margin: 0;
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+.record-session-page .record-note .record-note-label {
+  margin-bottom: 0.4rem;
+  color: #c75d3f;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.record-session-page .record-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 1.4rem;
+}
+
+.record-session-page .record-transcript > h2 {
+  margin-top: 0;
+}
+
+.record-session-page .transcript-chunk {
+  content-visibility: auto;
+  /* Placeholder height only: a single contain-intrinsic-size value would
+     also set a 2400px intrinsic width and stretch the column on phones. */
+  contain-intrinsic-block-size: auto 2400px;
+}
+
+.record-session-page .publication-detail-grid > * {
+  min-width: 0;
+}
+
+.record-session-page .turn {
+  margin: 0 0 1.1rem;
+}
+
+.record-session-page .turn-time {
+  margin-inline-end: 0.35rem;
+  color: rgba(88, 104, 103, 0.75);
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.record-session-page .turn-speaker {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.record-session-page .turn-procedural {
+  color: rgba(88, 104, 103, 0.9);
+  font-style: italic;
+}
+
+.record-session-page .turn-studio {
+  margin: 0.4rem 0 1.5rem;
+  padding: 0.9rem 1.1rem 0.2rem;
+  border-inline-start: 3px solid var(--gold, #c0883a);
+  background: #f7f1e6;
+}
+
+.record-session-page .turn-studio .turn {
+  font-size: 1.02rem;
+}
+
+.record-session-page .turn-studio-label {
+  margin: 0 0 0.6rem !important;
+  color: #8a5f22 !important;
+  font-size: 0.75rem !important;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  line-height: 1.2 !important;
+  text-transform: uppercase;
+}
+
+.record-session-page .record-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.record-session-page .record-list li {
+  padding: 0.3rem 0;
+  color: var(--ink);
+}
+
+.record-session-page .record-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.9rem;
+}
+
+.record-session-page .record-tags a,
+.record-session-page .record-source a {
+  color: #0f5f5d;
+}
+
+.record-session-page .record-source {
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+.arabic-page.record-session-page .turn-studio-label,
+.arabic-page.record-session-page .record-note .record-note-label {
+  letter-spacing: 0;
+}
+
+/* Six-item primary nav (Parliamentary Record added): the hamburger
+   menu above now takes over below 1160px (was 1080px), and from there up
+   to 1440px the header spacing is tightened so the brand, nav, language
+   toggle and CTA fit on one line without the brand text spilling into
+   the nav or "Get in Touch" wrapping. */
+@media (min-width: 1160px) and (max-width: 1440px) {
+  .isl-page .site-header {
+    gap: 22px;
+    padding-inline: clamp(24px, 3vw, 60px);
+  }
+
+  .isl-page .site-header .brand {
+    flex-shrink: 0;
+  }
+
+  .isl-page .site-header .primary-nav {
+    gap: clamp(16px, 1.7vw, 34px);
+    font-size: 15px;
+  }
+
+  .isl-page .site-header .primary-nav a {
+    font-size: 15px;
+  }
+
+  .isl-page .site-header .header-action {
+    flex-shrink: 0;
+    white-space: nowrap;
+    padding-inline: 16px;
+  }
+}
+
+/* Verbatim transcripts: keep the source's spacing exactly as entered. */
+.record-session-page .turn-verbatim {
+  white-space: pre-wrap;
+}
+
+.record-session-page .turn-verbatim .turn-time {
+  font-weight: 700;
+}
+
+.record-session-page .record-subtitle {
+  margin: -0.4rem 0 1rem;
+  color: var(--ink);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+/* The whole transcript sits in one continuous box, styled like the
+   Speakers / Tags side panels (.publication-detail-note). The box itself
+   has no containment, so the per-chunk content-visibility still works. */
+.record-session-page .transcript-box {
+  padding: clamp(1.35rem, 3vw, 2.2rem);
+  border: 1px solid rgba(15, 95, 93, 0.18);
+  background: rgba(255, 255, 255, 0.74);
+  overflow-wrap: break-word;
+}
+
+.record-session-page .transcript-box .transcript-chunk:last-child > :last-child,
+.record-session-page .transcript-box .transcript-chunk:last-child > :last-child > :last-child {
+  margin-bottom: 0;
+}
+
+/* Slightly darker than the publication body text, for contrast on white. */
+.record-session-page .transcript-box .turn {
+  color: #4d5c5b;
+}
+
+.record-session-page .transcript-box .turn-time {
+  color: #55676a;
+}
+
+@media (max-width: 640px) {
+  .record-session-page .transcript-box {
+    padding: 1rem 0.9rem;
   }
 }
