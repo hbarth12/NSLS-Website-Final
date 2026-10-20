@@ -104,14 +104,42 @@
     return !item.slug && publicationFormat(item) === 'external' ? ' target="_blank" rel="noopener"' : '';
   }
 
-  function topicLinks(item) {
-    return (item.topics || []).map(function (topic) {
-      return '<a href="#publication-list">' + escapeHtml(topic) + '</a>';
-    }).join(config.topicSeparator);
+  function clean(value) {
+    return String(value || '').trim();
+  }
+
+  // Arabic cards show read-time digits as Arabic-Indic numerals, as most
+  // Arabic entries already store them; the stored text is not changed.
+  function readTime(item) {
+    var value = clean(item.readTime);
+    if (LANG === 'ar') {
+      value = value.replace(/[0-9]/g, function (digit) { return String.fromCharCode(0x0660 + Number(digit)); });
+    }
+    return value;
+  }
+
+  // Each optional item renders only when it has a value, so a card never
+  // shows an empty element or a stray separator.
+  function bylineMarkup(item) {
+    var author = clean(item.author);
+    return author ? '<p class="publication-byline" dir="auto"><bdi>' + escapeHtml(author) + '</bdi></p>' : '';
+  }
+
+  function descriptionMarkup(item) {
+    var description = clean(item.description);
+    return description ? '<p dir="auto">' + escapeHtml(description) + '</p>' : '';
+  }
+
+  function topicChips(item) {
+    var topics = (item.topics || []).map(clean).filter(Boolean);
+    if (!topics.length) return '';
+    return '<ul class="publication-topics" dir="' + config.metaDir + '">' + topics.map(function (topic) {
+      return '<li dir="auto">' + escapeHtml(topic) + '</li>';
+    }).join('') + '</ul>';
   }
 
   function metaLine(item) {
-    var parts = [item.source, item.date].filter(Boolean).map(function (value) {
+    var parts = [clean(item.source), item.date, readTime(item)].filter(Boolean).map(function (value) {
       return '<bdi>' + escapeHtml(value) + '</bdi>';
     });
     return parts.join(' <span>&middot;</span> ');
@@ -136,14 +164,15 @@
   }
 
   function featureMarkup(item) {
-    var topics = topicLinks(item);
     return '<article class="publication-feature-card">' +
       imageMarkup(item, 'publication-feature-image') +
       '<div class="publication-feature-copy">' +
         '<span class="publication-pill" dir="auto">' + escapeHtml(displayLabel(item)) + '</span>' +
         '<h2 dir="auto"><a href="' + escapeHtml(publicationUrl(item)) + '"' + linkAttrs(item) + '>' + escapeHtml(item.title) + '</a></h2>' +
-        '<p dir="auto">' + escapeHtml(item.description) + '</p>' +
-        '<p class="publication-meta" dir="' + config.metaDir + '">' + metaLine(item) + (topics ? ' <span>&middot;</span> ' + topics : '') + '</p>' +
+        bylineMarkup(item) +
+        descriptionMarkup(item) +
+        '<p class="publication-meta" dir="' + config.metaDir + '">' + metaLine(item) + '</p>' +
+        topicChips(item) +
       '</div>' +
     '</article>';
   }
@@ -154,11 +183,12 @@
       '<div class="publication-row-copy">' +
         '<span class="publication-pill" dir="auto">' + escapeHtml(displayLabel(item)) + '</span>' +
         '<h2 dir="auto"><a href="' + escapeHtml(publicationUrl(item)) + '"' + linkAttrs(item) + '>' + escapeHtml(item.title) + '</a></h2>' +
-        '<p dir="auto">' + escapeHtml(item.description) + '</p>' +
+        bylineMarkup(item) +
+        descriptionMarkup(item) +
       '</div>' +
       '<div class="publication-row-meta">' +
         '<p dir="' + config.metaDir + '">' + metaLine(item) + '</p>' +
-        '<p dir="auto">' + topicLinks(item) + '</p>' +
+        topicChips(item) +
       '</div>' +
     '</article>';
   }
