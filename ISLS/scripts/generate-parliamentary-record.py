@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Generates the Parliamentary Record section from
-ISLS/content/parliamentary-record-bilingual.json:
+Generates the Parliamentary Record section from the session files in
+ISLS/content/parliamentary-record/ (one JSON file per session, edited as a
+Pages CMS collection):
 
   ISLS/parliamentary-record/<slug>/index.html      (English session page)
   ISLS/ar/parliamentary-record/<slug>/index.html   (Arabic session page)
@@ -40,7 +41,7 @@ from pathlib import Path
 from urllib.parse import quote
 
 ROOT = Path(__file__).resolve().parents[1]
-CONTENT = ROOT / 'content' / 'parliamentary-record-bilingual.json'
+CONTENT_DIR = ROOT / 'content' / 'parliamentary-record'
 CHROME = json.loads((ROOT / 'content' / 'site-chrome.json').read_text(encoding='utf-8'))
 DATA_JS = ROOT / 'parliamentary-record-data.js'
 SITEMAP = ROOT / 'sitemap.xml'
@@ -260,6 +261,54 @@ def render_transcript(value, lang):
     return ''.join('<div class="transcript-chunk">' + ''.join(c) + '</div>' for c in chunks)
 
 
+VERBATIM_TIME_RE = re.compile(r'^\[\d{1,2}:\d{2}(?::\d{2})?\]')
+# A bracketed speaker label: starts with a capital letter, and sits either
+# right after the line's timestamp or at the start of a new sentence
+# mid-line ("... Thank you. [Chair] Colleague ..."). Lower-case brackets
+# ("[the minister]", "[clears throat]") and brackets inside a sentence
+# ("Central [Authority for] Financial") are left alone.
+VERBATIM_LABEL_RE = re.compile(r'(?:(?<=^)|(?<=[.?!\u2026"\]]\s)|(?<=[.?!\u2026"]\s\s))\[[A-Z][^\]\n]*\]')
+
+
+def verbatim_line(line):
+    """One transcript line, HTML-escaped, with the leading timestamp and any
+    speaker labels wrapped for styling. Only markup is added: the text, its
+    spacing and its order are unchanged."""
+    out = ''
+    m = VERBATIM_TIME_RE.match(line)
+    if m:
+        out += '<span class="turn-time">' + escape_html(m.group(0)) + '</span>'
+        line = line[m.end():]
+        gap = re.match(r'\s*', line).group(0)
+        out += escape_html(gap)
+        line = line[len(gap):]
+        if line.startswith('[') and re.match(r'\[[A-Z]', line):
+            end = line.index(']') + 1 if ']' in line else 0
+            if end:
+                out += '<strong class="turn-speaker">' + escape_html(line[:end]) + '</strong>'
+                line = line[end:]
+    pos = 0
+    for lm in VERBATIM_LABEL_RE.finditer(line):
+        out += escape_html(line[pos:lm.start()]) + '<strong class="turn-speaker">' + escape_html(lm.group(0)) + '</strong>'
+        pos = lm.end()
+    return out + escape_html(line[pos:])
+
+
+def render_verbatim(value, lang):
+    """Reproduces the transcript exactly as entered: every line kept as its
+    own line, blank lines as paragraph breaks, no speaker detection, studio
+    grouping or Markdown. Text is only HTML-escaped. Each paragraph takes its
+    direction from its own first strong character."""
+    page_dir = LANGS[lang]['html_dir']
+    text = str(value or '').replace('\r\n', '\n').replace('\r', '\n')
+    paragraphs = [p for p in re.split(r'\n[ \t]*\n', text.strip('\n')) if p.strip()]
+    units = ['<p class="turn turn-verbatim" dir="' + first_strong_dir(p, page_dir) + '">'
+             + '<br>'.join(verbatim_line(line) for line in p.split('\n')) + '</p>'
+             for p in paragraphs]
+    chunks = [units[i:i + CHUNK_SIZE] for i in range(0, len(units), CHUNK_SIZE)]
+    return ''.join('<div class="transcript-chunk">' + ''.join(c) + '</div>' for c in chunks)
+
+
 # ---------------------------------------------------------------------------
 # Page chrome, built from content/site-chrome.json so the nav stays in one place
 # ---------------------------------------------------------------------------
@@ -392,7 +441,7 @@ def render_main(entry, lang):
     session_no = (entry.get('sessionNumber') or '').strip()
     meta_parts = [bdi(format_date(entry.get('date'), lang))]
     if session_no:
-        meta_parts.append(escape_html(s['session']) + ' ' + bdi(session_no))
+        meta_parts.append(escape_html(s['session']) + ' ' + bdi(session_no) if session_no.isdigit() else bdi(session_no))
     meta = ' <span>&middot;</span> '.join(p for p in meta_parts if p)
 
     banner = ''
@@ -446,15 +495,19 @@ def render_main(entry, lang):
         '<a class="publication-back" href="' + conf['own_prefix'] + SECTION + '.html">' + escape_html(s['back']) + '</a>'
         '<span class="publication-pill publication-detail-label">' + escape_html(type_label(entry, lang)) + '</span>'
         '<h1 dir="auto">' + escape_html(block.get('title')) + '</h1>'
-        '<p class="publication-detail-deck" dir="auto">' + escape_html(block.get('summary') or '') + '</p>'
+        + ('<p class="record-subtitle" dir="auto">' + escape_html(block['subtitle']) + '</p>' if block.get('subtitle') else '')
+        + '<p class="publication-detail-deck" dir="auto">' + escape_html(block.get('summary') or '') + '</p>'
         '<p class="publication-meta">' + meta + '</p>'
         '</header>'
         + note + actions_html
         + '<div class="publication-detail-grid">'
         '<section class="publication-detail-body record-transcript" aria-labelledby="transcript-title">'
         '<h2 id="transcript-title">' + escape_html(s['transcript_heading']) + '</h2>'
-        + render_transcript(block.get('transcript'), lang)
-        + '</section>'
+        + '<div class="transcript-box">'
+        + (render_verbatim(block.get('transcript'), lang) if entry.get('transcriptFormat') == 'verbatim'
+           else render_transcript(block.get('transcript'), lang))
+        + '</div>'
+        '</section>'
         '<div class="publication-detail-aside">' + ''.join(aside_parts) + '</div>'
         '</div>'
     )
@@ -585,7 +638,7 @@ def validate(items):
     errors = []
     seen = set()
     for i, entry in enumerate(items):
-        label = entry.get('slug') or ('entry #' + str(i + 1))
+        label = entry.get('_file') or entry.get('slug') or ('entry #' + str(i + 1))
         slug = entry.get('slug') or ''
         if not SLUG_RE.match(slug):
             errors.append(label + ': slug must be lowercase words separated by hyphens.')
@@ -605,8 +658,11 @@ def validate(items):
 
 
 def read_items():
-    data = json.loads(CONTENT.read_text(encoding='utf-8'))
-    items = data.get('sessions', []) if isinstance(data, dict) else data
+    items = []
+    for path in sorted(CONTENT_DIR.glob('*.json')):
+        entry = json.loads(path.read_text(encoding='utf-8'))
+        entry['_file'] = path.name
+        items.append(entry)
     def newest_first(e):
         number = str(e.get('sessionNumber') or '')
         return (e.get('date') or '', int(number) if number.isdigit() else -1, number)

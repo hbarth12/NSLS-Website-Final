@@ -107,7 +107,7 @@
     if (s.placeholder) pills += ' <span class="publication-pill record-placeholder-pill">' + escapeHtml(conf.placeholder) + '</span>';
 
     var meta = [bdi(formatDate(s.date, v.lang))];
-    if (s.sessionNumber) meta.push(escapeHtml(conf.session) + ' ' + bdi(s.sessionNumber));
+    if (s.sessionNumber) meta.push(/^\d+$/.test(s.sessionNumber) ? escapeHtml(conf.session) + ' ' + bdi(s.sessionNumber) : bdi(s.sessionNumber));
 
     // Tag links filter this listing, so only offer them for the page's own
     // language; a foreign card's tags are shown as plain text.

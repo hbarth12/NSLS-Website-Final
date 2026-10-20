@@ -13969,7 +13969,13 @@ body.pdf-publication-page .publication-detail .policy-paper-actions-final .polic
 
 .record-session-page .transcript-chunk {
   content-visibility: auto;
-  contain-intrinsic-size: auto 2400px;
+  /* Placeholder height only: a single contain-intrinsic-size value would
+     also set a 2400px intrinsic width and stretch the column on phones. */
+  contain-intrinsic-block-size: auto 2400px;
+}
+
+.record-session-page .publication-detail-grid > * {
+  min-width: 0;
 }
 
 .record-session-page .turn {
@@ -14075,5 +14081,51 @@ body.pdf-publication-page .publication-detail .policy-paper-actions-final .polic
     flex-shrink: 0;
     white-space: nowrap;
     padding-inline: 16px;
+  }
+}
+
+/* Verbatim transcripts: keep the source's spacing exactly as entered. */
+.record-session-page .turn-verbatim {
+  white-space: pre-wrap;
+}
+
+.record-session-page .turn-verbatim .turn-time {
+  font-weight: 700;
+}
+
+.record-session-page .record-subtitle {
+  margin: -0.4rem 0 1rem;
+  color: var(--ink);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+/* The whole transcript sits in one continuous box, styled like the
+   Speakers / Tags side panels (.publication-detail-note). The box itself
+   has no containment, so the per-chunk content-visibility still works. */
+.record-session-page .transcript-box {
+  padding: clamp(1.35rem, 3vw, 2.2rem);
+  border: 1px solid rgba(15, 95, 93, 0.18);
+  background: rgba(255, 255, 255, 0.74);
+  overflow-wrap: break-word;
+}
+
+.record-session-page .transcript-box .transcript-chunk:last-child > :last-child,
+.record-session-page .transcript-box .transcript-chunk:last-child > :last-child > :last-child {
+  margin-bottom: 0;
+}
+
+/* Slightly darker than the publication body text, for contrast on white. */
+.record-session-page .transcript-box .turn {
+  color: #4d5c5b;
+}
+
+.record-session-page .transcript-box .turn-time {
+  color: #55676a;
+}
+
+@media (max-width: 640px) {
+  .record-session-page .transcript-box {
+    padding: 1rem 0.9rem;
   }
 }

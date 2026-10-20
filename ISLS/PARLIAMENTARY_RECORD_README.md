@@ -2,7 +2,7 @@
 
 Transcripts of public parliament sessions, in English and Arabic. Built the same way as publications (see `PUBLICATIONS_README.md`), with its own content file, generator and listing.
 
-- Source of truth: `content/parliamentary-record-bilingual.json`, edited in Pages CMS under **Parliamentary Record**.
+- Source of truth: one JSON file per session in `content/parliamentary-record/` (named `<slug>.json`), edited in Pages CMS under **Parliamentary Record**. Keeping sessions in separate files means a long transcript never makes one shared file too large for the CMS to load.
 - Generator: `scripts/generate-parliamentary-record.py` writes:
   - `parliamentary-record/<slug>/index.html` and `ar/parliamentary-record/<slug>/index.html`
   - `parliamentary-record-data.js`, the listing pages' only data source (no transcript text)
@@ -10,14 +10,9 @@ Transcripts of public parliament sessions, in English and Arabic. Built the same
 - Listing pages: `parliamentary-record.html` and `ar/parliamentary-record.html`, rendered by `parliamentary-record.js` (one file for both languages).
 - CI: `.github/workflows/sync-parliamentary-record.yml` runs the generator after a CMS edit lands on `main` and opens a `sync-parliamentary-record` PR.
 
-## Before launch: delete the placeholders
+## Placeholder entries
 
-The section ships with two sample entries, both with `placeholder: true` and titles starting **PLACEHOLDER – delete me**:
-
-- `placeholder-sample-session`, a bilingual sample showing every feature
-- `placeholder-english-only-session`, which shows how a one-language session looks
-
-Placeholders are `noindex`, left out of the sitemap, and show a banner on the page. Delete both entries in Pages CMS. The sync PR then removes their pages.
+Set **Placeholder** on a test entry to keep it out of search engines: its pages get `noindex`, it is left out of the sitemap, and the page shows a banner. (The two sample placeholders this section was built with have been deleted.)
 
 ## When a session appears on the site
 
@@ -33,7 +28,12 @@ New sessions appear on the listing only when the sync PR is merged. The listing 
 
 ## Transcript format
 
-One speaker turn per paragraph, with a blank line between turns:
+Each session has a **Transcript Format** setting:
+
+- **Verbatim**: the transcript is shown exactly as entered: every line on its own line, blank lines as paragraph breaks, and no speaker detection, studio styling or Markdown. Use this when the text must match a source document word for word.
+- **Speaker turns** (default): described below.
+
+In speaker-turns mode: one speaker turn per paragraph, with a blank line between turns:
 
 ```
 [00:00:45] Member A (Damascus): Thank you, Mr. Speaker. The draft allocates 31% ...
