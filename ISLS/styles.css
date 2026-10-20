@@ -14129,3 +14129,10 @@ body.pdf-publication-page .publication-detail .policy-paper-actions-final .polic
     padding: 1rem 0.9rem;
   }
 }
+
+/* Parliamentary Record listing only: the intro line is a little longer
+   than the publications one, so give it room to fit on one line on
+   desktop. It still wraps normally on narrower screens. */
+.parliamentary-record-page .publications-hero p {
+  max-width: 760px;
+}
