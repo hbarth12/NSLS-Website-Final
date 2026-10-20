@@ -14136,3 +14136,49 @@ body.pdf-publication-page .publication-detail .policy-paper-actions-final .polic
 .parliamentary-record-page .publications-hero p {
   max-width: 760px;
 }
+
+/* Publication cards: author byline, read time and topic chips. Each is
+   rendered only when the publication has it (publications.js). */
+.publications-page .publication-feature-copy > .publication-byline,
+.publications-page .publication-row-copy > .publication-byline {
+  margin: 8px 0 0;
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.publications-page .publication-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.publications-page .publication-topics li {
+  max-width: 100%;
+  padding: 4px 9px;
+  border: 1px solid rgba(15, 95, 93, 0.28);
+  color: #0f5f5d;
+  font-size: 0.8rem;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.publications-page .publication-row-meta .publication-topics {
+  margin-top: 8px;
+}
+
+.arabic-page.publications-page .publication-topics li {
+  font-size: 0.85rem;
+}
+
+/* Keep each meta item (source, date, read time) whole; the line breaks
+   only between items. */
+.publications-page:not(.parliamentary-record-page) .publication-meta bdi,
+.publications-page:not(.parliamentary-record-page) .publication-row-meta p bdi {
+  white-space: nowrap;
+}
