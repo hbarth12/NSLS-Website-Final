@@ -311,7 +311,7 @@ window.NSLS_PUBLICATIONS_BILINGUAL = [
   {
     "slug": "people's-assembly-government-accountability",
     "type": "commentary",
-    "publicationFormat": "external",
+    "publicationFormat": "pdf",
     "source": "NSLS",
     "date": "2026-10-21",
     "featured": true,
